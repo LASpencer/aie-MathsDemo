@@ -6,5 +6,8 @@ class AABox :
 public:
 	AABox();
 	~AABox();
+
+protected:
+
 };
 
