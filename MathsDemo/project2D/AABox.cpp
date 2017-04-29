@@ -26,3 +26,25 @@ bool AABox::doesCollide(Vector2 point)
 		return true;
 	}
 }
+
+bool AABox::doesCollideWithAABox(AABox * box)
+{
+	if (box->m_min[0] > m_max[0] || box->m_min[1] > m_max[1] || box->m_max[0] < m_min[0] || box->m_max[1] < m_min[1]) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+bool AABox::doesCollideWithOBox(OBox * box)
+{
+	//TODO when OBox written, write collision code either here or in OBox
+	return false;
+}
+
+bool AABox::doesCollideWithCircle(CircleCollider * circle)
+{
+	//TODO when CircleCollider written, write collision code here or in circle
+	return false;
+}

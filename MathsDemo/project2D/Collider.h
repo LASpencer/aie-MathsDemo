@@ -14,6 +14,8 @@ public:
 	Collider();
 	~Collider();
 
+	//TODO create collider bounding a set of points
+
 	virtual bool doesCollide(Collider* other) = 0;
 	virtual bool doesCollide(Vector2 point) = 0;
 
