@@ -18,7 +18,13 @@ bool CircleCollider::doesCollide(Collider * other)
 
 bool CircleCollider::doesCollide(Vector2 point)
 {
-	return false;
+	Vector2 displacement = point - m_centre;
+	if (displacement.magnitudeSquared() > (m_radius*m_radius)) {
+		return false;
+	}
+	else {
+		return true;
+	}
 }
 
 bool CircleCollider::doesCollideWithAABox(AABox * box)
