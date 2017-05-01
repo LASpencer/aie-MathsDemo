@@ -10,3 +10,16 @@ OBox::OBox()
 OBox::~OBox()
 {
 }
+
+bool OBox::doesCollide(Vector2 point)
+{
+	bool collision = true;
+	Vector2 displacement = m_centre - point;
+	// If dot product of displacement and extent is greater than the extent's magnitude, point lies outside the box
+	if (m_xExtent.compareMagnitude(m_xExtent.dot(displacement)) == -1) {
+		collision = false;
+	} else if (m_yExtent.compareMagnitude(m_yExtent.dot(displacement)) == -1){
+		collision = false;
+	}
+	return collision;
+}
