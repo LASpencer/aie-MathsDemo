@@ -2,6 +2,8 @@
 
 using namespace lasmath;
 
+//TODO commenting
+
 SceneObject::SceneObject() : m_parent(nullptr)
 {
 	m_localTransform.setIdentity();
@@ -30,19 +32,28 @@ void SceneObject::setLocalTransform(const Matrix3 & transformation)
 
 void SceneObject::rotate(float angle)
 {
-
+	Matrix3 rotation;
+	rotation.setRotateZ(angle);
+	m_localTransform = m_localTransform * rotation;
 }
 
 void SceneObject::scale(const Vector2 & proportions)
 {
+	Matrix3 scale = { proportions[0],0,0,0,proportions[1],0,0,0,1 };
+	m_localTransform = m_localTransform * scale;
 }
 
 void SceneObject::translate(const Vector2 & vec)
 {
+	Matrix3 translate;
+	translate.setIdentity();
+	translate[2] = { vec[0],vec[1],1 };
+	m_localTransform = m_localTransform * translate;
 }
 
 void SceneObject::transform(const Matrix3 & transformation)
 {
+	m_localTransform = m_localTransform * transformation;
 }
 
 void SceneObject::update(float deltaTime)

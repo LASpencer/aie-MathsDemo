@@ -2,6 +2,8 @@
 #include <math.h>
 #include <type_traits>
 #include <cstdarg>
+#include <stdexcept>
+#include <string>
 
 namespace lasmath {
 	template<size_t DIM>
@@ -22,11 +24,15 @@ namespace lasmath {
 
 		// return reference to vector component
 		float& operator[](size_t n) {
-			//TODO throw exception if n>=DIM
+			if (n >= DIM) {
+				throw std::range_error("Vector component out of range");
+			}
 			return m_component[n];
 		};
 		const float& operator[](size_t n) const {
-			//TODO throw exception if n>=DIM
+			if (n >= DIM) {
+				throw std::range_error("Vector component out of range");
+			}
 			return m_component[n];
 		};
 
@@ -38,15 +44,16 @@ namespace lasmath {
 
 		// cast as vector of different dimension
 		template<size_t D>
-		explicit operator Vector<D>() {
-			//TODO check this is right (vector returned by cast doesn't affect original vector)
-			//TODO test
-			Vector<D> vec();
+		explicit operator Vector<D>() const
+		{
+			Vector<D> vec;
 			for (size_t i = 0; i < D&&i<DIM; ++i) {
-					vec[i] = m_component[i];
+				vec[i] = m_component[i];
 			}
+			return vec;
 		};
 
+		
 
 		// Dot multiplication of two vectors
 		float dot(const Vector<DIM>& b) const {
@@ -65,9 +72,7 @@ typename std::enable_if<D == 3||D==4, Vector<D>>::type cross(const Vector<D>& b)
 			product[0] = m_component[1] * b[2] - m_component[2] * b[1];
 			product[1] = m_component[2] * b[0] - m_component[0] * b[2];
 			product[2] = m_component[0] * b[1] - m_component[1] * b[0];
-			if (D == 4) {					//Might be superfluous?
-				product[3] = 0.0f;			//HACK try removing this
-			}
+			// m_component[3] remains 0 in Vector<4>
 			return product;
 		};
 
@@ -91,11 +96,18 @@ typename std::enable_if<D == 3||D==4, Vector<D>>::type cross(const Vector<D>& b)
 		};
 
 		// Converts vector to a unit vector with same direction
-		void normalise() {
+		bool normalise() {
 			// Divide all components by magnitude
-			float magReciprocal = 1.0f / magnitude();
-			for (size_t i = 0; i < DIM; ++i) {
-				m_component[i] *= magReciprocal;
+			float mag = magnitude();
+			if (mag != 0.0f && !isinf(mag) && !isnan(mag)) {
+				float magReciprocal = 1.0f / mag;
+				for (size_t i = 0; i < DIM; ++i) {
+					m_component[i] *= magReciprocal;
+				}
+				return true;
+			}
+			else {
+				return false;
 			}
 		};
 
@@ -114,6 +126,36 @@ typename std::enable_if<D == 3||D==4, Vector<D>>::type cross(const Vector<D>& b)
 				return 0;
 			}
 		};
+
+		// Returns true if all components are 0.0f
+		bool isZeroVector() const {
+			for (size_t i = 0; i < DIM; ++i) {
+				if (m_component[i] != 0.0f) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		// Returns true if any component is infinite
+		bool isInfinite() const {
+			for (size_t i = 0; i < DIM; ++i) {
+				if (isinf(m_component[i])) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		// Returns true if any component is not a number
+		bool isNAN() const {
+			for (size_t i = 0; i < DIM; ++i) {
+				if (isnan(m_component[i])) {
+					return true;
+				}
+			}
+			return false;
+		}
 
 	protected:
 		float m_component[DIM];
