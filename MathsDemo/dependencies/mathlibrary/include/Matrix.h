@@ -15,7 +15,7 @@ namespace lasmath {
 		template<typename... Args>
 		Matrix(typename std::enable_if<(sizeof...(Args)+1 == (ORDER*ORDER)), float>::type xx, Args... args) :m_element{ xx,(float)args... }
 		{};
-		~Matrix() 
+		~Matrix()
 		{};
 
 		// Return reference to vector axis
@@ -73,7 +73,11 @@ namespace lasmath {
 		typename std::enable_if<ORD == 2, void>::type setRotate(float angle) {
 			float rotate[ORD][ORD] = { { cosf(angle), sinf(angle) } ,{ -sinf(angle), cosf(angle) } };
 			// Copy rotation matrix to elements
-			std::copy(&rotate[0][0], &rotate[0][0] + (ORD*ORD), &m_element[0][0]);
+			for (size_t i = 0; i < ORD; ++i) {
+				for (size_t j = 0; j < ORD; ++j) {
+					m_element[i][j] = rotate[i][j];
+				}
+			}
 		};
 
 		// Set matrix to transformation matrix rotating around X axis by angle
@@ -87,7 +91,11 @@ namespace lasmath {
 				rotate[3][3] = 1;
 			}
 			// Copy rotation matrix to elements
-			std::copy(&rotate[0][0], &rotate[0][0] + (ORD*ORD), &m_element[0][0]);
+			for (size_t i = 0; i < ORD; ++i) {
+				for (size_t j = 0; j < ORD; ++j) {
+					m_element[i][j] = rotate[i][j];
+				}
+			}
 		};
 
 		// Set matrix to transformation matrix rotating around Y axis by angle
@@ -95,14 +103,18 @@ namespace lasmath {
 		template<size_t ORD = ORDER>
 		typename std::enable_if<ORD == 3 || ORD == 4, void>::type setRotateY(float angle) {
 			// Set y axis as unit vector (0,1,0), set x and z axes as unit vectors rotated around y axis by given angle
-			float rotate[ORD][ORD] = { { cosf(angle), 0, -sinf(angle) } ,{0,1,0},{ sinf(angle), 0, cosf(angle) } };
+			float rotate[ORD][ORD] = { { cosf(angle), 0, -sinf(angle) } ,{ 0,1,0 },{ sinf(angle), 0, cosf(angle) } };
 
 			// Set t axis as no translation for Matrix<4>
 			if (ORD == 4) {
 				rotate[3][3] = 1;
 			}
 			// Copy rotation matrix to elements
-			std::copy(&rotate[0][0], &rotate[0][0] + (ORD*ORD), &m_element[0][0]);
+			for (size_t i = 0; i < ORD; ++i) {
+				for (size_t j = 0; j < ORD; ++j) {
+					m_element[i][j] = rotate[i][j];
+				}
+			}
 		};
 
 		// Set matrix to transformation matrix rotating around Z axis by angle
@@ -110,15 +122,19 @@ namespace lasmath {
 		template<size_t ORD = ORDER>
 		typename std::enable_if<ORD == 3 || ORD == 4, void>::type setRotateZ(float angle) {
 			// Set z axis as unit vector (0,0,1), set x and y axes as unit vectors rotated around z axis by given angle
-			float rotate[ORD][ORD] = { { cosf(angle), sinf(angle), 0 },{ -sinf(angle), cosf(angle), 0 },{0,0,1 } };
-			
+			float rotate[ORD][ORD] = { { cosf(angle), sinf(angle), 0 },{ -sinf(angle), cosf(angle), 0 },{ 0,0,1 } };
+
 			// Set t axis as no translation for Matrix<4>
 			if (ORD == 4) {
 				rotate[3][3] = 1;
 			}
 
 			// Copy rotation matrix to elements
-			std::copy(&rotate[0][0], &rotate[0][0] + (ORD*ORD), &m_element[0][0]);
+			for (size_t i = 0; i < ORD; ++i) {
+				for (size_t j = 0; j < ORD; ++j) {
+					m_element[i][j] = rotate[i][j];
+				}
+			}
 		};
 
 		// Set matrix to a transformation matrix rotating to orientation given by Euler angles
@@ -136,15 +152,19 @@ namespace lasmath {
 
 			// Create 2D array for matrix rotating to given orientation
 			float rotate[ORD][ORD] = { { cosAlpha*cosGamma - cosBeta*sinAlpha*sinGamma, cosGamma*sinAlpha + cosAlpha*cosBeta*sinGamma, sinBeta*sinGamma },
-										{ -cosAlpha*sinGamma - cosBeta*cosGamma*sinAlpha, cosAlpha*cosBeta*cosGamma - sinAlpha*sinGamma, cosGamma*sinBeta },
-										{ sinAlpha*sinBeta, -cosAlpha*sinBeta, cosBeta } };
+			{ -cosAlpha*sinGamma - cosBeta*cosGamma*sinAlpha, cosAlpha*cosBeta*cosGamma - sinAlpha*sinGamma, cosGamma*sinBeta },
+			{ sinAlpha*sinBeta, -cosAlpha*sinBeta, cosBeta } };
 			// Set t axis as no translation for Matrix<4>
 			if (ORD == 4) {
-		
+
 				rotate[3][3] = 1;
 			}
 			// Copy rotation matrix to elements
-			std::copy(&rotate[0][0], &rotate[0][0] + (ORD*ORD), &m_element[0][0]);
+			for (size_t i = 0; i < ORD; ++i) {
+				for (size_t j = 0; j < ORD; ++j) {
+					m_element[i][j] = rotate[i][j];
+				}
+			}
 		};
 
 		// Set matrix to a transformation matrix rotating to orientation given by Tait-Bryan angles
@@ -162,15 +182,19 @@ namespace lasmath {
 
 			// Create 2D array for matrix rotating to given orientation
 			float rotate[ORD][ORD] = { { cosYaw*cosPitch, sinYaw*cosPitch, -sinPitch },
-										{ cosYaw*sinPitch*sinRoll - sinYaw*cosRoll, cosYaw*cosRoll + sinYaw*sinPitch*sinRoll, cosPitch*sinRoll },
-										{ sinYaw*sinRoll + cosYaw*sinPitch*cosRoll, sinYaw*sinPitch*cosRoll - cosYaw*sinRoll, cosPitch*cosRoll } };
+			{ cosYaw*sinPitch*sinRoll - sinYaw*cosRoll, cosYaw*cosRoll + sinYaw*sinPitch*sinRoll, cosPitch*sinRoll },
+			{ sinYaw*sinRoll + cosYaw*sinPitch*cosRoll, sinYaw*sinPitch*cosRoll - cosYaw*sinRoll, cosPitch*cosRoll } };
 
 			// Set t axis as no translation for Matrix<4>
 			if (ORD == 4) {
 				rotate[3][3] = 1;
 			}
 			// Copy rotation matrix to elements
-			std::copy(&rotate[0][0], &rotate[0][0] + (ORD*ORD), &m_element[0][0]);
+			for (size_t i = 0; i < ORD; ++i) {
+				for (size_t j = 0; j < ORD; ++j) {
+					m_element[i][j] = rotate[i][j];
+				}
+			}
 		};
 
 		// Calculates Euler angles for orientation of matrix
@@ -205,7 +229,8 @@ namespace lasmath {
 				// cos(alpha) = xAxis[0]
 				// therefore cos(alpha) = xAxis[0] - yAxis[0]
 				alpha = atan2f(xAxis[1], xAxis[0]);
-			} else{
+			}
+			else {
 				// sin(alpha) = zAxis[0]/sin(beta), cos(alpha) = -(zAxis[1]/sin(beta))
 				alpha = atan2f(zAxis[0] / sinBeta, -(zAxis[1] / sinBeta));
 				// sin(gamma) = xAxis[2]/sin(beta), cos(gamma) = yAxis[2]/sin(beta)
@@ -248,13 +273,14 @@ namespace lasmath {
 				// yAxis[1] = cos(yaw)*cos(roll) + sin(yaw)*sin(pitch)*sin(roll) = cos(yaw)*1 + sin(yaw)*sin(pitch)*0
 				// cos(yaw) = yAxis[1]
 				yaw = atan2f(-yAxis[0], yAxis[1]);
-			} else{
+			}
+			else {
 				// cos(yaw) = xAxis[0]/cos(pitch)
 				// sin(yaw) = xAxis[1]/cos(pitch)
 				yaw = atan2f(xAxis[1] / cosPitch, xAxis[0] / cosPitch);
 				// cos(roll) = zAxis[2]/cos(pitch)
 				// sin(roll) = yAxis[2]/cos(pitch)
-				roll = atan2f(yAxis[2] / cosPitch, zAxis[2]/cosPitch);
+				roll = atan2f(yAxis[2] / cosPitch, zAxis[2] / cosPitch);
 			}
 			return std::make_tuple(yaw, pitch, roll, true);
 		}
@@ -304,7 +330,7 @@ namespace lasmath {
 			Vector<ORDER> m_axis[ORDER];
 			float m_element[ORDER][ORDER];
 		};
-		
+
 		// Compares float arrays and returns true if all members are equal
 		template<size_t ROWS>
 		static bool areColumnsEqual(float* first, float* second) {
@@ -360,9 +386,9 @@ namespace lasmath {
 		}
 
 		/*	Performs inverse of transform on result to either undo a transformation or get inverse matrix
-			Returns true if inversion is possible, or false if transform is singular or too poorly conditioned
-			transform = ORDERxORDER column major transformation matrix, will be converted to reduced echelon form
-			result = ORDERxRESULT_COLUMNS column major matrix, will be transformed by inverse of transform
+		Returns true if inversion is possible, or false if transform is singular or too poorly conditioned
+		transform = ORDERxORDER column major transformation matrix, will be converted to reduced echelon form
+		result = ORDERxRESULT_COLUMNS column major matrix, will be transformed by inverse of transform
 		*/
 		template<size_t RESULT_COLUMNS>
 		bool invertTransform(float* result) {
@@ -415,7 +441,7 @@ namespace lasmath {
 					}
 					// Now that leading entry of current row is 1, subtract from other rows so entries in that column are 0
 					for (size_t row = 0; row < ORDER; ++row) {
-						if (row!=i && transformArray[i][row] != 0.0f) {
+						if (row != i && transformArray[i][row] != 0.0f) {
 							float factor = -transformArray[i][row];
 							addRow<ORDER, ORDER>(transformArray, i, row, factor);
 							addRow<ORDER, RESULT_COLUMNS>(resultArray, i, row, factor);
