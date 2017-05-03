@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include <string>
+#include <tuple>
 #include "Vector.h"
 
 namespace lasmath {
@@ -172,6 +173,92 @@ namespace lasmath {
 			std::copy(&rotate[0][0], &rotate[0][0] + (ORD*ORD), &m_element[0][0]);
 		};
 
+		// Calculates Euler angles for orientation of matrix
+		template<size_t ORD = ORDER>
+		typename std::enable_if<ORD == 3 || ORD == 4, std::tuple<float, float, float, bool>>::type getEulerOrientation() {
+			float alpha, beta, gamma;
+			// Get copies of X, Y and Z axis
+			Vector<ORD> xAxis = m_axis[0];
+			Vector<ORD> yAxis = m_axis[1];
+			Vector<ORD> zAxis = m_axis[2];
+			if (ORD == 4) {
+				xAxis[3] = 0;
+				yAxis[3] = 0;
+				zAxis[3] = 0;
+			}
+			// If axes are not independent (dot products aren't zero), return false
+			if (abs(xAxis.dot(yAxis)) >= FLT_EPSILON || abs(yAxis.dot(zAxis)) >= FLT_EPSILON || abs(zAxis.dot(xAxis)) >= FLT_EPSILON) {	//HACK this could break down with small values
+				return std::make_tuple(0.0f, 0.0f, 0.0f, false);
+			}
+			// Normalise axes
+			if (!(xAxis.normalise() && yAxis.normalise() && zAxis.normalise())) {
+				return std::make_tuple(0.0f, 0.0f, 0.0f, false);
+			}
+			// Calculate values
+			beta = acosf(zAxis[2]);		//Assume beta is between 0 and pi
+			float sinBeta = sinf(beta);
+			if (sinBeta < FLT_EPSILON) {
+				// If sinBeta is 0, beta must be 0 or pi, so alpha and gamma are in the same plane
+				// Set gamma to 0
+				gamma = 0;
+				// sin(alpha) = xAxis[1]
+				// cos(alpha) = xAxis[0]
+				// therefore cos(alpha) = xAxis[0] - yAxis[0]
+				alpha = atan2f(xAxis[1], xAxis[0]);
+			} else{
+				// sin(alpha) = zAxis[0]/sin(beta), cos(alpha) = -(zAxis[1]/sin(beta))
+				alpha = atan2f(zAxis[0] / sinBeta, -(zAxis[1] / sinBeta));
+				// sin(gamma) = xAxis[2]/sin(beta), cos(gamma) = yAxis[2]/sin(beta)
+				gamma = atan2f(xAxis[2] / sinBeta, yAxis[2] / sinBeta);
+			}
+			// return tuple containing angles
+			return std::make_tuple(alpha, beta, gamma, true);
+		}
+
+		// Calculates Tait-Bryan angles for orientation of matrix
+		template<size_t ORD = ORDER>
+		typename std::enable_if<ORD == 3 || ORD == 4, std::tuple<float, float, float, bool>>::type getTaitBryanOrientation() {
+			float yaw, pitch, roll;
+			// Get copies of X, Y and Z axis
+			Vector<ORD> xAxis = m_axis[0];
+			Vector<ORD> yAxis = m_axis[1];
+			Vector<ORD> zAxis = m_axis[2];
+			if (ORD == 4) {
+				xAxis[3] = 0;
+				yAxis[3] = 0;
+				zAxis[3] = 0;
+			}
+			// If axes are not independent (dot products aren't zero), return false
+			if (abs(xAxis.dot(yAxis)) >= FLT_EPSILON || abs(yAxis.dot(zAxis)) >= FLT_EPSILON || abs(zAxis.dot(xAxis)) >= FLT_EPSILON) {	//HACK this could break down with small values
+				return std::make_tuple(0.0f, 0.0f, 0.0f, false);
+			}
+			// Normalise axes
+			if (!(xAxis.normalise() && yAxis.normalise() && zAxis.normalise())) {
+				return std::make_tuple(0.0f, 0.0f, 0.0f, false);
+			}
+			// Calculate values
+			pitch = asinf(-xAxis[2]);	// Assume pitch is between -pi and pi
+			float cosPitch = cosf(pitch);
+			if (abs(cosPitch) < FLT_EPSILON) {
+				// If cosPitch is 0, pitch is pi or -pi so yaw and roll are gimbal locked
+				// Set roll to 0
+				roll = 0;
+				// yAxis[0] = cos(yaw)*sin(pitch)*sin(roll) - sin(yaw)*cos(roll) = cos(yaw)*sin(pitch)*0 - sin(yaw)*1
+				// sin(yaw) = -yAxis[0]
+				// yAxis[1] = cos(yaw)*cos(roll) + sin(yaw)*sin(pitch)*sin(roll) = cos(yaw)*1 + sin(yaw)*sin(pitch)*0
+				// cos(yaw) = yAxis[1]
+				yaw = atan2f(-yAxis[0], yAxis[1]);
+			} else{
+				// cos(yaw) = xAxis[0]/cos(pitch)
+				// sin(yaw) = xAxis[1]/cos(pitch)
+				yaw = atan2f(xAxis[1] / cosPitch, xAxis[0] / cosPitch);
+				// cos(roll) = zAxis[2]/cos(pitch)
+				// sin(roll) = yAxis[2]/cos(pitch)
+				roll = atan2f(yAxis[2] / cosPitch, zAxis[2]/cosPitch);
+			}
+			return std::make_tuple(yaw, pitch, roll, true);
+		}
+
 		// Calculates inverse of this matrix and copies it to dest
 		// Returns true if matrix is invertable, returns false if singular or poorly conditioned
 		bool calculateInverse(Matrix<ORDER>& dest) {
@@ -221,9 +308,9 @@ namespace lasmath {
 		// Compares float arrays and returns true if all members are equal
 		template<size_t ROWS>
 		static bool areColumnsEqual(float* first, float* second) {
-			//TODO add tolerance if necessary
 			for (size_t i = 0; i < ROWS; ++i) {
-				if (first[i] != second[i]) {
+				// Check if each member of first is within tolerance of corresponding member of second
+				if (abs(first[i] - second[i]) >= FLT_EPSILON) {
 					return false;
 				}
 			}

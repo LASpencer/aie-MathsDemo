@@ -16,7 +16,6 @@ namespace lasmath {
 		template<typename... Args>
 		Vector(typename std::enable_if<(sizeof...(Args)+1 == DIM), float>::type x, Args... args) :m_component{ x,(float)args... } 
 		{
-		//TODO argument exception if non-float
 		};
 
 		~Vector()
@@ -42,9 +41,34 @@ namespace lasmath {
 			return m_component;
 		};
 
+
+		// Add and assignment
+		Vector<DIM> operator+=(const Vector<DIM>& b) {
+			for (size_t i = 0; i < DIM; ++i) {
+				this->m_component[i] += b[i];
+			}
+			return *this;
+		}
+
+		// Subtract and assignment
+		Vector<DIM> operator-=(const Vector<DIM>& b) {
+			for (size_t i = 0; i < DIM; ++i) {
+				this->m_component[i] -= b[i];
+			}
+			return *this;
+		}
+
+		// Scale and assignment
+		Vector<DIM> operator*=(float f) {
+			for (size_t i = 0; i < DIM; ++i) {
+				this->m_component[i] *= f;
+			}
+			return *this;
+		}
+
 		// cast as vector of different dimension
 		template<size_t D>
-		explicit operator Vector<D>() const
+		explicit operator Vector<D>()
 		{
 			Vector<D> vec;
 			for (size_t i = 0; i < D&&i<DIM; ++i) {
