@@ -98,6 +98,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OBox.cpp" />
     <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="Tank.cpp" />
+    <ClCompile Include="TankTurret.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABox.h" />
@@ -106,6 +108,8 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="OBox.h" />
     <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="Tank.h" />
+    <ClInclude Include="TankTurret.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

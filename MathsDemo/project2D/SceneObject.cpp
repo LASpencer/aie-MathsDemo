@@ -30,6 +30,16 @@ void SceneObject::setLocalTransform(const Matrix3 & transformation)
 	m_localTransform = transformation;
 }
 
+Matrix3 SceneObject::getLocalTransform()
+{
+	return m_localTransform;
+}
+
+Matrix3 SceneObject::getGlobalTransform()
+{
+	return m_globalTransform;
+}
+
 void SceneObject::rotate(float angle)
 {
 	Matrix3 rotation;

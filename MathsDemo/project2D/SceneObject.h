@@ -17,6 +17,8 @@ public:
 	//TODO remove child
 
 	void setLocalTransform(const Matrix3& transformation);
+	Matrix3 getLocalTransform();
+	Matrix3 getGlobalTransform();
 
 	void rotate(float angle);
 	void scale(const Vector2& proportions);
