@@ -21,6 +21,9 @@ public:
 	virtual bool doesCollideWithOBox(OBox* box);
 	virtual bool doesCollideWithCircle(CircleCollider* circle);
 
+	// test collision with Ray
+	virtual bool isHitByRay(Ray* ray);
+
 	// Accessor and mutator functions
 	Vector2 getMinCorner() {
 		return m_min;

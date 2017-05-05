@@ -46,6 +46,7 @@ bool Ray::doesCollide(AABox* box)
 	//TODO testing (intersects, doesn't, origin in box, negative direction would intersect, vertical line true+false, horizontal line true+false)
 	float dEntry = 0.0f;	// Distance from ray where point would enter if interesecting.
 	float dExit = INFINITY;	// Distance from ray where point would exit if intersecting
+	// TODO: Possible optimization, precalculate XRate and YRate as members whenever direction is set
 	if (m_direction[0] != 0.0f) {
 		float xRate = 1.0f / m_direction[0];
 		// get distance from ray where x component is equal to corners
@@ -96,6 +97,15 @@ bool Ray::doesCollide(AABox* box)
 
 bool Ray::doesCollide(OBox * box)
 {
-	// Get tra
-	return false;
+	// Get inverse transformation of OBox
+	Matrix3 inverseOBox = box->getInverseTransform();
+	// Create copy of ray transformed by this matrix
+	Vector3 transformedDirection = inverseOBox * (Vector3)m_direction;
+	Vector3 transformedOrigin = (Vector3)m_origin;
+	transformedOrigin[2] = 1.0f;
+	transformedOrigin = inverseOBox * transformedOrigin;
+	Ray transformedRay((Vector2)transformedOrigin, (Vector2)transformedDirection);
+	// Check transformed ray against AABox with corners (-1,-1) and (1,1)
+	AABox transformedBox({ -1,-1 }, { 1,1 });
+	return transformedRay.doesCollide(&transformedBox);
 }

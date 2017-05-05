@@ -22,6 +22,9 @@ public:
 	virtual bool doesCollideWithOBox(OBox* box);
 	virtual bool doesCollideWithCircle(CircleCollider* circle);
 
+	// test collision with Ray
+	virtual bool isHitByRay(Ray* ray);
+
 	// Accessor and mutator functions
 	Vector2 getXExtent() {
 		return m_xExtent;
@@ -37,6 +40,7 @@ public:
 	Matrix3 getBoxMatrix();
 
 	void setHalfExtents(Vector2 xExtent, Vector2 yExtent) {
+		//TODO throw exception if invalid vectors
 		m_xExtent = xExtent;
 		m_yExtent = yExtent;
 	}
@@ -45,11 +49,20 @@ public:
 		m_centre = centre;
 	}
 
+	// Sets half extents and centre given by 3x3 matrix
+	void setBoxMatrix(Matrix3 Orientation) {
+		setHalfExtents((Vector2)Orientation[0], (Vector2)Orientation[1]);
+		setCentre((Vector2)Orientation[2]);
+	}
+
 	// Transform OBox by transformation matrix
 	void transform(Matrix3 matrix);
 
 	// Fit OBox around points given
 	void fitPoints(std::vector<Vector2> points);
+
+	// Calculates transformation matrix that would make this an AABox with corners (-1,-1) and (1,1)
+	Matrix3 getInverseTransform();
 
 protected:
 	Vector2 m_xExtent;

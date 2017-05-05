@@ -3,7 +3,10 @@
 
 using namespace lasmath;
 
+class Collider;
 class CircleCollider;
+class AABox;
+class OBox;
 
 class Ray
 {

@@ -1,7 +1,7 @@
 #include <algorithm>
 #include "AABox.h"
 #include "CircleCollider.h"
-
+#include "Ray.h"
 
 AABox::AABox()
 {
@@ -52,6 +52,11 @@ bool AABox::doesCollideWithOBox(OBox * box)
 bool AABox::doesCollideWithCircle(CircleCollider * circle)
 {
 	return circle->doesCollideWithAABox(this);
+}
+
+bool AABox::isHitByRay(Ray * ray)
+{
+	return ray->doesCollide(this);
 }
 
 void AABox::setCorners(Vector2 a, Vector2 b)

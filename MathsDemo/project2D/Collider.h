@@ -6,6 +6,7 @@ using namespace lasmath;
 class AABox;
 class OBox;
 class CircleCollider;
+class Ray;
 
 // Abstract class for collision testing objects
 class Collider
@@ -23,5 +24,8 @@ public:
 	virtual bool doesCollideWithAABox(AABox* box) =0;
 	virtual bool doesCollideWithOBox(OBox* box) = 0;
 	virtual bool doesCollideWithCircle(CircleCollider* circle) = 0;
+
+	// check if collider is hit by ray
+	virtual bool isHitByRay(Ray* ray) = 0;
 };
 

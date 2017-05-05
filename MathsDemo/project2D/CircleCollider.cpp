@@ -1,7 +1,7 @@
 #include "CircleCollider.h"
 #include <algorithm>
 #include "AABox.h"
-
+#include "Ray.h"
 
 CircleCollider::CircleCollider()
 {
@@ -60,6 +60,11 @@ bool CircleCollider::doesCollideWithCircle(CircleCollider * circle)
 	} else {
 		return true;
 	}
+}
+
+bool CircleCollider::isHitByRay(Ray * ray)
+{
+	return ray->doesCollide(this);
 }
 
 void CircleCollider::fitPoints(std::vector<Vector2> points)

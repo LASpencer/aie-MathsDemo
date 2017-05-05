@@ -1,5 +1,5 @@
 #include "OBox.h"
-
+#include "Ray.h"
 
 
 OBox::OBox()
@@ -51,7 +51,25 @@ bool OBox::doesCollideWithCircle(CircleCollider * circle)
 	return false;
 }
 
+bool OBox::isHitByRay(Ray * ray)
+{
+	return ray->doesCollide(this);
+}
+
 Matrix3 OBox::getBoxMatrix()
 {
-	return Matrix3();
+	Matrix3 BoxMatrix;
+	BoxMatrix[0] = (Vector3)m_xExtent;
+	BoxMatrix[1] = (Vector3)m_yExtent;
+	BoxMatrix[2] = (Vector3)m_centre;
+	BoxMatrix[2][2] = 1.0f;				// To make it a homogeneous matrix
+	return BoxMatrix;
+}
+
+Matrix3 OBox::getInverseTransform()
+{
+	//TODO possible optimization: memoize result, recalculate if obox changes (set dirty flag)
+	Matrix3 inverse;
+	getBoxMatrix().calculateInverse(inverse);
+	return inverse;
 }
