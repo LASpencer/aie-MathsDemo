@@ -4,6 +4,10 @@
 #include "Renderer2D.h"
 #include "Audio.h"
 #include "SceneObject.h"
+#include "GameMode.h"
+#include "TankGame.h"
+#include "RobotArmGame.h"
+#include "Game3D.h"
 
 class Application2D : public aie::Application {
 public:
@@ -24,7 +28,10 @@ protected:
 	aie::Texture*		m_shipTexture;
 	aie::Font*			m_font;
 	aie::Audio*			m_audio;
-	SceneObject			m_sceneRoot;
+	GameMode*			m_game;
+	TankGame*			m_tankGame;
+	RobotArmGame*		m_armGame;
+	Game3D*				m_3dGame;
 
 	float m_cameraX, m_cameraY;
 	float m_timer;

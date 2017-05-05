@@ -2,7 +2,6 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
-#include "Tank.h"
 
 Application2D::Application2D() {
 
@@ -20,8 +19,13 @@ bool Application2D::startup() {
 	m_shipTexture = new aie::Texture("./textures/ship.png");
 	m_font = new aie::Font("./font/consolas.ttf", 32);
 	m_audio = new aie::Audio("./audio/powerup.wav");
+	m_tankGame = new TankGame();
+	m_armGame = new RobotArmGame();
+	m_3dGame = new Game3D();
 
-	m_sceneRoot.addChild(new Tank(Vector2(300,200)));
+	// Start with TankGame
+	m_game = m_tankGame;
+	m_game->startup();
 
 	m_cameraX = 0;
 	m_cameraY = 0;
@@ -32,6 +36,9 @@ bool Application2D::startup() {
 
 void Application2D::shutdown() {
 	
+	delete m_3dGame;
+	delete m_armGame;
+	delete m_tankGame;
 	delete m_audio;
 	delete m_font;
 	delete m_texture;
@@ -50,7 +57,21 @@ void Application2D::update(float deltaTime) {
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
 
-	m_sceneRoot.update(deltaTime);
+	// check for changing game mode
+	if (input->isKeyDown(aie::INPUT_KEY_1)) {
+		m_game = m_tankGame;
+		m_game->startup();
+	}
+	else if (input->isKeyDown(aie::INPUT_KEY_2)) {
+		m_game = m_armGame;
+		m_game->startup();
+	}
+	else if (input->isKeyDown(aie::INPUT_KEY_3)) {
+		m_game = m_3dGame;
+		m_game->startup();
+	}
+
+	m_game->update(deltaTime);
 }
 
 void Application2D::draw() {
@@ -64,8 +85,9 @@ void Application2D::draw() {
 	// begin drawing sprites
 	m_2dRenderer->begin();
 
-	m_2dRenderer->setRenderColour(1, 1, 1, 1);
-	m_sceneRoot.draw(m_2dRenderer);
+	m_game->draw(m_2dRenderer);
+	/*m_2dRenderer->setRenderColour(1, 1, 1, 1);
+	m_sceneRoot.draw(m_2dRenderer);*/
 	
 	// output some text, uses the last used colour
 	m_2dRenderer->setRenderColour(1, 1, 0, 1);

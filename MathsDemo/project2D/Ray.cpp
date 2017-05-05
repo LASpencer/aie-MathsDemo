@@ -105,7 +105,7 @@ bool Ray::doesCollide(AABox* box)
 	}
 	else {
 		// if ray is horizontal, check if origin y component between corner y components
-		if (m_origin[1] < box->getMinCorner[1] || m_origin > box->getMaxCorner[1]) {
+		if (m_origin[1] < box->getMinCorner()[1] || m_origin[1] > box->getMaxCorner()[1]) {
 			return false;
 		}
 	}
