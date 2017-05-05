@@ -2,12 +2,13 @@
 #include "Ray.h"
 
 
-OBox::OBox()
+OBox::OBox() : m_xExtent({1,0}), m_yExtent({0,1}), m_centre()
 {
 }
 
 OBox::OBox(Vector2 xExtent, Vector2 yExtent, Vector2 centre) : m_xExtent(xExtent), m_yExtent(yExtent), m_centre(centre)
 {
+	//TODO throw exception if invalid vectors
 }
 
 

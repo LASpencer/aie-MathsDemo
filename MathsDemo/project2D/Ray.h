@@ -23,13 +23,9 @@ public:
 		return m_direction;
 	}
 
-	void setOrigin(Vector2 origin) {
-		m_origin = origin;
-	}
-	void setDirection(Vector2 direction) {
-		// TODO fail (exception? Return failure?) if direction is 0 vector
-		m_direction = direction;
-	}
+	void setOrigin(Vector2 origin);
+
+	void setDirection(Vector2 direction);
 
 	Vector2 findClosestPoint(Vector2 Point);
 	

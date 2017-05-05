@@ -10,14 +10,33 @@ Ray::Ray() : m_origin({ 0,0 }), m_direction({ 1,0 })
 {
 }
 
-Ray::Ray(Vector2 origin, Vector2 direction) : m_origin(origin), m_direction(direction)
+Ray::Ray(Vector2 origin, Vector2 direction) : m_origin(origin)
 {
-	//TODO exception if direction is zero vector
+	bool valid = direction.normalise();
+	if (!valid){
+		//TODO exception if direction can't be normalised
+	}
+	m_direction = direction;
 }
 
 
 Ray::~Ray()
 {
+}
+
+void Ray::setOrigin(Vector2 origin)
+{
+	m_origin = origin;
+}
+
+void Ray::setDirection(Vector2 direction)
+{
+	bool valid = direction.normalise();
+	if (!valid) {
+		// TODO fail (exception? Return failure?) if direction cannot be normalised
+	}
+	m_direction = direction;
+
 }
 
 Vector2 Ray::findClosestPoint(Vector2 point)
