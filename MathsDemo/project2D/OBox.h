@@ -33,6 +33,9 @@ public:
 		return m_centre;
 	}
 
+	// Gets extents and centre as a 3x3 transformation matrix
+	Matrix3 getBoxMatrix();
+
 	void setHalfExtents(Vector2 xExtent, Vector2 yExtent) {
 		m_xExtent = xExtent;
 		m_yExtent = yExtent;

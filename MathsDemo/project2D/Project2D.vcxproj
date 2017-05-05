@@ -97,6 +97,8 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OBox.cpp" />
+    <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="Ray.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TankTurret.cpp" />
@@ -107,6 +109,8 @@
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="OBox.h" />
+    <ClInclude Include="Plane.h" />
+    <ClInclude Include="Ray.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="TankTurret.h" />

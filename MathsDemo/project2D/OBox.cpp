@@ -50,3 +50,8 @@ bool OBox::doesCollideWithCircle(CircleCollider * circle)
 	//TODO
 	return false;
 }
+
+Matrix3 OBox::getBoxMatrix()
+{
+	return Matrix3();
+}
