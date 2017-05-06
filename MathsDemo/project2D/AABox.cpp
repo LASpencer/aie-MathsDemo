@@ -1,5 +1,6 @@
 #include <algorithm>
 #include "AABox.h"
+#include "OBox.h"
 #include "CircleCollider.h"
 #include "Ray.h"
 
@@ -45,7 +46,7 @@ bool AABox::doesCollideWithAABox(AABox * box)
 
 bool AABox::doesCollideWithOBox(OBox * box)
 {
-	//TODO when OBox written, write collision code either here or in OBox
+	box->doesCollideWithAABox(this);
 	return false;
 }
 

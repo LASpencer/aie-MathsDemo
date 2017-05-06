@@ -1,6 +1,7 @@
 #include "CircleCollider.h"
 #include <algorithm>
 #include "AABox.h"
+#include "OBox.h"
 #include "Ray.h"
 
 CircleCollider::CircleCollider()
@@ -48,7 +49,7 @@ bool CircleCollider::doesCollideWithAABox(AABox * box)
 
 bool CircleCollider::doesCollideWithOBox(OBox * box)
 {
-	//TODO when OBox written call its doesCollideWithCircle method
+	box->doesCollideWithCircle(this);
 	return false;
 }
 
