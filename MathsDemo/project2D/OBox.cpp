@@ -1,4 +1,5 @@
 #include "OBox.h"
+#include "AABox.h"
 #include "Ray.h"
 
 
@@ -36,7 +37,16 @@ bool OBox::doesCollide(Vector2 point)
 
 bool OBox::doesCollideWithAABox(AABox * box)
 {
-	//TODO
+	// If any corner of this is in the box, they collide
+	if (box->doesCollide(m_centre + m_xExtent + m_yExtent) ||
+		box->doesCollide(m_centre + m_xExtent - m_yExtent) ||
+		box->doesCollide(m_centre - m_xExtent + m_yExtent) ||
+		box->doesCollide(m_centre - m_xExtent - m_yExtent)) {
+		return true;
+	}	// box may be entirely within this, so check one of its corners
+	else if (doesCollide(box->getMinCorner())) {
+		return true;
+	}
 	return false;
 }
 
