@@ -100,6 +100,7 @@
     <ClCompile Include="GameMode.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OBox.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RobotArm.cpp" />
@@ -109,6 +110,7 @@
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TankGame.cpp" />
     <ClCompile Include="TankTurret.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABox.h" />
@@ -119,6 +121,7 @@
     <ClInclude Include="Game3D.h" />
     <ClInclude Include="GameMode.h" />
     <ClInclude Include="OBox.h" />
+    <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RobotArm.h" />
@@ -128,6 +131,7 @@
     <ClInclude Include="Tank.h" />
     <ClInclude Include="TankGame.h" />
     <ClInclude Include="TankTurret.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

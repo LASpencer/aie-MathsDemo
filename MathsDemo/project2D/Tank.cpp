@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "Texture.h"
 #include "TankTurret.h"
+#include "OBox.h"
 
 const int Tank::LEFT_TURN_KEY = aie::INPUT_KEY_A;
 const int Tank::RIGHT_TURN_KEY = aie::INPUT_KEY_D;
@@ -67,4 +68,14 @@ void Tank::draw(aie::Renderer2D * renderer)
 	// draw children
 	SceneObject::draw(renderer);
 	
+}
+
+void Tank::setupCollider()
+{
+	if (m_collider = nullptr) {
+		m_collider = new OBox();
+	}
+	// TODO include turret? Or turret's collision informs tank?
+	((OBox*)m_collider)->setHalfExtents((Vector2)m_globalTransform[0] * 37.5, (Vector2)m_globalTransform[1] * 35);
+	((OBox*)m_collider)->setCentre((Vector2)m_globalTransform[2]);
 }

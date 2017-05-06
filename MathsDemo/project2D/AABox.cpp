@@ -6,6 +6,7 @@
 
 AABox::AABox()
 {
+	setCorners({ 1,1 }, { -1,-1 });
 }
 
 AABox::AABox(Vector2 cornerA, Vector2 cornerB)

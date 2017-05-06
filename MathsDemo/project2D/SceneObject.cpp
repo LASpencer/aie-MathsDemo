@@ -1,4 +1,6 @@
 #include "SceneObject.h"
+#include "Collider.h"
+#include "AABox.h"
 
 using namespace lasmath;
 
@@ -7,6 +9,7 @@ using namespace lasmath;
 SceneObject::SceneObject() : m_parent(nullptr)
 {
 	m_localTransform.setIdentity();
+	setupCollider();
 }
 
 
@@ -15,6 +18,7 @@ SceneObject::~SceneObject()
 	for (auto child : m_children) {
 		delete child;
 	}
+	delete m_collider;
 }
 
 void SceneObject::addChild(SceneObject * child)
@@ -68,7 +72,9 @@ void SceneObject::transform(const Matrix3 & transformation)
 
 void SceneObject::update(float deltaTime)
 {
+	
 	calculateGlobalTransform();
+	setupCollider();
 	for (auto child : m_children) {
 		child->update(deltaTime);
 	}
@@ -81,11 +87,40 @@ void SceneObject::draw(aie::Renderer2D * renderer)
 	}
 }
 
+std::vector<SceneObject*> SceneObject::getDescendants()
+{
+	std::vector<SceneObject*> descendants;
+	for (SceneObject* child : m_children) {
+		descendants.push_back(child);
+		std::vector<SceneObject*> childDescendants = child->getDescendants();
+		descendants.insert(descendants.end(), childDescendants.begin(), childDescendants.end());
+	}
+	return descendants;
+}
+
+void SceneObject::notifyCollision(SceneObject * other)
+{
+	// No default behaviour
+}
+
+Collider * SceneObject::getCollider()
+{
+	return m_collider;
+}
+
 void SceneObject::calculateGlobalTransform()
 {
 	if (m_parent == nullptr) {
 		m_globalTransform = m_localTransform;
 	} else{
 		m_globalTransform = m_parent->m_globalTransform * m_localTransform;
+	}
+}
+
+void SceneObject::setupCollider()
+{
+	// Default behaviour: collider is default AABox
+	if (m_collider = nullptr) {
+		m_collider = new AABox();
 	}
 }

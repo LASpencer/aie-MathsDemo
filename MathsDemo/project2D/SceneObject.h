@@ -6,6 +6,8 @@
 
 using namespace lasmath;
 
+class Collider;
+
 class SceneObject
 {
 public:
@@ -29,6 +31,12 @@ public:
 
 	virtual void draw(aie::Renderer2D* renderer);
 
+	std::vector<SceneObject*> getDescendants();
+
+	virtual void notifyCollision(SceneObject* other);
+
+	Collider* getCollider();
+
 protected:
 	Matrix3 m_globalTransform;
 	Matrix3 m_localTransform;
@@ -36,6 +44,9 @@ protected:
 	SceneObject* m_parent;
 	std::vector<SceneObject*> m_children;
 
+	Collider* m_collider;
+
 	void calculateGlobalTransform();
+	virtual void setupCollider();
 };
 

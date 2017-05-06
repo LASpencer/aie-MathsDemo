@@ -26,5 +26,7 @@ public:
 protected:
 	TankTurret* m_turret;
 	aie::Texture* m_tankSprite;
+
+	void setupCollider();
 };
 
