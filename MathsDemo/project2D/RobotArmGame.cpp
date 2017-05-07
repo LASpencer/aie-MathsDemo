@@ -15,7 +15,7 @@ void RobotArmGame::startup()
 {
 	if (!m_started) {
 		//TODO setup game
-		m_sceneRoot.addChild(new RobotArm({720, 0}));
+		m_sceneRoot.addChild(new RobotArm({640, 360}));
 		m_started = true;
 	}
 }
