@@ -10,3 +10,8 @@ Obstacle::Obstacle()
 Obstacle::~Obstacle()
 {
 }
+
+void Obstacle::setupCollider()
+{
+	//TODO
+}

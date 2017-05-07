@@ -19,6 +19,7 @@ public:
 	static const int RIGHT_TURN_KEY;
 	static const int FORWARD_KEY;
 	static const int REVERSE_KEY;
+	static const int FIRE_KEY;
 	static const float TURN_RATE;
 	static const float FORWARD_SPEED;
 	static const float REVERSE_SPEED;

@@ -8,6 +8,7 @@ const int Tank::LEFT_TURN_KEY = aie::INPUT_KEY_A;
 const int Tank::RIGHT_TURN_KEY = aie::INPUT_KEY_D;
 const int Tank::FORWARD_KEY = aie::INPUT_KEY_W;
 const int Tank::REVERSE_KEY = aie::INPUT_KEY_S;
+const int Tank::FIRE_KEY = aie::INPUT_KEY_SPACE;
 
 const float Tank::TURN_RATE = 1.0f;
 const float Tank::FORWARD_SPEED = 50.0f;
