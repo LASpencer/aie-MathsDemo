@@ -14,9 +14,11 @@ public:
 	SceneObject();
 	virtual ~SceneObject();
 
-	void addChild(SceneObject* child);
+	bool addChild(SceneObject* child);
 
-	//TODO remove child
+	bool removeChild(SceneObject* child);
+
+	bool transferChild(SceneObject* child, SceneObject* target);
 
 	void setLocalTransform(const Matrix3& transformation);
 	Matrix3 getLocalTransform();
@@ -31,6 +33,14 @@ public:
 
 	virtual void draw(aie::Renderer2D* renderer);
 
+	void updateChildList();
+
+	bool safeToDelete();
+
+	bool markedForDeletion();
+
+	bool safeForTransfer();
+
 	std::vector<SceneObject*> getDescendants();
 
 	virtual void notifyCollision(SceneObject* other);
@@ -43,10 +53,24 @@ protected:
 
 	SceneObject* m_parent;
 	std::vector<SceneObject*> m_children;
+	std::vector<SceneObject*> m_toAdd;
+	std::vector<SceneObject*> m_toDelete;
+	std::vector < std::pair<SceneObject*, SceneObject*>> m_toTransfer;
+	bool m_childrenLocked;
+	bool m_deletionFlag;
+	bool m_transferFlag;
+	bool m_transferTargetFlag;
 
 	Collider* m_collider;
 
 	void calculateGlobalTransform();
 	virtual void setupCollider();
+
+	// Change any variables necessary for transfer to new parent
+	virtual void prepareForTransfer(SceneObject* target);
+
+	// Remove child from children, and add as child to target
+	void performChildTransfer(SceneObject* child, SceneObject* target);
+
 };
 

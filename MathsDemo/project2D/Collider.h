@@ -17,15 +17,19 @@ public:
 
 	//TODO create collider bounding a set of points
 
+	//TODO returns tuple of bool, minimum axis of overlap
 	virtual bool doesCollide(Collider* other) = 0;
 	virtual bool doesCollide(Vector2 point) = 0;
 
 	// virtual functions to test collision with each collider subclass
+	//TODO returns tuple of bool, minimum axis of overlap
 	virtual bool doesCollideWithAABox(AABox* box) =0;
 	virtual bool doesCollideWithOBox(OBox* box) = 0;
 	virtual bool doesCollideWithCircle(CircleCollider* circle) = 0;
 
 	// check if collider is hit by ray
 	virtual bool isHitByRay(Ray* ray) = 0;
+
+	// TODO collision with plane returning depth of penetration
 };
 

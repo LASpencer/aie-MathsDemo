@@ -1,6 +1,8 @@
 #pragma once
 #include "GameMode.h"
 #include "SceneObject.h"
+#include "Plane.h"
+
 class TankGame :
 	public GameMode
 {
@@ -14,7 +16,7 @@ public:
 
 protected:
 	SceneObject m_sceneRoot;
-
+	Plane		m_boundary[4];
 
 };
 

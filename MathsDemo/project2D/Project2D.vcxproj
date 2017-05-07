@@ -94,8 +94,10 @@
     <ClCompile Include="AABox.cpp" />
     <ClCompile Include="Application2D.cpp" />
     <ClCompile Include="ArmPart.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Crate.cpp" />
     <ClCompile Include="Game3D.cpp" />
     <ClCompile Include="GameMode.cpp" />
     <ClCompile Include="main.cpp" />
@@ -116,8 +118,10 @@
     <ClInclude Include="AABox.h" />
     <ClInclude Include="Application2D.h" />
     <ClInclude Include="ArmPart.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="Crate.h" />
     <ClInclude Include="Game3D.h" />
     <ClInclude Include="GameMode.h" />
     <ClInclude Include="OBox.h" />
