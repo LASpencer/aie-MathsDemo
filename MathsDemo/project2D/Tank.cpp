@@ -105,8 +105,8 @@ void Tank::fireBullet()
 		// convert position and direction to parent's frame of reference
 		muzzlePosition = m_localTransform * muzzlePosition;
 		muzzleDirection = m_localTransform * muzzleDirection;
-		// TODO put following in try-catch block to ensure muzzle direction was normalised, otherwise fail to fire bullet
-		Bullet* bullet = new Bullet((Vector2)muzzlePosition, (Vector2)muzzleDirection);
+		muzzleDirection.normalise();
+		Bullet* bullet = new Bullet((Vector2)muzzlePosition, (Vector2)muzzleDirection * Bullet::DEFAULT_SPEED);
 		m_parent->addChild(bullet);
 		m_bulletCD = BULLET_COOLDOWN;
 	}

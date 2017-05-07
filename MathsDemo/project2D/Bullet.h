@@ -5,7 +5,7 @@ class Bullet :
 {
 public:
 	Bullet();
-	Bullet(Vector2 position, Vector2 direction, float speed = DEFAULT_SPEED);
+	Bullet(Vector2 position, Vector2 velocity);
 	~Bullet();
 
 	virtual void update(float deltaTime);
@@ -15,24 +15,17 @@ public:
 	void bounce(Vector2 normal);
 
 	//TODO set/get direction, speed
-	void setDirection(Vector2 direction);
+	void setVelocity(Vector2 velocity);
 
-	Vector2 getDirection(){
-		return m_direction;
-	}
-
-	void setSpeed(float speed);
-	
-	float getSpeed() {
-		return m_speed;
+	Vector2 getVelocity(){
+		return m_velocity;
 	}
 
 	static const float DEFAULT_SPEED;
 	static const float RADIUS;
 
 protected:
-	Vector2 m_direction;
-	float m_speed;
+	Vector2 m_velocity;
 
 	void prepareForTransfer(SceneObject* target);
 };

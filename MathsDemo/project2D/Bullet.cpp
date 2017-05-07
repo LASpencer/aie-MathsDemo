@@ -3,18 +3,13 @@
 const float Bullet::DEFAULT_SPEED = 100.0f;
 const float Bullet::RADIUS = 5.0f;
 
-Bullet::Bullet() : m_direction(1,0),m_speed(DEFAULT_SPEED)
+Bullet::Bullet() : m_velocity(DEFAULT_SPEED,0)
 {
 }
 
-Bullet::Bullet(Vector2 position, Vector2 direction, float speed)
+Bullet::Bullet(Vector2 position, Vector2 velocity)
 {
-	bool valid = direction.normalise();
-	if (!valid) {
-		//TODO throw argument exception
-	}
-	m_speed = abs(speed);
-	m_direction = direction;
+	m_velocity = velocity;
 	m_localTransform.setIdentity();
 	m_localTransform[2] = { position[0],position[1],1 };	
 }
@@ -27,8 +22,8 @@ Bullet::~Bullet()
 void Bullet::update(float deltaTime)
 {
 	// move bullet
-	Vector2 velocity = deltaTime*m_speed*m_direction;
-	m_localTransform[2] = m_localTransform[2] + (Vector3)velocity;
+	Vector2 displacement = deltaTime*m_velocity;
+	m_localTransform[2] = m_localTransform[2] + (Vector3)displacement;
 	SceneObject::update(deltaTime);
 }
 
@@ -43,19 +38,11 @@ void Bullet::bounce(Vector2 normal)
 	//TODO bullet bounces off plane given by normal
 }
 
-void Bullet::setDirection(Vector2 direction)
+void Bullet::setVelocity(Vector2 velocity)
 {
-	bool valid = direction.normalise();
-	if (!valid) {
-		//TODO throw argument exception
-	}
-	m_direction = direction;
+	m_velocity = velocity;
 }
 
-void Bullet::setSpeed(float speed)
-{
-	m_speed = abs(speed);
-}
 
 void Bullet::prepareForTransfer(SceneObject * target)
 {
