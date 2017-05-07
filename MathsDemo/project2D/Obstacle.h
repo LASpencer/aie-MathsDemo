@@ -14,6 +14,8 @@ public:
 	virtual void notifyCollision(SceneObject* other);
 
 protected:
+	int m_health;
+
 	virtual void setupCollider();
 };
 
