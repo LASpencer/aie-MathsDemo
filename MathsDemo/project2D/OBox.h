@@ -12,15 +12,15 @@ public:
 	~OBox();
 
 	// test collision with Collider of unknown concrete type
-	virtual bool doesCollide(Collider* other);
+	virtual std::pair<bool, Vector2> doesCollide(Collider* other);
 
 	// test collision with point
-	virtual bool doesCollide(Vector2 point);
+	virtual std::pair<bool, Vector2> doesCollide(Vector2 point);
 
 	// test collision with each collider subclass
-	virtual bool doesCollideWithAABox(AABox* box);
-	virtual bool doesCollideWithOBox(OBox* box);
-	virtual bool doesCollideWithCircle(CircleCollider* circle);
+	virtual std::pair<bool, Vector2> doesCollideWithAABox(AABox* box);
+	virtual std::pair<bool, Vector2> doesCollideWithOBox(OBox* box);
+	virtual std::pair<bool, Vector2> doesCollideWithCircle(CircleCollider* circle);
 
 	// test collision with Ray
 	virtual bool isHitByRay(Ray* ray);

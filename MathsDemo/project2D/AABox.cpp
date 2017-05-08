@@ -28,7 +28,7 @@ std::pair<bool, Vector2> AABox::doesCollide(Collider * other)
 
 std::pair<bool, Vector2> AABox::doesCollide(Vector2 point)
 {
-	if (point[0]<m_min[0] || point[0]>m_max[0] || point[1]<m_min[1] || point[1]>m_max[1]) {
+	if (point[0]<=m_min[0] || point[0]>=m_max[0] || point[1]<=m_min[1] || point[1]>=m_max[1]) {
 		return std::make_pair( false, Vector2());
 	}
 	else {
@@ -64,7 +64,7 @@ std::pair<bool, Vector2> AABox::doesCollide(Vector2 point)
 
 std::pair<bool, Vector2> AABox::doesCollideWithAABox(AABox * box)
 {
-	if (box->m_min[0] > m_max[0] || box->m_min[1] > m_max[1] || box->m_max[0] < m_min[0] || box->m_max[1] < m_min[1]) {
+	if (box->m_min[0] >= m_max[0] || box->m_min[1] >= m_max[1] || box->m_max[0] <= m_min[0] || box->m_max[1] <= m_min[1]) {
 
 		return std::make_pair(false,Vector2());
 	}
