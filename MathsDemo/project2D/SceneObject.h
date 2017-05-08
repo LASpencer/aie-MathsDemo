@@ -43,7 +43,8 @@ public:
 
 	std::vector<SceneObject*> getDescendants();
 
-	virtual void notifyCollision(SceneObject* other);
+	virtual void notifyCollision(SceneObject* other, Vector2 penetration);
+	//TODO virtual void outOfBounds function
 
 	Collider* getCollider();
 
