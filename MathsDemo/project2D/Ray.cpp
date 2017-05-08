@@ -57,7 +57,13 @@ bool Ray::doesCollide(Collider * collider)
 bool Ray::doesCollide(CircleCollider* circle)
 {
 	// Does closest point on ray to centre of circle collide with the circle?
-	return circle->doesCollide(findClosestPoint(circle->getCentre()));
+	Vector2 displacement = findClosestPoint(circle->getCentre()) - circle->getCentre();
+	// If displacement is less than circle radius, collision occured
+	if (displacement.compareMagnitude(circle->getRadius()) == -1) {
+		return true;
+	} else{
+		return false;
+	}
 }
 
 bool Ray::doesCollide(AABox* box)

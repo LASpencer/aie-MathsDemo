@@ -11,6 +11,7 @@ OBox::OBox() : m_xExtent({1,0}), m_yExtent({0,1}), m_centre()
 OBox::OBox(Vector2 xExtent, Vector2 yExtent, Vector2 centre) : m_xExtent(xExtent), m_yExtent(yExtent), m_centre(centre)
 {
 	//TODO throw exception if invalid vectors
+	//TODO rewrite so arguments are centre, scale, angle
 }
 
 
@@ -101,6 +102,9 @@ std::pair<bool, Vector2> OBox::doesCollideWithAABox(AABox * box)
 			thisSide = thisCorners[i + 1] - thisCorners[i];
 			otherSide = otherCorners[i + 1] - otherCorners[i];
 		}
+		// Normalise sides
+		thisSide.normalise();
+		otherSide.normalise();
 		// Axis is normal of side
 		axis[i][0] = -(thisSide[1]);
 		axis[i][1] = thisSide[0];
@@ -109,8 +113,10 @@ std::pair<bool, Vector2> OBox::doesCollideWithAABox(AABox * box)
 	}
 	// Project boxes onto each axis and check for overlap
 	for (size_t i = 0; i < 8; i++) {
-		float thisMin, otherMin = INFINITY;
-		float thisMax, otherMax = -INFINITY;
+		float thisMin = INFINITY;
+		float otherMin = INFINITY;
+		float thisMax = -INFINITY;
+		float otherMax = -INFINITY;
 		for (size_t corner = 0; corner < 4; corner++) {
 			float thisProjection = axis[i].dot(thisCorners[corner]);
 			float otherProjection = axis[i].dot(otherCorners[corner]);
@@ -171,6 +177,9 @@ std::pair<bool, Vector2> OBox::doesCollideWithOBox(OBox * box)
 			thisSide = thisCorners[i + 1] - thisCorners[i];
 			otherSide = otherCorners[i + 1] - otherCorners[i];
 		}
+		// Normalise sides
+		thisSide.normalise();
+		otherSide.normalise();
 		// Axis is normal of side
 		axis[i][0] = -(thisSide[1]);
 		axis[i][1] = thisSide[0];
@@ -179,8 +188,10 @@ std::pair<bool, Vector2> OBox::doesCollideWithOBox(OBox * box)
 	}
 	// Project boxes onto each axis and check for overlap
 	for (size_t i = 0; i < 8; i++) {
-		float thisMin, otherMin = INFINITY;
-		float thisMax, otherMax = -INFINITY;
+		float thisMin = INFINITY; 
+		float otherMin = INFINITY;
+		float thisMax = -INFINITY;
+		float otherMax = -INFINITY;
 		for (size_t corner = 0; corner < 4; corner++) {
 			float thisProjection = axis[i].dot(thisCorners[corner]);
 			float otherProjection = axis[i].dot(otherCorners[corner]);
@@ -229,6 +240,8 @@ std::pair<bool, Vector2> OBox::doesCollideWithCircle(CircleCollider * circle)
 			// Side from current corner to next
 			thisSide = thisCorners[i + 1] - thisCorners[i];
 		}
+		// Normalise sides
+		thisSide.normalise();
 		// Axis is normal of side
 		axis[i][0] = -(thisSide[1]);
 		axis[i][1] = thisSide[0];
