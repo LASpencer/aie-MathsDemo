@@ -39,7 +39,7 @@ void Bullet::draw(aie::Renderer2D * renderer)
 
 void Bullet::bounce(Vector2 normal)
 {
-	//TODO bullet bounces off plane given by normal
+	//bullet bounces off plane given by normal
 	normal.normalise();
 	float projection = m_velocity.dot(normal);
 	Vector2 reflection = m_velocity - 2 * projection*normal;
