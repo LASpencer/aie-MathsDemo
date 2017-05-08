@@ -94,7 +94,6 @@ void Application2D::draw() {
 	char fps[32];
 	sprintf_s(fps, 32, "FPS: %i", getFPS());
 	m_2dRenderer->drawText(m_font, fps, 0, 720 - 32);
-	m_2dRenderer->drawText(m_font, "Press Space for sound!", 0, 720 - 64);
 
 	// done drawing sprites
 	m_2dRenderer->end();
