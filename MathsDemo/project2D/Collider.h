@@ -17,15 +17,15 @@ public:
 
 	//TODO create collider bounding a set of points
 
-	//TODO returns tuple of bool, minimum axis of overlap
-	virtual bool doesCollide(Collider* other) = 0;
-	virtual bool doesCollide(Vector2 point) = 0;
+	//TODO returns pair of bool, minimum axis of overlap
+	virtual std::pair<bool, Vector2> doesCollide(Collider* other) = 0;
+	virtual std::pair<bool, Vector2> doesCollide(Vector2 point) = 0;
 
 	// virtual functions to test collision with each collider subclass
-	//TODO returns tuple of bool, minimum axis of overlap
-	virtual bool doesCollideWithAABox(AABox* box) =0;
-	virtual bool doesCollideWithOBox(OBox* box) = 0;
-	virtual bool doesCollideWithCircle(CircleCollider* circle) = 0;
+	//TODO returns pair of bool, minimum axis of overlap
+	virtual std::pair<bool, Vector2> doesCollideWithAABox(AABox* box) =0;
+	virtual std::pair<bool, Vector2> doesCollideWithOBox(OBox* box) = 0;
+	virtual std::pair<bool, Vector2> doesCollideWithCircle(CircleCollider* circle) = 0;
 
 	// check if collider is hit by ray
 	virtual bool isHitByRay(Ray* ray) = 0;
