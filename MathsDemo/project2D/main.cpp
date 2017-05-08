@@ -2,6 +2,10 @@
 
 int main() {
 	
+	//HACK TESTING
+
+	//HACK end tests
+
 	// allocation
 	auto app = new Application2D();
 
