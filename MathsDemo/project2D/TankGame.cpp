@@ -38,7 +38,13 @@ void TankGame::update(float deltaTime)
 
 	std::vector<SceneObject*> objects = m_sceneRoot.getDescendants();
 	//TODO check for collisions
-
+	for (std::vector<SceneObject*>::iterator firstObject = objects.begin(); firstObject != objects.end(); ++firstObject) {
+		//TODO figure out concrete type of firstObject
+		for (std::vector<SceneObject*>::iterator secondObject = firstObject + 1; secondObject != objects.end(); ++secondObject) {
+			//TODO check for collision
+			//TODO if collision, figure out concrete type of second object and act accordingly
+		}
+	}
 	//TODO destroy stopped/out of bounds bullets
 }
 
