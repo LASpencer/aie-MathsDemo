@@ -112,6 +112,12 @@ void Tank::fireBullet()
 	}
 }
 
+void Tank::notifyCollision(SceneObject * other, Vector2 penetration)
+{
+	//TODO if wall was hit, stop moving
+	//TODO if obstacle was hit, both pushed back half penetration
+}
+
 void Tank::setupCollider()
 {
 	if (m_collider == nullptr) {

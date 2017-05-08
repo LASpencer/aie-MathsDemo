@@ -1,4 +1,6 @@
 #include "Bullet.h"
+#include "Wall.h"
+#include "Obstacle.h"
 #include "CircleCollider.h"
 
 const float Bullet::DEFAULT_SPEED = 100.0f;
@@ -38,11 +40,44 @@ void Bullet::draw(aie::Renderer2D * renderer)
 void Bullet::bounce(Vector2 normal)
 {
 	//TODO bullet bounces off plane given by normal
+	normal.normalise();
+	float projection = m_velocity.dot(normal);
+	Vector2 reflection = m_velocity - 2 * projection*normal;
+	//TODO inelasticity and friction
+	m_velocity = reflection;
 }
 
 void Bullet::setVelocity(Vector2 velocity)
 {
 	m_velocity = velocity;
+}
+
+void Bullet::notifyCollision(SceneObject * other, Vector2 penetration)
+{
+	//if wall was hit, bounce off the wall
+	if (dynamic_cast<Wall*>(other) != nullptr) {
+		// move back to edge of wall
+		Vector2 direction = m_velocity;
+		direction.normalise();
+		float distance = direction.dot(penetration);
+		Vector2 displacement = direction * distance;
+		// Convert displacement to local coordinates
+		if (m_parent != nullptr) {
+			Vector3 localDisplacement = (Vector3)displacement;
+			if (m_parent->getGlobalTransform().transformByInverse(localDisplacement)) {
+				displacement = (Vector2)localDisplacement;
+			}
+		}
+		// add displacement to local translation
+		m_localTransform[2] = m_localTransform[2] + (Vector3)displacement;
+		// reflect velocity off wall
+		bounce(penetration);
+	}
+	else if (dynamic_cast<Obstacle*>(other) != nullptr) {
+		//TODO if obstacle was hit, destroy this and the obstacle
+	}
+	
+	
 }
 
 

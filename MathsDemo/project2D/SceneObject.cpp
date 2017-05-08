@@ -209,7 +209,7 @@ std::vector<SceneObject*> SceneObject::getDescendants()
 	return descendants;
 }
 
-void SceneObject::notifyCollision(SceneObject * other)
+void SceneObject::notifyCollision(SceneObject * other, Vector2 penetration)
 {
 	// No default behaviour
 }

@@ -21,6 +21,8 @@ public:
 		return m_velocity;
 	}
 
+	virtual void notifyCollision(SceneObject* other, Vector2 penetration);
+
 	static const float DEFAULT_SPEED;
 	static const float RADIUS;
 
