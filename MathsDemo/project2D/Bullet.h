@@ -28,5 +28,7 @@ protected:
 	Vector2 m_velocity;
 
 	void prepareForTransfer(SceneObject* target);
+
+	virtual void setupCollider();
 };
 

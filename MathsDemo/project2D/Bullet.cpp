@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include "CircleCollider.h"
 
 const float Bullet::DEFAULT_SPEED = 100.0f;
 const float Bullet::RADIUS = 5.0f;
@@ -29,7 +30,8 @@ void Bullet::update(float deltaTime)
 
 void Bullet::draw(aie::Renderer2D * renderer)
 {
-	//TODO somewhere, set the render colour appropriately
+	//TODO pick a bullet colour
+	renderer->setRenderColour(1, 1, 1, 1);
 	renderer->drawCircle(m_globalTransform[2][0], m_globalTransform[2][1], RADIUS);
 }
 
@@ -47,4 +49,13 @@ void Bullet::setVelocity(Vector2 velocity)
 void Bullet::prepareForTransfer(SceneObject * target)
 {
 	//TODO change direction to match new parent
+}
+
+void Bullet::setupCollider()
+{
+	if (m_collider == nullptr) {
+		m_collider = new CircleCollider((Vector2)m_globalTransform[2],RADIUS);
+	} else{
+		((CircleCollider*)m_collider)->setCentre((Vector2)m_globalTransform[2]);
+	}
 }

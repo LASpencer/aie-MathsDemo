@@ -1,7 +1,7 @@
 #include "TankGame.h"
 #include "Input.h"
 #include "Tank.h"
-
+#include "Wall.h"
 #include "OBox.h"
 
 
@@ -22,6 +22,10 @@ void TankGame::startup()
 		m_boundary[1] = Plane(Vector2(1, 0), 0);		// Left of screen
 		m_boundary[2] = Plane(Vector2(0, -1), 720);		// Top of screen
 		m_boundary[3] = Plane(Vector2(-1, 0), 1280);	// Right of screen
+		//Add walls
+		m_sceneRoot.addChild(new Wall({ 100,100 }, { 600,100 }));
+		m_sceneRoot.addChild(new Wall({ 100,600 }, { 200,300 }));
+		m_sceneRoot.addChild(new Wall({ 1200,100 }, { 1200,400 }));
 		m_started = true;
 	}
 }
