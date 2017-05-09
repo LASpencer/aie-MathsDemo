@@ -28,6 +28,7 @@ public:
 	static const float SHOULDER_TURN_RATE;
 	static const float ELBOW_TURN_RATE;
 	static const float WRIST_TURN_RATE;
+	static const float MOVE_RATE;
 
 protected:
 	ArmPart*		m_shoulder;

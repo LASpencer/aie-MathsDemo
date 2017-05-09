@@ -3,10 +3,10 @@
 
 const int RobotArm::SHOULDER_LEFT_KEY = aie::INPUT_KEY_A;
 const int RobotArm::SHOULDER_RIGHT_KEY = aie::INPUT_KEY_D;
-const int RobotArm::ELBOW_LEFT_KEY = aie::INPUT_KEY_Q;
-const int RobotArm::ELBOW_RIGHT_KEY = aie::INPUT_KEY_E;
-const int RobotArm::WRIST_LEFT_KEY = aie::INPUT_KEY_W;
-const int RobotArm::WRIST_RIGHT_KEY = aie::INPUT_KEY_S;
+const int RobotArm::ELBOW_LEFT_KEY = aie::INPUT_KEY_W;
+const int RobotArm::ELBOW_RIGHT_KEY = aie::INPUT_KEY_S;
+const int RobotArm::WRIST_LEFT_KEY = aie::INPUT_KEY_Q;
+const int RobotArm::WRIST_RIGHT_KEY = aie::INPUT_KEY_E;
 const int RobotArm::GRIP_KEY = aie::INPUT_KEY_SPACE;
 const int RobotArm::MOVE_LEFT_KEY = aie::INPUT_KEY_LEFT;
 const int RobotArm::MOVE_RIGHT_KEY = aie::INPUT_KEY_RIGHT;
@@ -14,6 +14,7 @@ const int RobotArm::MOVE_RIGHT_KEY = aie::INPUT_KEY_RIGHT;
 const float RobotArm::SHOULDER_TURN_RATE = 1.0f;
 const float RobotArm::ELBOW_TURN_RATE = 1.0f;
 const float RobotArm::WRIST_TURN_RATE = 1.0f;
+const float RobotArm::MOVE_RATE = 20.0f;
 
 RobotArm::RobotArm()
 {
@@ -45,6 +46,8 @@ void RobotArm::update(float deltaTime)
 	bool elbowRight = input->isKeyDown(ELBOW_RIGHT_KEY);
 	bool wristLeft = input->isKeyDown(WRIST_LEFT_KEY);
 	bool wristRight = input->isKeyDown(WRIST_RIGHT_KEY);
+	bool moveLeft = input->isKeyDown(MOVE_LEFT_KEY);
+	bool moveRight = input->isKeyDown(MOVE_RIGHT_KEY);
 	if (shoulderLeft && !shoulderRight) {
 		m_shoulder->rotate(SHOULDER_TURN_RATE*deltaTime);
 	}
@@ -62,6 +65,12 @@ void RobotArm::update(float deltaTime)
 	}
 	else if (wristRight && !wristLeft) {
 		m_hand->rotate(-WRIST_TURN_RATE*deltaTime);
+	}
+	if (moveLeft && !moveRight) {
+		globalTranslate({ -MOVE_RATE*deltaTime, 0 });
+	}
+	else if (moveRight && !moveLeft) {
+		globalTranslate({ MOVE_RATE*deltaTime, 0 });
 	}
 
 	// TODO arm can try to grab things

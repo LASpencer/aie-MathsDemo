@@ -21,18 +21,18 @@ void RobotArmGame::startup()
 		m_boundary[3] = Plane(Vector2(-1, 0), 1280);	// Right of screen
 		//TODO setup game
 		m_sceneRoot.addChild(new RobotArm({ 640, 360 }));
-		m_sceneRoot.addChild(new Crate({100, 100}));
-		m_sceneRoot.addChild(new Crate({ 100,100 }, "./textures/car.png"));
-		m_sceneRoot.addChild(new Crate({ 100,100 }, "./textures/ball.png"));
-		m_sceneRoot.addChild(new Crate({ 100, 100 }));
-		m_sceneRoot.addChild(new Crate({ 100,100 }, "./textures/car.png"));
-		m_sceneRoot.addChild(new Crate({ 100,100 }, "./textures/ball.png"));
-		m_sceneRoot.addChild(new Crate({ 100, 100 }));
-		m_sceneRoot.addChild(new Crate({ 100,100 }, "./textures/car.png"));
-		m_sceneRoot.addChild(new Crate({ 100,100 }, "./textures/ball.png"));
-		m_sceneRoot.addChild(new Crate({ 100, 100 }));
-		m_sceneRoot.addChild(new Crate({ 100,100 }, "./textures/car.png"));
-		m_sceneRoot.addChild(new Crate({ 100,100 }, "./textures/ball.png"));
+		m_sceneRoot.addChild(new Crate({ 100, 100}));
+		m_sceneRoot.addChild(new Crate({ 200,100 }, "./textures/car.png"));
+		m_sceneRoot.addChild(new Crate({ 300,100 }, "./textures/ball.png"));
+		m_sceneRoot.addChild(new Crate({ 200, 200 }));
+		m_sceneRoot.addChild(new Crate({ 400,200 }, "./textures/car.png"));
+		m_sceneRoot.addChild(new Crate({ 600,200 }, "./textures/ball.png"));
+		m_sceneRoot.addChild(new Crate({ 300, 300 }));
+		m_sceneRoot.addChild(new Crate({ 600,300 }, "./textures/car.png"));
+		m_sceneRoot.addChild(new Crate({ 800,300 }, "./textures/ball.png"));
+		m_sceneRoot.addChild(new Crate({ 400, 400 }));
+		m_sceneRoot.addChild(new Crate({ 800,400 }, "./textures/car.png"));
+		m_sceneRoot.addChild(new Crate({ 1200,400 }, "./textures/ball.png"));
 		m_started = true;
 	}
 }
