@@ -1,7 +1,8 @@
 #include "TankGame.h"
 #include "Input.h"
 #include "Tank.h"
-
+#include "Obstacle.h"
+#include "Wall.h"
 #include "OBox.h"
 
 
@@ -22,6 +23,17 @@ void TankGame::startup()
 		m_boundary[1] = Plane(Vector2(1, 0), 0);		// Left of screen
 		m_boundary[2] = Plane(Vector2(0, -1), 720);		// Top of screen
 		m_boundary[3] = Plane(Vector2(-1, 0), 1280);	// Right of screen
+		//Add walls
+		m_sceneRoot.addChild(new Wall({ 100,100 }, { 600,100 }));
+		m_sceneRoot.addChild(new Wall({ 100,600 }, { 200,300 }));
+		m_sceneRoot.addChild(new Wall({ 1200,100 }, { 1200,400 }));
+		//Add obstacles
+		// TODO different sprites
+		// TODO actual locations
+		m_sceneRoot.addChild(new Obstacle());
+		m_sceneRoot.addChild(new Obstacle());
+		m_sceneRoot.addChild(new Obstacle());
+		m_sceneRoot.addChild(new Obstacle());
 		m_started = true;
 	}
 }
@@ -34,7 +46,23 @@ void TankGame::update(float deltaTime)
 
 	std::vector<SceneObject*> objects = m_sceneRoot.getDescendants();
 	//TODO check for collisions
-
+	for (std::vector<SceneObject*>::iterator firstObject = objects.begin(); firstObject != objects.end(); ++firstObject) {
+		for (std::vector<SceneObject*>::iterator secondObject = firstObject + 1; secondObject != objects.end(); ++secondObject) {
+			//TODO check for collision
+			std::pair<bool, Vector2> collision = (*firstObject)->getCollider()->doesCollide((*secondObject)->getCollider());
+			if (collision.first) {
+				(*firstObject)->notifyCollision(*secondObject, collision.second);
+				(*secondObject)->notifyCollision(*firstObject, -1*collision.second);
+			}
+		}
+		// Check if out of bounds
+		for (size_t i = 0; i < 4; ++i) {
+			std::pair<bool, Vector2> boundaryCollision = (*firstObject)->getCollider()->doesCollide(m_boundary[i]);
+			if (boundaryCollision.first) {
+				(*firstObject)->notifyOutOfBounds(boundaryCollision.second);
+			}
+		}
+	}
 	//TODO destroy stopped/out of bounds bullets
 }
 

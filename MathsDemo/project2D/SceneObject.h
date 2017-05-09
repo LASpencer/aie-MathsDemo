@@ -29,6 +29,9 @@ public:
 	void translate(const Vector2& vec);
 	void transform(const Matrix3& transformation);
 
+	//TODO: global translate, transforms vec by inverse of parent's global transform
+	void globalTranslate(const Vector2& vec);
+
 	virtual void update(float deltaTime);
 
 	virtual void draw(aie::Renderer2D* renderer);
@@ -43,7 +46,9 @@ public:
 
 	std::vector<SceneObject*> getDescendants();
 
-	virtual void notifyCollision(SceneObject* other);
+	virtual void notifyCollision(SceneObject* other, Vector2 penetration);
+	//	Tell SceneObject it is out of bounds
+	virtual void notifyOutOfBounds(Vector2 penetration);
 
 	Collider* getCollider();
 

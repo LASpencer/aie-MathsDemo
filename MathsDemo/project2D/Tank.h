@@ -17,6 +17,10 @@ public:
 
 	void fireBullet();
 
+	virtual void notifyCollision(SceneObject* other, Vector2 penetration);
+
+	virtual void notifyOutOfBounds(Vector2 penetration);
+
 	static const int LEFT_TURN_KEY;
 	static const int RIGHT_TURN_KEY;
 	static const int FORWARD_KEY;

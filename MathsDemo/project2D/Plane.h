@@ -15,6 +15,12 @@ public:
 	// Calculates distance from plane to point. Positive is in front, negative is behind
 	float distanceToPlane(Vector2 point);
 	
+	Vector2 getNormal() {
+		return m_normal;
+	}
+	float getOffset() {
+		return m_offset;
+	}
 
 protected:
 	Vector2 m_normal;

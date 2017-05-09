@@ -5,6 +5,7 @@ class Wall :
 {
 public:
 	Wall();
+	Wall(Vector2 start, Vector2 end);
 	~Wall();
 
 	virtual void update(float deltaTime);
@@ -13,7 +14,9 @@ public:
 
 	virtual void notifyCollision(SceneObject* other);
 
+	static const float WIDTH;
 protected:
+	Vector2 m_start, m_end;
 	virtual void setupCollider();
 };
 

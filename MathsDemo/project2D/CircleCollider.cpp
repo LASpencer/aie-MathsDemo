@@ -3,6 +3,7 @@
 #include "AABox.h"
 #include "OBox.h"
 #include "Ray.h"
+#include "Plane.h"
 
 CircleCollider::CircleCollider()
 {
@@ -17,23 +18,43 @@ CircleCollider::~CircleCollider()
 {
 }
 
-bool CircleCollider::doesCollide(Collider * other)
+std::pair<bool, Vector2> CircleCollider::doesCollide(Collider * other)
 {
-	return other->doesCollideWithCircle(this);
+	std::pair<bool, Vector2> otherResult = other->doesCollideWithCircle(this);
+	return std::make_pair(otherResult.first, otherResult.second * -1);
 }
 
-bool CircleCollider::doesCollide(Vector2 point)
+std::pair<bool, Vector2> CircleCollider::doesCollide(Vector2 point)
 {
 	Vector2 displacement = point - m_centre;
-	if (displacement.magnitudeSquared() > (m_radius*m_radius)) {
-		return false;
+	if (displacement.magnitudeSquared() >= (m_radius*m_radius)) {
+		return std::make_pair(false,Vector2());
 	}
 	else {
-		return true;
+		Vector2 nearestEdge;
+		// Normalise displacement and multiply by radius to get nearest point on edge
+		if (displacement.normalise()) {
+			nearestEdge = m_centre + displacement * m_radius;
+		}	// if point is at centre, arbitrarily pick a vector of magnitude m_radius
+		else {
+			nearestEdge = m_centre + Vector2(m_radius, 0);
+			}
+		// Return vector from nearest point on edge to point
+		return std::make_pair(true, point - nearestEdge);
 	}
 }
 
-bool CircleCollider::doesCollideWithAABox(AABox * box)
+std::pair<bool, Vector2> CircleCollider::doesCollide(Plane plane)
+{
+	Vector2 penetration = plane.getNormal();
+	penetration.normalise();
+	float distance = plane.distanceToPlane(m_centre) - m_radius;
+	bool collision = distance < 0;
+	penetration = penetration * -distance;
+	return std::make_pair(collision,penetration);
+}
+
+std::pair<bool, Vector2> CircleCollider::doesCollideWithAABox(AABox * box)
 {
 	// Find closest point on box to circle
 	float clampedX, clampedY;
@@ -47,19 +68,28 @@ bool CircleCollider::doesCollideWithAABox(AABox * box)
 	return doesCollide(Vector2(clampedX, clampedY));
 }
 
-bool CircleCollider::doesCollideWithOBox(OBox * box)
+std::pair<bool, Vector2> CircleCollider::doesCollideWithOBox(OBox * box)
 {
-	box->doesCollideWithCircle(this);
-	return false;
+	std::pair<bool, Vector2> otherResult = box->doesCollideWithCircle(this);
+	return std::make_pair(otherResult.first, otherResult.second * -1);
 }
 
-bool CircleCollider::doesCollideWithCircle(CircleCollider * circle)
+std::pair<bool, Vector2> CircleCollider::doesCollideWithCircle(CircleCollider * circle)
 {
 	Vector2 displacement = circle->m_centre - m_centre;
-	if (displacement.compareMagnitude(m_radius + circle->m_radius) == 1) {
-		return false;
-	} else {
-		return true;
+	if (displacement.compareMagnitude(m_radius + circle->m_radius) == -1) {
+		Vector2 nearestEdge, otherNearestEdge;
+		Vector2 direction = displacement;
+		// Normalise direction
+		if (!direction.normalise()) {
+			//If normalisation fails, arbitrarily set direction to {1,0}
+			direction = Vector2(1, 0);
+		}
+		nearestEdge = m_centre + m_radius * direction ;
+		otherNearestEdge = circle->m_centre - circle->m_radius * direction;
+		return std::make_pair(true, otherNearestEdge - nearestEdge);
+	}	else {
+		return std::make_pair(false, Vector2());
 	}
 }
 

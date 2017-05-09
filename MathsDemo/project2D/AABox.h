@@ -11,15 +11,18 @@ public:
 	~AABox();
 
 	// test collision with Collider of unknown concrete type
-	virtual bool doesCollide(Collider* other);
+	virtual std::pair<bool, Vector2> doesCollide(Collider* other);
 
 	// test collision with point
-	virtual bool doesCollide(Vector2 point);
+	virtual std::pair<bool, Vector2> doesCollide(Vector2 point);
+
+	// test collision with plane
+	virtual std::pair<bool, Vector2> doesCollide(Plane plane);
 
 	// test collision with AABox
-	virtual bool doesCollideWithAABox(AABox* box);
-	virtual bool doesCollideWithOBox(OBox* box);
-	virtual bool doesCollideWithCircle(CircleCollider* circle);
+	virtual std::pair<bool, Vector2> doesCollideWithAABox(AABox* box);
+	virtual std::pair<bool, Vector2> doesCollideWithOBox(OBox* box);
+	virtual std::pair<bool, Vector2> doesCollideWithCircle(CircleCollider* circle);
 
 	// test collision with Ray
 	virtual bool isHitByRay(Ray* ray);
@@ -34,6 +37,9 @@ public:
 	}
 
 	void setCorners(Vector2 a, Vector2 b);
+
+	// Returns all four corners of the AABox, clockwise from minimum corner
+	std::tuple<Vector2, Vector2, Vector2, Vector2> getCorners();
 
 	// Fit AABox around points given
 	void fitPoints(std::vector<Vector2> points);
