@@ -79,22 +79,22 @@ void Game3D::update(float deltaTime)
 	}
 
 	// rotate camera
-	m_viewMatrix = glm::lookAt(vec3(glm::sin(m_cameraTurn) * 10, 10, glm::cos(m_cameraTurn) * 10),
-							   vec3(0), vec3(0, 1, 0));
+	m_viewMatrix = glm::lookAt(vec3(glm::cos(m_cameraTurn) * -10, 10, glm::sin(m_cameraTurn) * 10),
+							   vec3(-2,0,0), vec3(0, 1, 0));
 
 	// wipe the gizmos clean for this frame
 	Gizmos::clear();
 
 	// draw a simple grid with gizmos
 	vec4 white(1);
-	vec4 black(0, 0, 0, 1);
+	vec4 grey(0.2f, 0.2f, 0.2f, 1);
 	for (int i = 0; i < 21; ++i) {
 		Gizmos::addLine(vec3(-10 + i, 0, 10),
 			vec3(-10 + i, 0, -10),
-			i == 10 ? white : black);
+			i == 10 ? white : grey);
 		Gizmos::addLine(vec3(10, 0, -10 + i),
 			vec3(-10, 0, -10 + i),
-			i == 10 ? white : black);
+			i == 10 ? white : grey);
 	}
 
 	// add a transform so that we can see the axis
@@ -102,13 +102,18 @@ void Game3D::update(float deltaTime)
 
 	// demonstrate a few shapes
 	Gizmos::addAABBFilled(vec3(0), vec3(1), vec4(0, 0.5f, 1, 0.25f));
-	Gizmos::addSphere(vec3(5, 0, 5), 1, 8, 8, vec4(1, 0, 0, 0.5f));
+	
 	Gizmos::addRing(vec3(5, 0, -5), 1, 1.5f, 8, vec4(0, 1, 0, 1));
 	Gizmos::addDisk(vec3(-5, 0, 5), 1, 16, vec4(1, 1, 0, 1));
 	Gizmos::addArc(vec3(-5, 0, -5), 0, 2, 1, 8, vec4(1, 0, 1, 1));
 
-	Matrix4 rotate;
+	Matrix4 rotate, convert, faceX;
+	// HACK axes are different to expected:
+	convert.setEulerRotate(0.0f, -1.57077f, 3.141592f);
+	faceX.setRotateZ(-1.57077f);
+	//rotate.setTaitBryanRotate(m_roll, m_yaw, m_pitch);
 	rotate.setTaitBryanRotate(m_yaw, m_pitch, m_roll);
+	rotate = convert * rotate * faceX;
 	rotate[3] = { -2,0,0,1 };
 	
 	//HACK use adaptor class to convert
@@ -121,6 +126,15 @@ void Game3D::update(float deltaTime)
 	//t[3] = vec4(-2, 0, 0, 1);
 
 	Gizmos::addCylinderFilled(vec3(0), 0.5f, 1, 5, vec4(0, 1, 1, 1), &t);
+
+	rotate.setEulerRotate(m_pitch, m_yaw, m_roll);
+	//HACK use adaptor class to convert
+	// TODO make lasmath to glm adaptor
+	t = mat4(rotate[0][0], rotate[0][1], rotate[0][2], rotate[0][3],
+		rotate[1][0], rotate[1][1], rotate[1][2], rotate[1][3],
+		rotate[2][0], rotate[2][1], rotate[2][2], rotate[2][3],
+		rotate[3][0], rotate[3][1], rotate[3][2], rotate[3][3]);
+	Gizmos::addSphere(vec3(5, 0, 5), 1, 8, 8, vec4(1, 0, 0, 0.5f), &t);
 }
 
 void Game3D::draw(aie::Renderer2D *)

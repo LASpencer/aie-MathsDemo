@@ -13,6 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Collision">
+      <UniqueIdentifier>{65bdccd4-5905-4122-a6fd-5094b824b225}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\3D Game">
+      <UniqueIdentifier>{8ad18f88-816f-445d-b4e4-1ea949253e1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Robot Arm Game">
+      <UniqueIdentifier>{9a94124b-2ce9-4bb4-8d10-b7a809eb5a6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tank Game">
+      <UniqueIdentifier>{9aae4739-752b-48c8-b798-2e854ebd45e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Collision">
+      <UniqueIdentifier>{9c4fd17a-eebc-4f0a-8fbe-7f6dfe8b6b4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tank Game">
+      <UniqueIdentifier>{64d220c8-54cc-455c-aa88-3a630c2bb42d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Robot Arm Game">
+      <UniqueIdentifier>{75eade7d-e724-4d03-8a77-32ddd32239cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\3D Game">
+      <UniqueIdentifier>{cb643721-24c5-4c52-b1e7-8fa2efa2209b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application2D.cpp">
@@ -21,130 +45,130 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SceneObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AABox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CircleCollider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tank.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TankTurret.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Plane.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TankGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RobotArmGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game3D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RobotArm.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="AABox.cpp">
+      <Filter>Source Files\Collision</Filter>
     </ClCompile>
     <ClCompile Include="ArmPart.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RobotHand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Wall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Crate.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Robot Arm Game</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Tank Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleCollider.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Crate.cpp">
+      <Filter>Source Files\Robot Arm Game</Filter>
+    </ClCompile>
+    <ClCompile Include="OBox.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>Source Files\Tank Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotArm.cpp">
+      <Filter>Source Files\Robot Arm Game</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotArmGame.cpp">
+      <Filter>Source Files\Robot Arm Game</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotHand.cpp">
+      <Filter>Source Files\Robot Arm Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game3D.cpp">
+      <Filter>Source Files\3D Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Tank.cpp">
+      <Filter>Source Files\Tank Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TankTurret.cpp">
+      <Filter>Source Files\Tank Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TankGame.cpp">
+      <Filter>Source Files\Tank Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Source Files\Tank Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SceneObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AABox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CircleCollider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tank.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TankTurret.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Plane.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TankGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RobotArmGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game3D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RobotArm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ArmPart.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RobotHand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Obstacle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Wall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Crate.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Robot Arm Game</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Tank Game</Filter>
+    </ClInclude>
+    <ClInclude Include="AABox.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleCollider.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Crate.h">
+      <Filter>Header Files\Robot Arm Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game3D.h">
+      <Filter>Header Files\3D Game</Filter>
+    </ClInclude>
+    <ClInclude Include="OBox.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>Header Files\Tank Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="RobotArm.h">
+      <Filter>Header Files\Robot Arm Game</Filter>
+    </ClInclude>
+    <ClInclude Include="RobotArmGame.h">
+      <Filter>Header Files\Robot Arm Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank.h">
+      <Filter>Header Files\Tank Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TankGame.h">
+      <Filter>Header Files\Tank Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TankTurret.h">
+      <Filter>Header Files\Tank Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>Header Files\Tank Game</Filter>
+    </ClInclude>
+    <ClInclude Include="RobotHand.h">
+      <Filter>Header Files\Robot Arm Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
