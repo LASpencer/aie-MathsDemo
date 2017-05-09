@@ -30,6 +30,7 @@ Tank::Tank(Vector2 position) : m_tankSprite(new aie::Texture("./textures/tankGre
 {
 	m_localTransform.setIdentity();
 	m_localTransform[2] = { position[0],position[1],1 };
+	calculateGlobalTransform();
 	addChild(m_turret);
 }
 

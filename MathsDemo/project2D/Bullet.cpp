@@ -15,6 +15,7 @@ Bullet::Bullet(Vector2 position, Vector2 velocity)
 	m_velocity = velocity;
 	m_localTransform.setIdentity();
 	m_localTransform[2] = { position[0],position[1],1 };	
+	calculateGlobalTransform();
 }
 
 

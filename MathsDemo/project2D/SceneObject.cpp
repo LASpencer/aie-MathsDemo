@@ -9,6 +9,7 @@ using namespace lasmath;
 SceneObject::SceneObject() : m_parent(nullptr), m_collider(nullptr), m_childrenLocked(false), m_deletionFlag(false), m_transferFlag(false), m_transferTargetFlag(false)
 {
 	m_localTransform.setIdentity();
+	calculateGlobalTransform();
 }
 
 

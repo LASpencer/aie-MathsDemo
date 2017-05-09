@@ -8,6 +8,7 @@ const float RobotArm::WRIST_TURN_RATE = 1.0f;
 RobotArm::RobotArm()
 {
 	m_localTransform.setIdentity();
+	calculateGlobalTransform();
 	setupParts();
 }
 
@@ -15,6 +16,7 @@ RobotArm::RobotArm(Vector2 position)
 {
 	m_localTransform.setIdentity();
 	m_localTransform[2] = { position[0],position[1],1 };
+	calculateGlobalTransform();
 	setupParts();
 }
 

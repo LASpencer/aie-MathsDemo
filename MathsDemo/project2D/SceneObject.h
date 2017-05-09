@@ -45,6 +45,7 @@ public:
 
 	virtual void notifyCollision(SceneObject* other, Vector2 penetration);
 	//TODO virtual void outOfBounds function
+	//virtual void notifyOutOfBounds(const )
 
 	Collider* getCollider();
 
