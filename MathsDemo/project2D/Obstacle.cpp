@@ -21,6 +21,8 @@ Obstacle::Obstacle(Vector2 position, const char * sprite, int health) : m_health
 	m_width = m_sprite->getWidth();
 	m_height = m_sprite->getHeight();
 	m_localTransform.setIdentity();
+	m_localTransform[2] = { position[0],position[1],1 };
+	calculateGlobalTransform();
 }
 
 

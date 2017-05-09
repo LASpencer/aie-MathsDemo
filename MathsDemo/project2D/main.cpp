@@ -186,7 +186,7 @@ int main() {
 		std::cout << "Failed: Circle (5.5,5.5, 2) and Circle(0,0,10) missed\n\n";
 		system("pause");
 	}
-	system("pause");
+	//system("pause");
 	//TODO plane tests
 	//HACK end tests
 

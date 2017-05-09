@@ -70,6 +70,20 @@ void Application2D::update(float deltaTime) {
 		m_game = m_3dGame;
 		m_game->startup();
 	}
+	// reset games
+	if (input->isKeyDown(aie::INPUT_KEY_BACKSPACE)) {
+		//delete games
+		delete m_tankGame;
+		delete m_armGame;
+		delete m_3dGame;
+		//create new games
+		m_tankGame = new TankGame();
+		m_armGame = new RobotArmGame();
+		m_3dGame = new Game3D();
+		// startup tank game
+		m_game = m_tankGame;
+		m_game->startup();
+	}
 
 	m_game->update(deltaTime);
 }
