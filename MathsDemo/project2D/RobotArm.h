@@ -16,12 +16,15 @@ public:
 
 	virtual void draw(aie::Renderer2D* renderer);
 
-	static const int SHOULDER_LEFT_KEY = aie::INPUT_KEY_A;
-	static const int SHOULDER_RIGHT_KEY = aie::INPUT_KEY_D;
-	static const int ELBOW_LEFT_KEY = aie::INPUT_KEY_Q;
-	static const int ELBOW_RIGHT_KEY = aie::INPUT_KEY_E;
-	static const int WRIST_LEFT_KEY = aie::INPUT_KEY_LEFT;
-	static const int WRIST_RIGHT_KEY = aie::INPUT_KEY_RIGHT;
+	static const int SHOULDER_LEFT_KEY;
+	static const int SHOULDER_RIGHT_KEY;
+	static const int ELBOW_LEFT_KEY;
+	static const int ELBOW_RIGHT_KEY;
+	static const int WRIST_LEFT_KEY;
+	static const int WRIST_RIGHT_KEY;
+	static const int GRIP_KEY;
+	static const int MOVE_LEFT_KEY;
+	static const int MOVE_RIGHT_KEY;
 	static const float SHOULDER_TURN_RATE;
 	static const float ELBOW_TURN_RATE;
 	static const float WRIST_TURN_RATE;

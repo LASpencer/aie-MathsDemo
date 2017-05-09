@@ -82,7 +82,7 @@ void Obstacle::notifyOutOfBounds(Vector2 penetration)
 
 void Obstacle::setupCollider()
 {
-	//TODO OBox around sprite
+	//OBox around sprite
 	if (m_collider == nullptr) {
 		m_collider = new OBox();
 	}

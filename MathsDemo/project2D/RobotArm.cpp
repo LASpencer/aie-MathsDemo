@@ -1,6 +1,16 @@
 #include "RobotArm.h"
 #include "Texture.h"
 
+const int RobotArm::SHOULDER_LEFT_KEY = aie::INPUT_KEY_A;
+const int RobotArm::SHOULDER_RIGHT_KEY = aie::INPUT_KEY_D;
+const int RobotArm::ELBOW_LEFT_KEY = aie::INPUT_KEY_Q;
+const int RobotArm::ELBOW_RIGHT_KEY = aie::INPUT_KEY_E;
+const int RobotArm::WRIST_LEFT_KEY = aie::INPUT_KEY_W;
+const int RobotArm::WRIST_RIGHT_KEY = aie::INPUT_KEY_S;
+const int RobotArm::GRIP_KEY = aie::INPUT_KEY_SPACE;
+const int RobotArm::MOVE_LEFT_KEY = aie::INPUT_KEY_LEFT;
+const int RobotArm::MOVE_RIGHT_KEY = aie::INPUT_KEY_RIGHT;
+
 const float RobotArm::SHOULDER_TURN_RATE = 1.0f;
 const float RobotArm::ELBOW_TURN_RATE = 1.0f;
 const float RobotArm::WRIST_TURN_RATE = 1.0f;
@@ -53,6 +63,10 @@ void RobotArm::update(float deltaTime)
 	else if (wristRight && !wristLeft) {
 		m_hand->rotate(-WRIST_TURN_RATE*deltaTime);
 	}
+
+	// TODO arm can try to grab things
+	// TODO arm moves left and right
+
 	SceneObject::update(deltaTime);
 }
 
