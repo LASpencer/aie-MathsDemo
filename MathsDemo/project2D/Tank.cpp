@@ -119,13 +119,7 @@ void Tank::notifyCollision(SceneObject * other, Vector2 penetration)
 {
 	//TODO if wall was hit, stop moving
 	if (dynamic_cast<Wall*>(other) != nullptr) {
-		//HACK replace with globalTranslate
-		if (m_parent != nullptr) {
-			Vector3 localPenetration = (Vector3)penetration;
-			m_parent->getGlobalTransform().transformByInverse(localPenetration);
-			penetration = (Vector2)localPenetration;
-		}
-		m_localTransform[2] = m_localTransform[2] + (Vector3)penetration;
+		globalTranslate(penetration);
 	}
 	else if (dynamic_cast<Obstacle*>(other) != nullptr) {
 		//TODO if obstacle was hit, both pushed back half penetration
@@ -143,12 +137,7 @@ void Tank::notifyCollision(SceneObject * other, Vector2 penetration)
 void Tank::notifyOutOfBounds(Vector2 penetration)
 {
 	// move back into bounds
-	//HACK replace with globalTranslate
-	if (m_parent != nullptr) {
-		Vector3 localPenetration = (Vector3)penetration;
-		m_parent->getGlobalTransform().transformByInverse(localPenetration);
-		penetration = (Vector2)localPenetration;
-	}
+	globalTranslate(0.5f*penetration);
 	m_localTransform[2] = m_localTransform[2] + (Vector3)penetration;
 }
 

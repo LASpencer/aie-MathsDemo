@@ -119,6 +119,17 @@ void SceneObject::transform(const Matrix3 & transformation)
 	m_localTransform = m_localTransform * transformation;
 }
 
+void SceneObject::globalTranslate(const Vector2 & vec)
+{
+	Vector2 translation = vec;
+	if (m_parent != nullptr) {
+		Vector3 localTranslation = (Vector3)translation;
+		m_parent->getGlobalTransform().transformByInverse(localTranslation);
+		translation = (Vector2)localTranslation;
+	}
+	m_localTransform[2] = m_localTransform[2] + (Vector3)translation;
+}
+
 void SceneObject::update(float deltaTime)
 {
 	calculateGlobalTransform();

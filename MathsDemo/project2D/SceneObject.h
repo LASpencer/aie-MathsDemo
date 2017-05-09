@@ -30,6 +30,7 @@ public:
 	void transform(const Matrix3& transformation);
 
 	//TODO: global translate, transforms vec by inverse of parent's global transform
+	void globalTranslate(const Vector2& vec);
 
 	virtual void update(float deltaTime);
 
