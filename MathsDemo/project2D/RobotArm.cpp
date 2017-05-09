@@ -67,10 +67,12 @@ void RobotArm::update(float deltaTime)
 		m_hand->rotate(-WRIST_TURN_RATE*deltaTime);
 	}
 	if (moveLeft && !moveRight) {
-		globalTranslate({ -MOVE_RATE*deltaTime, 0 });
+		//globalTranslate({ -MOVE_RATE*deltaTime, 0 });
+		translate({ -MOVE_RATE*deltaTime, 0 });
 	}
 	else if (moveRight && !moveLeft) {
-		globalTranslate({ MOVE_RATE*deltaTime, 0 });
+		//globalTranslate({ MOVE_RATE*deltaTime, 0 });
+		translate({ MOVE_RATE*deltaTime, 0 });
 	}
 
 	// TODO arm can try to grab things
