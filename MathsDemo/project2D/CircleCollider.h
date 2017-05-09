@@ -16,6 +16,9 @@ public:
 	// test collision with point
 	virtual std::pair<bool, Vector2> doesCollide(Vector2 point);
 
+	// test collision with plane
+	virtual std::pair<bool, Vector2> doesCollide(Plane plane);
+
 	// test collision with each collider subclass
 	virtual std::pair<bool, Vector2> doesCollideWithAABox(AABox* box);
 	virtual std::pair<bool, Vector2> doesCollideWithOBox(OBox* box);

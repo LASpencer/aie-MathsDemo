@@ -47,6 +47,13 @@ void TankGame::update(float deltaTime)
 				(*secondObject)->notifyCollision(*firstObject, -1*collision.second);
 			}
 		}
+		// Check if out of bounds
+		for (size_t i = 0; i < 4; ++i) {
+			std::pair<bool, Vector2> boundaryCollision = (*firstObject)->getCollider()->doesCollide(m_boundary[i]);
+			if (boundaryCollision.first) {
+				(*firstObject)->notifyOutOfBounds(boundaryCollision.second);
+			}
+		}
 	}
 	//TODO destroy stopped/out of bounds bullets
 }

@@ -3,6 +3,7 @@
 #include "AABox.h"
 #include "OBox.h"
 #include "Ray.h"
+#include "Plane.h"
 
 CircleCollider::CircleCollider()
 {
@@ -41,6 +42,16 @@ std::pair<bool, Vector2> CircleCollider::doesCollide(Vector2 point)
 		// Return vector from nearest point on edge to point
 		return std::make_pair(true, point - nearestEdge);
 	}
+}
+
+std::pair<bool, Vector2> CircleCollider::doesCollide(Plane plane)
+{
+	Vector2 penetration = plane.getNormal();
+	penetration.normalise();
+	float distance = plane.distanceToPlane(m_centre) - m_radius;
+	bool collision = distance < 0;
+	penetration = penetration * -distance;
+	return std::make_pair(collision,penetration);
 }
 
 std::pair<bool, Vector2> CircleCollider::doesCollideWithAABox(AABox * box)

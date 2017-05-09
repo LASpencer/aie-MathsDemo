@@ -9,7 +9,6 @@ using namespace lasmath;
 SceneObject::SceneObject() : m_parent(nullptr), m_collider(nullptr), m_childrenLocked(false), m_deletionFlag(false), m_transferFlag(false), m_transferTargetFlag(false)
 {
 	m_localTransform.setIdentity();
-	calculateGlobalTransform();
 }
 
 
@@ -213,6 +212,11 @@ std::vector<SceneObject*> SceneObject::getDescendants()
 void SceneObject::notifyCollision(SceneObject * other, Vector2 penetration)
 {
 	// No default behaviour
+}
+
+void SceneObject::notifyOutOfBounds(Vector2 penetration)
+{
+	// no default behaviour
 }
 
 Collider * SceneObject::getCollider()

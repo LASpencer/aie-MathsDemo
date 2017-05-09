@@ -6,11 +6,11 @@
 const float Bullet::DEFAULT_SPEED = 100.0f;
 const float Bullet::RADIUS = 5.0f;
 
-Bullet::Bullet() : m_velocity(DEFAULT_SPEED,0)
+Bullet::Bullet() : m_velocity(DEFAULT_SPEED,0), m_dead(false)
 {
 }
 
-Bullet::Bullet(Vector2 position, Vector2 velocity)
+Bullet::Bullet(Vector2 position, Vector2 velocity) : m_dead(false)
 {
 	m_velocity = velocity;
 	m_localTransform.setIdentity();
@@ -28,6 +28,9 @@ void Bullet::update(float deltaTime)
 	// move bullet
 	Vector2 displacement = deltaTime*m_velocity;
 	m_localTransform[2] = m_localTransform[2] + (Vector3)displacement;
+	if (m_dead) {
+		m_parent->removeChild(this);
+	}
 	SceneObject::update(deltaTime);
 }
 
@@ -79,6 +82,14 @@ void Bullet::notifyCollision(SceneObject * other, Vector2 penetration)
 	}
 	
 	
+}
+
+void Bullet::notifyOutOfBounds(Vector2 penetration)
+{
+	//HACK untested, might break program?
+	if (penetration.compareMagnitude(2 * RADIUS) == 1) {
+		m_dead = true;
+	}
 }
 
 

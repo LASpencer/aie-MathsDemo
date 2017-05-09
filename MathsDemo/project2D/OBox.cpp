@@ -2,7 +2,7 @@
 #include "AABox.h"
 #include "CircleCollider.h"
 #include "Ray.h"
-
+#include "Plane.h"
 
 OBox::OBox() : m_xExtent({1,0}), m_yExtent({0,1}), m_centre()
 {
@@ -65,6 +65,23 @@ std::pair<bool, Vector2> OBox::doesCollide(Vector2 point)
 	} else {
 		return std::make_pair(false, Vector2());
 	}
+}
+
+std::pair<bool, Vector2> OBox::doesCollide(Plane plane)
+{
+	bool collision;
+	std::tuple<Vector2, Vector2, Vector2, Vector2> corners = getCorners();
+	Vector2 cornerArr[4] = { std::get<0>(corners), std::get<1>(corners), std::get<2>(corners), std::get<3>(corners) };
+	float minDistance = INFINITY;
+	for (size_t i = 0; i < 4; ++i) {
+		float distance = plane.distanceToPlane(cornerArr[i]);
+		minDistance = std::min(minDistance, distance);
+	}
+	collision = minDistance < 0;
+	Vector2 penetration = plane.getNormal();
+	penetration.normalise();
+	penetration = -minDistance*penetration;
+	return std::make_pair(collision, penetration);
 }
 
 std::pair<bool, Vector2> OBox::doesCollideWithAABox(AABox * box)
@@ -281,6 +298,16 @@ bool OBox::isHitByRay(Ray * ray)
 	return ray->doesCollide(this);
 }
 
+std::tuple<Vector2, Vector2, Vector2, Vector2> OBox::getCorners()
+{
+	Vector2 thisCorners[4];
+	thisCorners[0] = m_centre + m_xExtent + m_yExtent;
+	thisCorners[1] = m_centre + m_xExtent - m_yExtent;
+	thisCorners[2] = m_centre - m_xExtent - m_yExtent;
+	thisCorners[3] = m_centre - m_xExtent + m_yExtent;
+	return std::make_tuple(thisCorners[0], thisCorners[1], thisCorners[2], thisCorners[3]);
+}
+
 Matrix3 OBox::getBoxMatrix()
 {
 	Matrix3 BoxMatrix;
@@ -289,6 +316,16 @@ Matrix3 OBox::getBoxMatrix()
 	BoxMatrix[2] = (Vector3)m_centre;
 	BoxMatrix[2][2] = 1.0f;				// To make it a homogeneous matrix
 	return BoxMatrix;
+}
+
+void OBox::transform(Matrix3 matrix)
+{
+	//TODO
+}
+
+void OBox::fitPoints(std::vector<Vector2> points)
+{
+	//TODO
 }
 
 Matrix3 OBox::getInverseTransform()

@@ -7,6 +7,7 @@ class AABox;
 class OBox;
 class CircleCollider;
 class Ray;
+class Plane;
 
 // Abstract class for collision testing objects
 class Collider
@@ -20,6 +21,8 @@ public:
 	//TODO returns pair of bool, minimum axis of overlap
 	virtual std::pair<bool, Vector2> doesCollide(Collider* other) = 0;
 	virtual std::pair<bool, Vector2> doesCollide(Vector2 point) = 0;
+	// Tests collision with plane and returns penetration
+	virtual std::pair<bool, Vector2> doesCollide(Plane plane) = 0;
 
 	// virtual functions to test collision with each collider subclass
 	//TODO returns pair of bool, minimum axis of overlap

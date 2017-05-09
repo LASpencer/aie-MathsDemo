@@ -1,8 +1,10 @@
 #include <algorithm>
+#include <tuple>
 #include "AABox.h"
 #include "OBox.h"
 #include "CircleCollider.h"
 #include "Ray.h"
+#include "Plane.h"
 
 AABox::AABox()
 {
@@ -60,6 +62,23 @@ std::pair<bool, Vector2> AABox::doesCollide(Vector2 point)
 
 	return	std::make_pair(true, penetration);
 	}
+}
+
+std::pair<bool, Vector2> AABox::doesCollide(Plane plane)
+{
+	bool collision;
+	std::tuple<Vector2, Vector2, Vector2, Vector2> corners = getCorners();
+	Vector2 cornerArr[4] = { std::get<0>(corners), std::get<1>(corners), std::get<2>(corners), std::get<3>(corners) };
+	float minDistance = INFINITY;
+	for (size_t i = 0; i < 4; ++i) {
+		float distance = plane.distanceToPlane(cornerArr[i]);
+		minDistance = std::min(minDistance, distance);
+	}
+	collision = minDistance < 0;
+	Vector2 penetration = plane.getNormal();
+	penetration.normalise();
+	penetration = -minDistance*penetration;
+	return std::make_pair(collision, penetration);
 }
 
 std::pair<bool, Vector2> AABox::doesCollideWithAABox(AABox * box)
@@ -133,6 +152,13 @@ void AABox::setCorners(Vector2 a, Vector2 b)
 		m_min[1] = b[1];
 		m_max[1] = a[1];
 	}
+}
+
+std::tuple<Vector2, Vector2, Vector2, Vector2> AABox::getCorners()
+{
+	Vector2 topLeft = { m_min[0],m_max[1] };
+	Vector2 bottomRight = { m_min[1], m_max[0] };
+	return std::make_tuple(m_min, topLeft, m_max, bottomRight);
 }
 
 void AABox::fitPoints(std::vector<Vector2> points)

@@ -23,11 +23,15 @@ public:
 
 	virtual void notifyCollision(SceneObject* other, Vector2 penetration);
 
+	// Bullet checks if penetration puts it entirely out of bounds and if so is destroyed
+	virtual void notifyOutOfBounds(Vector2 penetration);
+
 	static const float DEFAULT_SPEED;
 	static const float RADIUS;
 
 protected:
 	Vector2 m_velocity;
+	bool m_dead;
 
 	void prepareForTransfer(SceneObject* target);
 
