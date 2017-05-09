@@ -39,6 +39,7 @@ Tank::Tank(Vector2 position) : m_tankSprite(new aie::Texture("./textures/tankGre
 
 Tank::~Tank()
 {
+	delete m_tankSprite;
 }
 
 void Tank::update(float deltaTime)
@@ -123,22 +124,14 @@ void Tank::notifyCollision(SceneObject * other, Vector2 penetration)
 	}
 	else if (dynamic_cast<Obstacle*>(other) != nullptr) {
 		//TODO if obstacle was hit, both pushed back half penetration
-		//HACK replace with globalTranslate
-		Vector2 halfPenetration = 0.5*penetration;
-		if (m_parent != nullptr) {
-			Vector3 localPenetration = (Vector3)halfPenetration;
-			m_parent->getGlobalTransform().transformByInverse(localPenetration);
-			halfPenetration = (Vector2)localPenetration;
-		}
-		m_localTransform[2] = m_localTransform[2] + (Vector3)halfPenetration;
+		globalTranslate(0.5*penetration);
 	}
 }
 
 void Tank::notifyOutOfBounds(Vector2 penetration)
 {
 	// move back into bounds
-	globalTranslate(0.5f*penetration);
-	m_localTransform[2] = m_localTransform[2] + (Vector3)penetration;
+	globalTranslate(penetration);
 }
 
 void Tank::setupCollider()

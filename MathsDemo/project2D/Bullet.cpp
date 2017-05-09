@@ -28,7 +28,7 @@ void Bullet::update(float deltaTime)
 	// move bullet
 	Vector2 displacement = deltaTime*m_velocity;
 	m_localTransform[2] = m_localTransform[2] + (Vector3)displacement;
-	if (m_dead) {
+	if (m_dead && m_parent != nullptr) {
 		m_parent->removeChild(this);
 	}
 	SceneObject::update(deltaTime);
@@ -78,7 +78,8 @@ void Bullet::notifyCollision(SceneObject * other, Vector2 penetration)
 		bounce(penetration);
 	}
 	else if (dynamic_cast<Obstacle*>(other) != nullptr) {
-		//TODO if obstacle was hit, destroy this and the obstacle
+		//if obstacle was hit, destroy bullet
+		m_dead = true;
 	}
 	
 	

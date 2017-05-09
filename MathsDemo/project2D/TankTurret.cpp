@@ -11,6 +11,7 @@ TankTurret::TankTurret() : m_turretSprite(new aie::Texture("./textures/barrelGre
 
 TankTurret::~TankTurret()
 {
+	delete m_turretSprite;
 }
 
 void TankTurret::update(float deltaTime)

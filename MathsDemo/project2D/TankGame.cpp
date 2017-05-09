@@ -1,6 +1,7 @@
 #include "TankGame.h"
 #include "Input.h"
 #include "Tank.h"
+#include "Obstacle.h"
 #include "Wall.h"
 #include "OBox.h"
 
@@ -26,6 +27,13 @@ void TankGame::startup()
 		m_sceneRoot.addChild(new Wall({ 100,100 }, { 600,100 }));
 		m_sceneRoot.addChild(new Wall({ 100,600 }, { 200,300 }));
 		m_sceneRoot.addChild(new Wall({ 1200,100 }, { 1200,400 }));
+		//Add obstacles
+		// TODO different sprites
+		// TODO actual locations
+		m_sceneRoot.addChild(new Obstacle());
+		m_sceneRoot.addChild(new Obstacle());
+		m_sceneRoot.addChild(new Obstacle());
+		m_sceneRoot.addChild(new Obstacle());
 		m_started = true;
 	}
 }
