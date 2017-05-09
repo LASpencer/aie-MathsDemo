@@ -27,6 +27,7 @@ void Bullet::update(float deltaTime)
 {
 	// move bullet
 	Vector2 displacement = deltaTime*m_velocity;
+	//HACK try with translate instead
 	m_localTransform[2] = m_localTransform[2] + (Vector3)displacement;
 	if (m_dead && m_parent != nullptr) {
 		m_parent->removeChild(this);
