@@ -36,17 +36,50 @@ void Game3D::startup()
 			1280.0f/ 720.0f,		//HACK until I write a way to get it from the application2d object
 			0.1f, 1000.f);
 		m_time = 0.0f;
+
+		m_cameraTurn = 0.0f;
+		m_pitch = 0.0f;
+		m_yaw = 0.0f;
+		m_roll = 0.0f;
+
 		m_started = true;
 	}
 }
 
 void Game3D::update(float deltaTime)
 {
-	// query time since application started
+	// set time since application started
 	m_time += deltaTime;
 
+	// get input
+	aie::Input* input = aie::Input::getInstance();
+	if (input->isKeyDown(aie::INPUT_KEY_RIGHT)) {
+		m_cameraTurn +=  deltaTime;
+	}
+	else if (input->isKeyDown(aie::INPUT_KEY_LEFT)) {
+		m_cameraTurn -=  deltaTime;
+	}
+	if (input->isKeyDown(aie::INPUT_KEY_A)) {
+		m_yaw += deltaTime;
+	}
+	else if (input->isKeyDown(aie::INPUT_KEY_D)) {
+		m_yaw -= deltaTime;
+	}
+	if (input->isKeyDown(aie::INPUT_KEY_Q)) {
+		m_roll += deltaTime;
+	}
+	else if (input->isKeyDown(aie::INPUT_KEY_E)) {
+		m_roll -= deltaTime;
+	}
+	if (input->isKeyDown(aie::INPUT_KEY_S)) {
+		m_pitch += deltaTime;
+	}
+	else if (input->isKeyDown(aie::INPUT_KEY_W)) {
+		m_pitch -= deltaTime;
+	}
+
 	// rotate camera
-	m_viewMatrix = glm::lookAt(vec3(glm::sin(m_time) * 10, 10, glm::cos(m_time) * 10),
+	m_viewMatrix = glm::lookAt(vec3(glm::sin(m_cameraTurn) * 10, 10, glm::cos(m_cameraTurn) * 10),
 							   vec3(0), vec3(0, 1, 0));
 
 	// wipe the gizmos clean for this frame
@@ -74,12 +107,20 @@ void Game3D::update(float deltaTime)
 	Gizmos::addDisk(vec3(-5, 0, 5), 1, 16, vec4(1, 1, 0, 1));
 	Gizmos::addArc(vec3(-5, 0, -5), 0, 2, 1, 8, vec4(1, 0, 1, 1));
 
-	mat4 t = glm::rotate(m_time, glm::normalize(vec3(1, 1, 1)));
-	t[3] = vec4(-2, 0, 0, 1);
-	Gizmos::addCylinderFilled(vec3(0), 0.5f, 1, 5, vec4(0, 1, 1, 1), &t);
+	Matrix4 rotate;
+	rotate.setTaitBryanRotate(m_yaw, m_pitch, m_roll);
+	rotate[3] = { -2,0,0,1 };
+	
+	//HACK use adaptor class to convert
+	// TODO make lasmath to glm adaptor
+	mat4 t = mat4(rotate[0][0], rotate[0][1], rotate[0][2], rotate[0][3],
+		rotate[1][0], rotate[1][1], rotate[1][2], rotate[1][3],
+		rotate[2][0], rotate[2][1], rotate[2][2], rotate[2][3],
+		rotate[3][0], rotate[3][1], rotate[3][2], rotate[3][3]);
+	//mat4 t = glm::rotate(m_time, glm::normalize(vec3(1, 1, 1)));
+	//t[3] = vec4(-2, 0, 0, 1);
 
-	// quit if we press escape
-	aie::Input* input = aie::Input::getInstance();
+	Gizmos::addCylinderFilled(vec3(0), 0.5f, 1, 5, vec4(0, 1, 1, 1), &t);
 }
 
 void Game3D::draw(aie::Renderer2D *)

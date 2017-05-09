@@ -18,6 +18,10 @@ public:
 
 protected:
 	float m_time;
+	float m_cameraTurn; //HACK
+	float m_pitch;
+	float m_yaw;
+	float m_roll;
 	glm::mat4	m_viewMatrix;
 	glm::mat4	m_projectionMatrix;
 };

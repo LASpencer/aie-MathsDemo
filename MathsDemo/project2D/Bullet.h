@@ -33,8 +33,6 @@ protected:
 	Vector2 m_velocity;
 	bool m_dead;
 
-	void prepareForTransfer(SceneObject* target);
-
 	virtual void setupCollider();
 };
 

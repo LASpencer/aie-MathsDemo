@@ -94,11 +94,6 @@ void Bullet::notifyOutOfBounds(Vector2 penetration)
 }
 
 
-void Bullet::prepareForTransfer(SceneObject * target)
-{
-	//TODO change direction to match new parent
-}
-
 void Bullet::setupCollider()
 {
 	if (m_collider == nullptr) {
