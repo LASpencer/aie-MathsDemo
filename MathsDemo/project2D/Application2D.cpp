@@ -15,10 +15,7 @@ bool Application2D::startup() {
 	
 	m_2dRenderer = new aie::Renderer2D();
 
-	m_texture = new aie::Texture("./textures/numbered_grid.tga");
-	m_shipTexture = new aie::Texture("./textures/ship.png");
 	m_font = new aie::Font("./font/consolas.ttf", 32);
-	m_audio = new aie::Audio("./audio/powerup.wav");
 	m_tankGame = new TankGame();
 	m_armGame = new RobotArmGame();
 	m_3dGame = new Game3D();
@@ -39,10 +36,7 @@ void Application2D::shutdown() {
 	delete m_3dGame;
 	delete m_armGame;
 	delete m_tankGame;
-	delete m_audio;
 	delete m_font;
-	delete m_texture;
-	delete m_shipTexture;
 	delete m_2dRenderer;
 }
 

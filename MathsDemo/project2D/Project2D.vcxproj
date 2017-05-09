@@ -97,6 +97,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Collider3D.cpp" />
     <ClCompile Include="Crate.cpp" />
     <ClCompile Include="Game3D.cpp" />
     <ClCompile Include="GameMode.cpp" />
@@ -109,6 +110,7 @@
     <ClCompile Include="RobotArmGame.cpp" />
     <ClCompile Include="RobotHand.cpp" />
     <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="SceneObject3D.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TankGame.cpp" />
     <ClCompile Include="TankTurret.cpp" />
@@ -121,6 +123,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="Collider3D.h" />
     <ClInclude Include="Crate.h" />
     <ClInclude Include="Game3D.h" />
     <ClInclude Include="GameMode.h" />
@@ -132,6 +135,7 @@
     <ClInclude Include="RobotArmGame.h" />
     <ClInclude Include="RobotHand.h" />
     <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="SceneObject3D.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="TankGame.h" />
     <ClInclude Include="TankTurret.h" />
