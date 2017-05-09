@@ -67,6 +67,7 @@ public:
 	// Fit OBox around points given
 	void fitPoints(std::vector<Vector2> points);
 
+
 	// Calculates transformation matrix that would make this an AABox with corners (-1,-1) and (1,1)
 	Matrix3 getInverseTransform();
 

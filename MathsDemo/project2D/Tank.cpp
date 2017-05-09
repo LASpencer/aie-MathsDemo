@@ -4,6 +4,8 @@
 #include "TankTurret.h"
 #include "Bullet.h"
 #include "OBox.h"
+#include "Wall.h"
+#include "Obstacle.h"
 
 const int Tank::LEFT_TURN_KEY = aie::INPUT_KEY_A;
 const int Tank::RIGHT_TURN_KEY = aie::INPUT_KEY_D;
@@ -15,9 +17,9 @@ const int Tank::RIGHT_AIM_KEY = aie::INPUT_KEY_RIGHT;
 
 const float Tank::AIM_RATE = 1.5f;
 const float Tank::TURN_RATE = 1.0f;
-const float Tank::FORWARD_SPEED = 50.0f;
-const float Tank::REVERSE_SPEED = 37.5f;
-const float Tank::BULLET_COOLDOWN = 0.75f;
+const float Tank::FORWARD_SPEED = 75.0f;
+const float Tank::REVERSE_SPEED = 50.0f;
+const float Tank::BULLET_COOLDOWN = 0.5f;
 const float Tank::BARREL_LENGTH = 50.0f + Bullet::RADIUS;
 
 Tank::Tank() : m_tankSprite(new aie::Texture("./textures/tankGreen.png")), m_turret(new TankTurret()), m_bulletCD(0.0f)
@@ -116,7 +118,38 @@ void Tank::fireBullet()
 void Tank::notifyCollision(SceneObject * other, Vector2 penetration)
 {
 	//TODO if wall was hit, stop moving
-	//TODO if obstacle was hit, both pushed back half penetration
+	if (dynamic_cast<Wall*>(other) != nullptr) {
+		//HACK replace with globalTranslate
+		if (m_parent != nullptr) {
+			Vector3 localPenetration = (Vector3)penetration;
+			m_parent->getGlobalTransform().transformByInverse(localPenetration);
+			penetration = (Vector2)localPenetration;
+		}
+		m_localTransform[2] = m_localTransform[2] + (Vector3)penetration;
+	}
+	else if (dynamic_cast<Obstacle*>(other) != nullptr) {
+		//TODO if obstacle was hit, both pushed back half penetration
+		//HACK replace with globalTranslate
+		Vector2 halfPenetration = 0.5*penetration;
+		if (m_parent != nullptr) {
+			Vector3 localPenetration = (Vector3)halfPenetration;
+			m_parent->getGlobalTransform().transformByInverse(localPenetration);
+			halfPenetration = (Vector2)localPenetration;
+		}
+		m_localTransform[2] = m_localTransform[2] + (Vector3)halfPenetration;
+	}
+}
+
+void Tank::notifyOutOfBounds(Vector2 penetration)
+{
+	// move back into bounds
+	//HACK replace with globalTranslate
+	if (m_parent != nullptr) {
+		Vector3 localPenetration = (Vector3)penetration;
+		m_parent->getGlobalTransform().transformByInverse(localPenetration);
+		penetration = (Vector2)localPenetration;
+	}
+	m_localTransform[2] = m_localTransform[2] + (Vector3)penetration;
 }
 
 void Tank::setupCollider()
@@ -124,7 +157,6 @@ void Tank::setupCollider()
 	if (m_collider == nullptr) {
 		m_collider = new OBox();
 	}
-	// TODO include turret? Or turret's collision informs tank?
 	((OBox*)m_collider)->setHalfExtents((Vector2)m_globalTransform[0] * 37.5, (Vector2)m_globalTransform[1] * 35);
 	((OBox*)m_collider)->setCentre((Vector2)m_globalTransform[2]);
 }

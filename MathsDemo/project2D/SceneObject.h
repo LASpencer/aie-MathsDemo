@@ -29,6 +29,8 @@ public:
 	void translate(const Vector2& vec);
 	void transform(const Matrix3& transformation);
 
+	//TODO: global translate, transforms vec by inverse of parent's global transform
+
 	virtual void update(float deltaTime);
 
 	virtual void draw(aie::Renderer2D* renderer);

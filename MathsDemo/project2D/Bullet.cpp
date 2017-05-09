@@ -3,7 +3,7 @@
 #include "Obstacle.h"
 #include "CircleCollider.h"
 
-const float Bullet::DEFAULT_SPEED = 100.0f;
+const float Bullet::DEFAULT_SPEED = 150.0f;
 const float Bullet::RADIUS = 5.0f;
 
 Bullet::Bullet() : m_velocity(DEFAULT_SPEED,0), m_dead(false)
