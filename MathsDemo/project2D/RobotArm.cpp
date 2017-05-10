@@ -48,6 +48,7 @@ void RobotArm::update(float deltaTime)
 	bool wristRight = input->isKeyDown(WRIST_RIGHT_KEY);
 	bool moveLeft = input->isKeyDown(MOVE_LEFT_KEY);
 	bool moveRight = input->isKeyDown(MOVE_RIGHT_KEY);
+	bool toggleGrip = input->wasKeyPressed(GRIP_KEY);
 	if (shoulderLeft && !shoulderRight) {
 		m_shoulder->rotate(SHOULDER_TURN_RATE*deltaTime);
 	}
@@ -66,6 +67,7 @@ void RobotArm::update(float deltaTime)
 	else if (wristRight && !wristLeft) {
 		m_hand->rotate(-WRIST_TURN_RATE*deltaTime);
 	}
+	// move left or right
 	if (moveLeft && !moveRight) {
 		translate({ -MOVE_RATE*deltaTime, 0 });
 	}
@@ -74,7 +76,16 @@ void RobotArm::update(float deltaTime)
 	}
 
 	// TODO arm can try to grab things
-	// TODO arm moves left and right
+	if (toggleGrip) {
+		if (m_hand->getState() == RobotHandState::EMPTY) {
+			m_hand->setState(RobotHandState::GRABBING);
+		} else if (m_hand->getState() == RobotHandState::HOLDING){
+			m_hand->setState(RobotHandState::RELEASING);
+		}
+	}
+	else if (m_hand->getState() == RobotHandState::GRABBING) {
+		m_hand->setState(RobotHandState::EMPTY);
+	}
 
 	SceneObject::update(deltaTime);
 }

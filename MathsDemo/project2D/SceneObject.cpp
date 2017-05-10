@@ -209,6 +209,20 @@ bool SceneObject::safeForTransfer()
 
 }
 
+SceneObject * SceneObject::getParent()
+{
+	return m_parent;
+}
+
+SceneObject * SceneObject::getRoot()
+{
+	if (m_parent == nullptr) {
+		return this;
+	} else{
+		return m_parent->getRoot();
+	}
+}
+
 std::vector<SceneObject*> SceneObject::getDescendants()
 {
 	std::vector<SceneObject*> descendants;

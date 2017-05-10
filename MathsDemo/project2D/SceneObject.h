@@ -44,6 +44,10 @@ public:
 
 	bool safeForTransfer();
 
+	SceneObject* getParent();
+
+	SceneObject* getRoot();
+
 	std::vector<SceneObject*> getDescendants();
 
 	virtual void notifyCollision(SceneObject* other, Vector2 penetration);

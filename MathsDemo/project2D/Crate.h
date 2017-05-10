@@ -16,11 +16,20 @@ public:
 
 	virtual void notifyOutOfBounds(Vector2 penetration);
 
+	bool isHeld() {
+		return m_held;
+	}
+
+	void setHeld(bool held) {
+		m_held = held;
+	}
+
 	static const char* DEFAULT_SPRITE;
 
 protected:
 	aie::Texture* m_sprite;
 	float m_width, m_height;
+	bool m_held;
 
 	virtual void setupCollider();
 };

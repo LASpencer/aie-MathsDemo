@@ -1,17 +1,18 @@
 #include "Crate.h"
 #include "Texture.h"
 #include "OBox.h"
+#include "RobotHand.h"
 
 const char* Crate::DEFAULT_SPRITE = "./textures/tankBeige.png";
 
-Crate::Crate() : m_sprite(new aie::Texture(DEFAULT_SPRITE))
+Crate::Crate() : m_sprite(new aie::Texture(DEFAULT_SPRITE)), m_held(false)
 {
 	m_width = m_sprite->getWidth();
 	m_height = m_sprite->getHeight();
 	m_localTransform.setIdentity();
 }
 
-Crate::Crate(Vector2 position, const char * sprite) : m_sprite(new aie::Texture(sprite))
+Crate::Crate(Vector2 position, const char * sprite) : m_sprite(new aie::Texture(sprite)), m_held(false)
 {
 	m_width = m_sprite->getWidth();
 	m_height = m_sprite->getHeight();
@@ -43,18 +44,37 @@ void Crate::draw(aie::Renderer2D * renderer)
 
 void Crate::notifyCollision(SceneObject * other, Vector2 penetration)
 {
-	if (dynamic_cast<Crate*>(other) != nullptr) {
-		// if crate was hit, move back half penetration
-		globalTranslate(0.5f * penetration);
+	if (m_held) {
+		// if held by robot hand, pass collision on to parent
+		if (m_parent != other && dynamic_cast<RobotHand*>(m_parent) != nullptr) {
+			m_parent->notifyCollision(other, penetration);
+		}
 	}
-	//TODO check if hit by robot hand, be grabbed if it's trying to grab
-	//TODO if not held, maybe arm parts push it around?
+	else {
+		if (dynamic_cast<Crate*>(other) != nullptr) {
+			if (((Crate*)other)->m_held) {
+				// if crate in hand, move back penetration
+				globalTranslate(penetration);
+			}
+			else {
+				// if crate is free, move back half penetration
+				globalTranslate(0.5f * penetration);
+			}
+		}
+		//TODO check if hit by robot hand, be grabbed if it's trying to grab
+		//TODO if not held, maybe arm parts push it around?
+	}
 }
-
 void Crate::notifyOutOfBounds(Vector2 penetration)
 {
-	// move back into bounds
-	globalTranslate(penetration);
+	if (m_held && m_parent != nullptr) {
+		// if held, inform parent
+		m_parent->notifyOutOfBounds(penetration);
+	}
+	else {
+		// move back into bounds
+		globalTranslate(penetration);
+	}
 }
 
 void Crate::setupCollider()
