@@ -45,7 +45,9 @@ void Game3D::startup()
 
 		// add planets to root
 		m_sceneRoot.addChild(new Planet(1, 4, 0, 0.5f, 0, 0.5f, 0.1f));
-
+		Planet* planet1 = new Planet(1, 7, 1.5f, 0.1f, 1, 0.3f, 0);
+		planet1->addChild(new Planet(0.2f, 2, 0, 0, 0, 2, 0));
+		m_sceneRoot.addChild(planet1);
 		m_started = true;
 	}
 }

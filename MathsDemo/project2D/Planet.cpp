@@ -28,7 +28,10 @@ void Planet::update(float deltaTime)
 	m_anomaly += deltaTime * m_rotationRate;
 	m_argument += deltaTime * m_precession;
 	rotate.setEulerRotate(m_argument, m_inclination, m_anomaly);
-	rotate = flipAxes * rotate;
+	// if not orbiting a planet, flip axes so Y is up
+	if (dynamic_cast<Planet*>(m_parent) == nullptr) {
+		rotate = flipAxes * rotate;
+	}
 	//HACK try with flipped axes, see how it looks
 	position.setIdentity();
 	position[3][0] = m_distance;
