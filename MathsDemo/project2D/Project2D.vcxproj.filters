@@ -120,6 +120,9 @@
     <ClCompile Include="Planet.cpp">
       <Filter>Source Files\3D Game</Filter>
     </ClCompile>
+    <ClCompile Include="GLMAdaptor.cpp">
+      <Filter>Source Files\3D Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application2D.h">
@@ -192,6 +195,9 @@
       <Filter>Header Files\3D Game</Filter>
     </ClInclude>
     <ClInclude Include="Planet.h">
+      <Filter>Header Files\3D Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GLMAdaptor.h">
       <Filter>Header Files\3D Game</Filter>
     </ClInclude>
   </ItemGroup>

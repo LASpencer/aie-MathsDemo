@@ -22,7 +22,7 @@ bool Application2D::startup() {
 
 	//// Start with TankGame
 	//m_game = m_tankGame;
-	m_game = m_armGame;
+	m_game = m_3dGame;
 	m_game->startup();
 
 	m_cameraX = 0;

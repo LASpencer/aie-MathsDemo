@@ -2,6 +2,7 @@
 
 #include "Gizmos.h"
 #include "Input.h"
+#include "Planet.h"
 //HACK can I reimplement this myself?
 //TODO GizmoAdapter class, so I can use my maths library to control gizmos
 #include <glm/glm.hpp>
@@ -41,6 +42,9 @@ void Game3D::startup()
 		m_pitch = 0.0f;
 		m_yaw = 0.0f;
 		m_roll = 0.0f;
+
+		// add planets to root
+		m_sceneRoot.addChild(new Planet(1, 4, 0, 0.5f, 0, 0.5f, 0.1f));
 
 		m_started = true;
 	}
@@ -135,6 +139,10 @@ void Game3D::update(float deltaTime)
 		rotate[2][0], rotate[2][1], rotate[2][2], rotate[2][3],
 		rotate[3][0], rotate[3][1], rotate[3][2], rotate[3][3]);
 	Gizmos::addSphere(vec3(5, 0, 5), 1, 8, 8, vec4(1, 0, 0, 0.5f), &t);
+
+	// Update scene root
+	m_sceneRoot.update(deltaTime);
+	m_sceneRoot.updateChildList();
 }
 
 void Game3D::draw(aie::Renderer2D *)

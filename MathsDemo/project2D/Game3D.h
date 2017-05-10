@@ -1,5 +1,6 @@
 #pragma once
 #include "GameMode.h"
+#include "SceneObject3D.h"
 //HACK remove when I figure out how to do this myself
 #include <glm/mat4x4.hpp>
 
@@ -22,6 +23,7 @@ protected:
 	float m_pitch;
 	float m_yaw;
 	float m_roll;
+	SceneObject3D m_sceneRoot;
 	glm::mat4	m_viewMatrix;
 	glm::mat4	m_projectionMatrix;
 };

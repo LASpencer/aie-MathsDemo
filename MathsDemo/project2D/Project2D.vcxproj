@@ -101,6 +101,7 @@
     <ClCompile Include="Crate.cpp" />
     <ClCompile Include="Game3D.cpp" />
     <ClCompile Include="GameMode.cpp" />
+    <ClCompile Include="GLMAdaptor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OBox.cpp" />
     <ClCompile Include="Obstacle.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="Crate.h" />
     <ClInclude Include="Game3D.h" />
     <ClInclude Include="GameMode.h" />
+    <ClInclude Include="GLMAdaptor.h" />
     <ClInclude Include="OBox.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Plane.h" />

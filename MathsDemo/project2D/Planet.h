@@ -9,7 +9,10 @@ public:
 		float argument, float rotationRate, float precession);
 	~Planet();
 
-	
+	virtual void update(float deltaTime);
+	static const int ROWS;
+	static const int COLUMNS;
+
 protected:
 	float m_distance;		//distance from parent object
 	float m_anomaly;		//current rotation along orbit

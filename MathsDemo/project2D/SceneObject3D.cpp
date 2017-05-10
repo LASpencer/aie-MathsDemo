@@ -4,6 +4,8 @@ using namespace lasmath;
 
 SceneObject3D::SceneObject3D() : m_parent(nullptr), m_childrenLocked(false)
 {
+	m_localTransform.setIdentity();
+	calculateGlobalTransform();
 }
 
 
