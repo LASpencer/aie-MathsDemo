@@ -50,6 +50,7 @@ void RobotHand::notifyCollision(SceneObject * other, Vector2 penetration)
 				if (canGrab) {
 					((Crate*)other)->setHeld(true);
 					m_heldCrate = (Crate*)other;
+					setState(RobotHandState::HOLDING);
 				}
 			}
 		}
