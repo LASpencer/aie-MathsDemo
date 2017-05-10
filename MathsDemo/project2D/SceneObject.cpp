@@ -286,6 +286,8 @@ void SceneObject::performChildTransfer(SceneObject * child, SceneObject * target
 			child->prepareForTransfer(target);
 			// Child's parent reset to nullptr;
 			child->m_parent = nullptr;
+			// Child's local transform set to newLocalTransform
+			child->setLocalTransform(newLocalTransform);
 			// Child removed from m_children
 			m_children.erase(std::remove(m_children.begin(), m_children.end(), child), m_children.end());
 			// Child added to target
