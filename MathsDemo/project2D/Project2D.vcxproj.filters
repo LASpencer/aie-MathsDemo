@@ -117,6 +117,9 @@
     <ClCompile Include="SceneObject3D.cpp">
       <Filter>Source Files\3D Game</Filter>
     </ClCompile>
+    <ClCompile Include="Planet.cpp">
+      <Filter>Source Files\3D Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application2D.h">
@@ -186,6 +189,9 @@
       <Filter>Header Files\3D Game\Collision</Filter>
     </ClInclude>
     <ClInclude Include="SceneObject3D.h">
+      <Filter>Header Files\3D Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Planet.h">
       <Filter>Header Files\3D Game</Filter>
     </ClInclude>
   </ItemGroup>

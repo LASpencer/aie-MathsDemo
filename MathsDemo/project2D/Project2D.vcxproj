@@ -105,6 +105,7 @@
     <ClCompile Include="OBox.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RobotArm.cpp" />
     <ClCompile Include="RobotArmGame.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="OBox.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Plane.h" />
+    <ClInclude Include="Planet.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RobotArm.h" />
     <ClInclude Include="RobotArmGame.h" />
