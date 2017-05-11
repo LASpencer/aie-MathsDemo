@@ -28,3 +28,53 @@ mat4 GLMAdaptor::Matrix4Converter(const lasmath::Matrix4 & matrix)
 			matrix[2][0], matrix[2][1], matrix[2][2], matrix[2][3],
 			matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3]);
 }
+
+lasmath::Matrix4 GLMAdaptor::LookAt(const lasmath::Vector3 & eye, const lasmath::Vector3 & centre, const lasmath::Vector3 & up)
+{
+	lasmath::Matrix4 rotationMatrix, translationMatrix, transform, lookatMatrix;
+	// Move to eye
+	lasmath::Vector3 translation =  eye;
+	//zAxis is normal vector pointing from centre to eye
+	lasmath::Vector3 zAxis = eye-centre;
+	bool zValid = zAxis.normalise();
+	if(!zValid){
+		//If eye at centre, set z axis to [0,0,1]
+		zAxis = { 0,0,1 };
+	}
+	//xAxis is normal vector perpendicular to zAxis and up
+	lasmath::Vector3 xAxis = up.cross(zAxis);
+	bool xValid = xAxis.normalise();
+	if(!xValid) {
+		// If up and zAxis parallel, set xAxis to normal vector orthogonal to zAxis
+		xAxis = { zAxis[2],zAxis[2],-(zAxis[0]+zAxis[1]) };
+		xValid = xAxis.normalise();
+		if (!xValid) {
+			//if zAxis[0] == -zAxis[1] and zAxis[2]==0, pick this vector instead
+			xAxis = { -(zAxis[1]+zAxis[2]),zAxis[0],zAxis[0]};
+			xAxis.normalise();
+		}
+	}
+	//yAxis is normal vector perpendicular to xAxis and zAxis
+	lasmath::Vector3 yAxis = zAxis.cross(xAxis);
+	zAxis.normalise();
+	translationMatrix.setIdentity();
+	translationMatrix[3] += (lasmath::Vector4)translation;
+	rotationMatrix.setIdentity();
+	rotationMatrix[0] = (lasmath::Vector4)xAxis;
+	rotationMatrix[1] = (lasmath::Vector4)yAxis;
+	rotationMatrix[2] = (lasmath::Vector4)zAxis;
+	transform = translationMatrix * rotationMatrix;
+	// Invert transformation to get lookatMatrix
+	transform.calculateInverse(lookatMatrix);
+	return lookatMatrix;
+}
+
+lasmath::Matrix4 GLMAdaptor::Perspective(float fovy, float aspect, float near, float far)
+{
+	float invHalfTan = 1.0f / tanf(fovy*0.5f);
+	lasmath::Matrix4 projection = lasmath::Matrix4(invHalfTan / aspect, 0, 0, 0,
+													0, invHalfTan, 0, 0,
+													0, 0, (near + far) / (near - far), -1,
+													0, 0, 2 * near*far / (near - far), 0);
+	return projection;
+}

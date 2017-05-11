@@ -95,6 +95,7 @@
     <ClCompile Include="Application2D.cpp" />
     <ClCompile Include="ArmPart.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Collider3D.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="Application2D.h" />
     <ClInclude Include="ArmPart.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Collider3D.h" />

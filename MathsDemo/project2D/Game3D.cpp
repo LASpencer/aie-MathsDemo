@@ -1,16 +1,12 @@
 #include "Game3D.h"
-#include <glm/glm.hpp>
-#include <glm/ext.hpp>
 #include "Application2D.h"
+#include "GLMAdaptor.h"
 #include "Gizmos.h"
 #include "Input.h"
 #include "Planet.h"
 #include "Rocket.h"
+#include "Camera.h"
 
-
-using glm::vec3;
-using glm::vec4;
-using glm::mat4;
 using aie::Gizmos;
 
 Game3D::Game3D()
@@ -31,9 +27,9 @@ void Game3D::startup()
 		Gizmos::create(10000, 10000, 10000, 10000);
 
 		// create simple camera transforms
-		m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
-		m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f,
-			1280.0f/ 720.0f,		//HACK until I write a way to get it from the application2d object
+		//m_viewMatrix = GLMAdaptor::LookAt({ 10,10,10 }, { 0,0,0 }, { 0,1,0 });	//TODO look at rocket
+		m_projectionMatrix = GLMAdaptor::Perspective(3.14159265f * 0.25f,
+			1280.0f / 720.0f,		//HACK until I write a way to get it from the application2d object
 			0.1f, 1000.f);
 		m_time = 0.0f;
 
@@ -52,7 +48,23 @@ void Game3D::startup()
 		planet1->addChild(new Planet(0.2f, 2, 2, 0, 0, 0, 0, {0.56f,0.56f,0.6f,0.5f}));
 		m_sceneRoot.addChild(planet1);
 		// add rocket
-		m_sceneRoot.addChild(new Rocket());
+		m_rocket = new Rocket();
+		m_sceneRoot.addChild(m_rocket);
+		m_rocketCamera = new Camera(5,0,1);
+		//HACK until camera finished
+		//m_rocketCamera->setLocalTransform(Matrix4(1, 0, 0, 0,
+		//	0, 1, 0, 0,
+		//	0, 0, 1, 0,
+		//	0, -5, 5, 1));
+		m_rocket->addChild(m_rocketCamera);
+		m_worldCamera = new Camera(10,0, 3.1415926f*0.25);
+		//m_worldCamera->setLocalTransform(Matrix4(1, 0, 0, 0,
+		//	0, 1, 0, 0,
+		//	0, 0, 1, 0,
+		//	10, 10, 10, 1));
+		m_sceneRoot.addChild(m_worldCamera);
+		m_camera = m_worldCamera;
+		m_viewMatrix = m_camera->lookAt();
 		m_started = true;
 	}
 }
@@ -65,16 +77,42 @@ void Game3D::update(float deltaTime)
 	// get input
 	aie::Input* input = aie::Input::getInstance();
 	if (input->isKeyDown(aie::INPUT_KEY_RIGHT)) {
-		m_cameraTurn +=  deltaTime;
+		//TODO pan right
+		m_camera->pan(deltaTime*Camera::PAN_RATE);
 	}
 	else if (input->isKeyDown(aie::INPUT_KEY_LEFT)) {
-		m_cameraTurn -=  deltaTime;
+		//TODO pan left
+		m_camera->pan(-deltaTime*Camera::PAN_RATE);
+	}
+	if (input->isKeyDown(aie::INPUT_KEY_UP)) {
+		//TODO tilt up
+		m_camera->tilt(deltaTime*Camera::TILT_RATE);
+	}
+	else if (input->isKeyDown(aie::INPUT_KEY_DOWN)) {
+		//TODO tilt down
+		m_camera->tilt(-deltaTime*Camera::TILT_RATE);
+	}
+	if (input->isKeyDown(aie::INPUT_KEY_RIGHT_SHIFT)) {
+		//TODO zoom in
+		m_camera->zoom(-deltaTime*Camera::ZOOM_RATE);
+	}
+	else if (input->isKeyDown(aie::INPUT_KEY_RIGHT_CONTROL)) {
+		//TODO zoom out
+		m_camera->zoom(deltaTime*Camera::ZOOM_RATE);
+	}
+	//switch cameras
+	if (input->wasKeyPressed(aie::INPUT_KEY_V)) {
+		if (m_camera = m_worldCamera) {
+			m_camera = m_rocketCamera;
+		}
+		else {
+			m_camera = m_worldCamera;
+		}
 	}
 
 	//TODO camera follows rocket?
 	// rotate camera
-	m_viewMatrix = glm::lookAt(vec3(glm::cos(m_cameraTurn) * -10, 10, glm::sin(m_cameraTurn) * 10),
-							   vec3(0), vec3(0, 1, 0));
+	//m_viewMatrix = GLMAdaptor::LookAt(Vector3(cosf(m_cameraTurn)*-10,10,sinf(m_cameraTurn)*10),Vector3(0,0,0), Vector3(0,1,0));
 
 	// wipe the gizmos clean for this frame
 	Gizmos::clear();
@@ -132,10 +170,11 @@ void Game3D::update(float deltaTime)
 
 	// Update scene root
 	m_sceneRoot.update(deltaTime);
+	m_viewMatrix = m_camera->lookAt();
 	m_sceneRoot.updateChildList();
 }
 
 void Game3D::draw(aie::Renderer2D *)
 {
-	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
+	Gizmos::draw(GLMAdaptor::Matrix4Converter(m_projectionMatrix * m_viewMatrix));
 }

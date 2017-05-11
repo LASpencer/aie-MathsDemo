@@ -10,8 +10,8 @@ const float Rocket::TURN_RATE = 1;
 const float Rocket::SPIN_RATE = 2;
 const float Rocket::ACCELERATION = 0.001f;
 const float Rocket::MAX_SPEED = 0.05f;
-const size_t Rocket::SEGMENTS = 5;
-const Vector4 Rocket::COLOUR = {0,1,1,1};
+const size_t Rocket::SEGMENTS = 10;
+const Vector4 Rocket::COLOUR = {0,0.6f,1,1};
 
 const int Rocket::THRUST_KEY = aie::INPUT_KEY_SPACE;
 
@@ -55,11 +55,13 @@ void Rocket::update(float deltaTime)
 		pitch -= deltaTime * TURN_RATE;
 	}
 	if (input->isKeyDown(THRUST_KEY)) {
-		if (m_velocity.compareMagnitude(MAX_SPEED) == -1) {
-			//Add acceleration (transformed by matrix) to velocity
-			Vector3 deltaV = { 0, ACCELERATION,0 };
-			deltaV = (Vector3)(m_localTransform * (Vector4)deltaV);
-			m_velocity += deltaV;
+		//Calculate change in velocity
+		Vector3 deltaV = { 0, ACCELERATION,0 };		// Cylinder is y-axis aligned
+		deltaV = (Vector3)(m_localTransform * (Vector4)deltaV);
+		Vector3 newVelocity = m_velocity + deltaV;
+		// If new velocity less than max speed, set as velocity
+		if (newVelocity.compareMagnitude(MAX_SPEED) == -1) {
+			m_velocity = newVelocity;
 		}
 	}
 	turn.setTaitBryanRotate(yaw, roll,pitch);

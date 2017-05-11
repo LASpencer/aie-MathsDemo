@@ -33,9 +33,10 @@ void Planet::update(float deltaTime)
 	position[3][0] = m_distance;
 	position = rotate * position;
 	m_localTransform = position;
-	calculateGlobalTransform();
-	Vector3 centre = (Vector3)m_globalTransform[3];
 	//TODO transform matrix spinning the sphere
-	aie::Gizmos::addSphere(GLMAdaptor::Vector3Converter(centre), m_radius,ROWS,COLUMNS, GLMAdaptor::Vector4Converter(m_colour));
+	calculateGlobalTransform();
 	SceneObject3D::update(deltaTime);
+	mat4 transform = GLMAdaptor::Matrix4Converter(m_globalTransform);
+	aie::Gizmos::addSphere(vec3(0), m_radius,ROWS,COLUMNS, GLMAdaptor::Vector4Converter(m_colour), &transform);
+
 }

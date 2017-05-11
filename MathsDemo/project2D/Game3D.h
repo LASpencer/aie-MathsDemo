@@ -1,10 +1,10 @@
 #pragma once
 #include "GameMode.h"
 #include "SceneObject3D.h"
-//HACK remove when I figure out how to do this myself
-#include <glm/mat4x4.hpp>
+#include "Matrix.h"
 
-//TODO this is just to test the idea works. Remove/refactor depending on choices
+class Rocket;
+class Camera;
 
 class Game3D :
 	public GameMode
@@ -24,7 +24,11 @@ protected:
 	float m_yaw;
 	float m_roll;
 	SceneObject3D m_sceneRoot;
-	glm::mat4	m_viewMatrix;
-	glm::mat4	m_projectionMatrix;
+	Rocket*		m_rocket;
+	Camera*		m_camera;
+	Camera*		m_rocketCamera;
+	Camera*		m_worldCamera;
+	Matrix4		m_viewMatrix;
+	Matrix4		m_projectionMatrix;
 };
 
