@@ -111,6 +111,8 @@
     <ClCompile Include="RobotArm.cpp" />
     <ClCompile Include="RobotArmGame.cpp" />
     <ClCompile Include="RobotHand.cpp" />
+    <ClCompile Include="Rocket.cpp" />
+    <ClCompile Include="RocketCockpit.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="SceneObject3D.cpp" />
     <ClCompile Include="Tank.cpp" />
@@ -138,6 +140,8 @@
     <ClInclude Include="RobotArm.h" />
     <ClInclude Include="RobotArmGame.h" />
     <ClInclude Include="RobotHand.h" />
+    <ClInclude Include="Rocket.h" />
+    <ClInclude Include="RocketCockpit.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="SceneObject3D.h" />
     <ClInclude Include="Tank.h" />
