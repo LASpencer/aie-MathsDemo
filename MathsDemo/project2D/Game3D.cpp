@@ -71,6 +71,7 @@ void Game3D::update(float deltaTime)
 		m_cameraTurn -=  deltaTime;
 	}
 
+	//TODO camera follows rocket?
 	// rotate camera
 	m_viewMatrix = glm::lookAt(vec3(glm::cos(m_cameraTurn) * -10, 10, glm::sin(m_cameraTurn) * 10),
 							   vec3(0), vec3(0, 1, 0));

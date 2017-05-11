@@ -6,10 +6,16 @@
 
 const float Rocket::RADIUS = 0.1f;
 const float Rocket::HALF_LENGTH = 0.2f;
+const float Rocket::TURN_RATE = 1;
+const float Rocket::SPIN_RATE = 2;
+const float Rocket::ACCELERATION = 0.001f;
+const float Rocket::MAX_SPEED = 0.05f;
 const size_t Rocket::SEGMENTS = 5;
 const Vector4 Rocket::COLOUR = {0,1,1,1};
 
-Rocket::Rocket()
+const int Rocket::THRUST_KEY = aie::INPUT_KEY_SPACE;
+
+Rocket::Rocket() : m_velocity({0,0,0})
 {
 	// rotate so cylinder is facing x axis
 	m_localTransform.setRotateZ(1.57077f);
@@ -29,28 +35,37 @@ void Rocket::update(float deltaTime)
 	float roll = 0;
 	Matrix4 turn;
 	aie::Input* input = aie::Input::getInstance();
+	//TODO make input keys constants
 	if (input->isKeyDown(aie::INPUT_KEY_A)) {
-		yaw += deltaTime;
+		yaw += deltaTime*TURN_RATE;
 	}
 	else if (input->isKeyDown(aie::INPUT_KEY_D)) {
-		yaw -= deltaTime;
+		yaw -= deltaTime * TURN_RATE;
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_Q)) {
-		roll -= deltaTime;
+		roll -= deltaTime * SPIN_RATE;
 	}
 	else if (input->isKeyDown(aie::INPUT_KEY_E)) {
-		roll += deltaTime;
+		roll += deltaTime * SPIN_RATE;
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_S)) {
-		pitch += deltaTime;
+		pitch += deltaTime * TURN_RATE;
 	}
 	else if (input->isKeyDown(aie::INPUT_KEY_W)) {
-		pitch -= deltaTime;
+		pitch -= deltaTime * TURN_RATE;
+	}
+	if (input->isKeyDown(THRUST_KEY)) {
+		if (m_velocity.compareMagnitude(MAX_SPEED) == -1) {
+			//Add acceleration (transformed by matrix) to velocity
+			Vector3 deltaV = { 0, ACCELERATION,0 };
+			deltaV = (Vector3)(m_localTransform * (Vector4)deltaV);
+			m_velocity += deltaV;
+		}
 	}
 	turn.setTaitBryanRotate(yaw, roll,pitch);
 	m_localTransform = m_localTransform * turn;
 	//TODO move by velocity
-	//TODO add acceleration (transformed by matrix) to velocity
+	m_localTransform[3] += (Vector4)m_velocity;
 	mat4 transformation = GLMAdaptor::Matrix4Converter(m_globalTransform);
 	aie::Gizmos::addCylinderFilled(vec3(0), RADIUS, HALF_LENGTH, SEGMENTS, GLMAdaptor::Vector4Converter(COLOUR), &transformation);
 	SceneObject3D::update(deltaTime);
