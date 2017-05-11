@@ -4,6 +4,11 @@
 #include "GLMAdaptor.h"
 #include "RocketCockpit.h"
 
+const float Rocket::RADIUS = 0.1f;
+const float Rocket::HALF_LENGTH = 0.2f;
+const size_t Rocket::SEGMENTS = 5;
+const Vector4 Rocket::COLOUR = {0,1,1,1};
+
 Rocket::Rocket()
 {
 	// rotate so cylinder is facing x axis
@@ -47,16 +52,16 @@ void Rocket::update(float deltaTime)
 	//TODO move by velocity
 	//TODO add acceleration (transformed by matrix) to velocity
 	mat4 transformation = GLMAdaptor::Matrix4Converter(m_globalTransform);
-	aie::Gizmos::addCylinderFilled(vec3(0), 0.5f, 1, 5, vec4(0, 1, 1, 1), &transformation);//TODO use constants/variables instead of literals
+	aie::Gizmos::addCylinderFilled(vec3(0), RADIUS, HALF_LENGTH, SEGMENTS, GLMAdaptor::Vector4Converter(COLOUR), &transformation);
 	SceneObject3D::update(deltaTime);
 }
 
 void Rocket::setupChildren()
 {
-	m_cockpit = new RocketCockpit(0.6f, { 1,1,0,1 });	//TODO use constant instead of magic numbers
+	m_cockpit = new RocketCockpit();	//TODO use constant instead of magic numbers
 	Matrix4 cockpitPosition;
 	cockpitPosition.setIdentity();
-	cockpitPosition[3][1] = 1;
+	cockpitPosition[3][1] = HALF_LENGTH;
 	m_cockpit->setLocalTransform(cockpitPosition);
 	addChild(m_cockpit);	
 }

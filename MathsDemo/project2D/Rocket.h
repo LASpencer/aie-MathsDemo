@@ -11,8 +11,12 @@ public:
 
 	virtual void update(float deltaTime);
 
+	static const float RADIUS;
+	static const float HALF_LENGTH;
+	static const size_t SEGMENTS;
+	static const Vector4 COLOUR;
+
 protected:
-	Vector4 m_colour;
 	Vector3 m_velocity;
 	RocketCockpit* m_cockpit;
 

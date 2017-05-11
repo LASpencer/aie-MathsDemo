@@ -1,12 +1,11 @@
 #include "RocketCockpit.h"
 #include "GLMAdaptor.h"
 
+const Vector4 RocketCockpit::COLOUR = { 1,1,0,1 };
+const float RocketCockpit::RADIUS = 0.1f;
+const size_t RocketCockpit::SEGMENTS = 4;
 
 RocketCockpit::RocketCockpit()
-{
-}
-
-RocketCockpit::RocketCockpit(float radius, Vector4 colour) : m_radius(radius), m_colour(colour)
 {
 }
 
@@ -18,6 +17,6 @@ RocketCockpit::~RocketCockpit()
 void RocketCockpit::update(float deltaTime)
 {
 	mat4 transform = GLMAdaptor::Matrix4Converter(m_globalTransform);
-	aie::Gizmos::addSphere(vec3(0), m_radius, 4, 4, GLMAdaptor::Vector4Converter(m_colour), &transform);
+	aie::Gizmos::addSphere(vec3(0), RADIUS, SEGMENTS, SEGMENTS, GLMAdaptor::Vector4Converter(COLOUR), &transform);
 	SceneObject3D::update(deltaTime);
 }
