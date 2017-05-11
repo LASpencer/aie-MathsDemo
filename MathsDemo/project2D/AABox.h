@@ -21,13 +21,17 @@ public:
 
 	// test collision with AABox
 	virtual std::pair<bool, Vector2> doesCollideWithAABox(AABox* box);
+
+	// test collision with OBox
 	virtual std::pair<bool, Vector2> doesCollideWithOBox(OBox* box);
+
+	// test collision with CircleCollider
 	virtual std::pair<bool, Vector2> doesCollideWithCircle(CircleCollider* circle);
 
 	// test collision with Ray
 	virtual bool isHitByRay(Ray* ray);
 
-	// Accessor and mutator functions
+	// Accessor and mutator methods
 	Vector2 getMinCorner() {
 		return m_min;
 	}
@@ -36,6 +40,7 @@ public:
 		return m_max;
 	}
 
+	// Set corners of the bounding box
 	void setCorners(Vector2 a, Vector2 b);
 
 	// Returns all four corners of the AABox, clockwise from minimum corner
@@ -54,7 +59,7 @@ public:
 	void addAABoxes(std::vector<AABox> boxes);
 
 protected:
-	Vector2 m_min;
-	Vector2 m_max;
+	Vector2 m_min;		// Minimum corner of box
+	Vector2 m_max;		// Maximum corner of box
 };
 

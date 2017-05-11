@@ -12,6 +12,6 @@ public:
 
 	static const Vector4 COLOUR;
 	static const float RADIUS;
-	static const size_t SEGMENTS;
+	static const size_t SEGMENTS;		// Number of rows and columsn of polygons to render
 };
 

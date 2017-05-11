@@ -18,14 +18,10 @@ public:
 	virtual void draw(aie::Renderer2D*);
 
 protected:
-	float m_time;
-	float m_cameraTurn; //HACK
-	float m_pitch;
-	float m_yaw;
-	float m_roll;
 	SceneObject3D m_sceneRoot;
 	Rocket*		m_rocket;
 	Camera*		m_camera;
+	//TODO put cameras in array, iterate over it when v pressed
 	Camera*		m_rocketCamera;
 	Camera*		m_worldCamera;
 	Matrix4		m_viewMatrix;

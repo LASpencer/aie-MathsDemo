@@ -4,7 +4,7 @@
 const float Camera::MIN_DISTANCE = 0.1f;
 const float Camera::MAX_DISTANCE = 1000;
 const float Camera::DEF_DISTANCE = 10;
-const float Camera::MAX_TILT = 3.1415926f*0.3f;
+const float Camera::MAX_TILT = 3.1415926f*0.4f;
 const float Camera::ZOOM_RATE = 0.5f;
 const float Camera::PAN_RATE = 0.5f;
 const float Camera::TILT_RATE = 0.5f;
@@ -26,27 +26,32 @@ Camera::~Camera()
 
 void Camera::update(float deltaTime)
 {
-	Matrix4 rotate, position;
-	rotate.setEulerRotate(m_pan - 3.1415926f*0.25f, m_tilt, 3.1415926f*0.25f);
+	Matrix4 rotate, tilt, position;
+	// Rotate camera to correct orientation
+	rotate.setRotateZ(m_pan);
+	tilt.setRotateY(m_tilt);
+	// Move camera back to set distance
 	position.setIdentity();
 	position[3][0] = m_distance;
-	position = rotate * position;
-	m_localTransform[3] = position[3];
+	m_localTransform = rotate * tilt* position;
 	SceneObject3D::update(deltaTime);
 }
 
 Matrix4 Camera::lookAt()
 {
 	Vector3 eye, centre, up;
+	// Eye is camera's position
 	eye = (Vector3)m_globalTransform[3];
+	// centre is parent's position, or origin if no parent
 	if (m_parent != nullptr) {
 		centre = (Vector3)m_parent->getGlobalTransform()[3];
 	}
 	else {
 		centre = { 0,0,0 };
 	}
+	// Camera's Z Axis used as up
 	up = (Vector3)m_globalTransform[2];
-	return GLMAdaptor::LookAt(eye,centre,up);
+	return GLMAdaptor::lookAt(eye,centre,up);
 }
 
 void Camera::zoom(float proportion)

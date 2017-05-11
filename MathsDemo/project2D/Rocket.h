@@ -13,17 +13,17 @@ public:
 
 	static const float RADIUS;
 	static const float HALF_LENGTH;
-	static const float TURN_RATE;
-	static const float SPIN_RATE;
-	static const float ACCELERATION;
-	static const float MAX_SPEED;
-	static const size_t SEGMENTS;
+	static const float TURN_RATE;			// Rate at which rocket pitches and yaws, in radians per second
+	static const float SPIN_RATE;			// Rate at which rocket rolls, in radians per second
+	static const float ACCELERATION;		// Acceleration in units per second
+	static const float MAX_SPEED;			// Maxiumum speed in units per second
+	static const size_t SEGMENTS;			// Number of polygons rendered for sides of rocket
 	static const Vector4 COLOUR;
-	static const int THRUST_KEY;
+	static const int THRUST_KEY;			// Key pressed to accelerate rocket
 
 protected:
 	Vector3 m_velocity;
-	RocketCockpit* m_cockpit;
+	RocketCockpit* m_cockpit;				// Round cockpit at front of rocket
 
 	void setupChildren();
 };

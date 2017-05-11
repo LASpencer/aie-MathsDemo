@@ -124,8 +124,3 @@ void CircleCollider::fitPoints(std::vector<Vector2> points)
 		//TODO shrink circle until 2 points at edge
 	//TODO shrink circle until points have 180 degree arc/3 points at edge
 }
-
-void CircleCollider::fitCircle(std::vector<CircleCollider> circles)
-{
-	//TODO
-}

@@ -29,7 +29,7 @@ mat4 GLMAdaptor::Matrix4Converter(const lasmath::Matrix4 & matrix)
 			matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3]);
 }
 
-lasmath::Matrix4 GLMAdaptor::LookAt(const lasmath::Vector3 & eye, const lasmath::Vector3 & centre, const lasmath::Vector3 & up)
+lasmath::Matrix4 GLMAdaptor::lookAt(const lasmath::Vector3 & eye, const lasmath::Vector3 & centre, const lasmath::Vector3 & up)
 {
 	lasmath::Matrix4 rotationMatrix, translationMatrix, transform, lookatMatrix;
 	// Move to eye
@@ -69,12 +69,13 @@ lasmath::Matrix4 GLMAdaptor::LookAt(const lasmath::Vector3 & eye, const lasmath:
 	return lookatMatrix;
 }
 
-lasmath::Matrix4 GLMAdaptor::Perspective(float fovy, float aspect, float near, float far)
+lasmath::Matrix4 GLMAdaptor::perspective(float fovy, float aspect, float near, float far)
 {
 	float invHalfTan = 1.0f / tanf(fovy*0.5f);
+	float invDepth = 1.0f / (near - far);
 	lasmath::Matrix4 projection = lasmath::Matrix4(invHalfTan / aspect, 0, 0, 0,
 													0, invHalfTan, 0, 0,
-													0, 0, (near + far) / (near - far), -1,
-													0, 0, 2 * near*far / (near - far), 0);
+													0, 0, (near + far) * invDepth, -1,
+													0, 0, 2 * near*far * invDepth, 0);
 	return projection;
 }

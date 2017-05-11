@@ -64,9 +64,9 @@ public:
 		m_colour = colour;
 	}
 
-	static const int ROWS;
-	static const int COLUMNS;
-	static const Vector4 DEF_FILL_COLOUR;
+	static const int ROWS;						// Rows of polygons for rendering sphere
+	static const int COLUMNS;					// Columns of polygons for rendering sphere
+	static const Vector4 DEF_FILL_COLOUR;		// Default colour for planets
 
 protected:
 	float m_distance;		//distance from parent object

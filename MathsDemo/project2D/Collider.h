@@ -16,23 +16,25 @@ public:
 	Collider();
 	~Collider();
 
-	//TODO create collider bounding a set of points
-
-	//TODO returns pair of bool, minimum axis of overlap
+	// Test collision with collider of unknown concrete type
 	virtual std::pair<bool, Vector2> doesCollide(Collider* other) = 0;
+
+	// Test collision with point
 	virtual std::pair<bool, Vector2> doesCollide(Vector2 point) = 0;
-	// Tests collision with plane and returns penetration
+
+	// Tests collision with plane
 	virtual std::pair<bool, Vector2> doesCollide(Plane plane) = 0;
 
 	// virtual functions to test collision with each collider subclass
-	//TODO returns pair of bool, minimum axis of overlap
+	
+	// Test collision with AABox
 	virtual std::pair<bool, Vector2> doesCollideWithAABox(AABox* box) =0;
+	// Test collision with OBox
 	virtual std::pair<bool, Vector2> doesCollideWithOBox(OBox* box) = 0;
+	// Test collision with CircleCollider
 	virtual std::pair<bool, Vector2> doesCollideWithCircle(CircleCollider* circle) = 0;
 
 	// check if collider is hit by ray
 	virtual bool isHitByRay(Ray* ray) = 0;
-
-	// TODO collision with plane returning depth of penetration
 };
 

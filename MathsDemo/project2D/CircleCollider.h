@@ -19,9 +19,13 @@ public:
 	// test collision with plane
 	virtual std::pair<bool, Vector2> doesCollide(Plane plane);
 
-	// test collision with each collider subclass
+	// test collision with AABox
 	virtual std::pair<bool, Vector2> doesCollideWithAABox(AABox* box);
+
+	// test collision with OBox
 	virtual std::pair<bool, Vector2> doesCollideWithOBox(OBox* box);
+
+	// test collision with CircleCollider
 	virtual std::pair<bool, Vector2> doesCollideWithCircle(CircleCollider* circle);
 
 	// test collision with Ray
@@ -45,9 +49,6 @@ public:
 
 	// Fit CircleCollider around points given
 	void fitPoints(std::vector<Vector2> points);
-
-	// Fit CircleCollider around circles given
-	void fitCircle(std::vector<CircleCollider> circles);
 
 protected:
 	Vector2 m_centre;
