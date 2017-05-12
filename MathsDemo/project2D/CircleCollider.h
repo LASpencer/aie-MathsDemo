@@ -2,6 +2,7 @@
 #include "Collider.h"
 #include <vector>
 
+// A circle for collision testing
 class CircleCollider :
 	public Collider
 {

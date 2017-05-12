@@ -3,6 +3,7 @@
 #include "SceneObject.h"
 #include "Plane.h"
 
+// A game where a RobotArm picks up and moves around Crates
 class RobotArmGame :
 	public GameMode
 {

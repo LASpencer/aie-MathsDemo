@@ -3,6 +3,8 @@
 #include "Collider.h"
 #include "Matrix.h"
 
+
+// An Oriented Bounding Box for collision testing
 class OBox :
 	public Collider
 {

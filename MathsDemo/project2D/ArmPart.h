@@ -1,5 +1,7 @@
 #pragma once
 #include "SceneObject.h"
+
+// A section of the robot arm which can be rotated around its joint
 class ArmPart :
 	public SceneObject
 {

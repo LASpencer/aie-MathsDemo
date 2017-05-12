@@ -42,7 +42,7 @@ void RobotHand::setState(RobotHandState state)
 void RobotHand::notifyCollision(SceneObject * other, Vector2 penetration)
 {
 	if (dynamic_cast<Crate*>(other) != nullptr) {
-		// If collided with a 
+		// If collided with a crate, check if we want to grab it
 		if (m_state == RobotHandState::GRABBING) {
 			// try to transfer from other's parent to this (if other is not root or held by a hand)
 			if (other->getParent() != nullptr && !((Crate*)other)->isHeld()) {
@@ -59,7 +59,7 @@ void RobotHand::notifyCollision(SceneObject * other, Vector2 penetration)
 
 void RobotHand::releaseCrate()
 {
-	// try transferring crate to rool
+	// try transferring crate to root
 	SceneObject* root = getRoot();
 	bool canRelease = transferChild(m_heldCrate, root);
 	if (canRelease) {

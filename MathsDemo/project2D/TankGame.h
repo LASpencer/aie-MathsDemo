@@ -3,6 +3,7 @@
 #include "SceneObject.h"
 #include "Plane.h"
 
+// A game where a Tank drives around shooting bullets at obstacles and walls
 class TankGame :
 	public GameMode
 {

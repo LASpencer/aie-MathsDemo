@@ -5,6 +5,7 @@ using namespace lasmath;
 
 class Collider;
 
+// A line dividing a 2D plane into points in front of and behind it
 class Plane
 {
 public:
@@ -24,6 +25,6 @@ public:
 
 protected:
 	Vector2 m_normal;
-	float m_offset;
+	float m_offset;		//Distance from plane to origin
 };
 

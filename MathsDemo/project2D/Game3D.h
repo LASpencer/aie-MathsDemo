@@ -6,6 +6,7 @@
 class Rocket;
 class Camera;
 
+// A 3D game demonstrating transformations with Matrix4
 class Game3D :
 	public GameMode
 {

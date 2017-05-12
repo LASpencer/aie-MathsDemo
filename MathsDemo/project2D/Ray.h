@@ -8,6 +8,7 @@ class CircleCollider;
 class AABox;
 class OBox;
 
+// A ray used for collision testing
 class Ray
 {
 public:
@@ -27,9 +28,10 @@ public:
 
 	void setDirection(Vector2 direction);
 
+	// Returns the closest point on the ray to given point
 	Vector2 findClosestPoint(Vector2 Point);
 	
-	//TODO collide with collider of unknown type
+	// test collision with collider of unknown type
 	bool doesCollide(Collider* collider);
 	// Test collision with circle
 	bool doesCollide(CircleCollider* circle);

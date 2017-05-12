@@ -24,6 +24,7 @@ void ArmPart::update(float deltaTime)
 void ArmPart::draw(aie::Renderer2D * renderer)
 {
 	if (m_sprite != nullptr) {
+		// Draw sprite with origin 7% of the way along the arm
 		renderer->drawSpriteTransformed3x3(m_sprite, (float*)m_globalTransform, 0.0f, 0.0f, 0.0f, 0.5f, 0.07f);
 	}
 	SceneObject::draw(renderer);

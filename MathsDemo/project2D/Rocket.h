@@ -3,6 +3,7 @@
 
 class RocketCockpit;
 
+// A SceneObject3D controlled by the player which can turn and accelerate
 class Rocket : public SceneObject3D
 {
 public:

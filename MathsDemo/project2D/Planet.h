@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneObject3D.h"
 
+// A sphere orbiting around its root based on orbital parameters passed to it
 class Planet : public SceneObject3D
 {
 public:

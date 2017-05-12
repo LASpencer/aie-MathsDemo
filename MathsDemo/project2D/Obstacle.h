@@ -1,5 +1,7 @@
 #pragma once
 #include "SceneObject.h"
+
+// SceneObject that can be damaged by Bullets
 class Obstacle :
 	public SceneObject
 {
@@ -12,8 +14,9 @@ public:
 
 	virtual void draw(aie::Renderer2D* renderer);
 
+	// Move Obstacle away from colliding object, or lower its health if colliding with bullet
 	virtual void notifyCollision(SceneObject* other, Vector2 penetration);
-
+	// Move Obstacle by penetration so it's back in bounds
 	virtual void notifyOutOfBounds(Vector2 penetration);
 
 	static const int DEF_HEALTH;

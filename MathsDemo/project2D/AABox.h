@@ -2,6 +2,7 @@
 #include "Collider.h"
 #include <vector>
 
+// An Axis-Aligned Bounding Box for collision testing
 class AABox :
 	public Collider
 {

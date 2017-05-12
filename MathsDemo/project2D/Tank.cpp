@@ -20,7 +20,7 @@ const float Tank::TURN_RATE = 1.0f;
 const float Tank::FORWARD_SPEED = 75.0f;
 const float Tank::REVERSE_SPEED = 50.0f;
 const float Tank::BULLET_COOLDOWN = 0.5f;
-const float Tank::BARREL_LENGTH = 50.0f + Bullet::RADIUS;
+const float Tank::BARREL_LENGTH = 50.0f;// +Bullet::RADIUS;
 
 Tank::Tank() : m_tankSprite(new aie::Texture("./textures/tankGreen.png")), m_turret(new TankTurret()), m_bulletCD(0.0f)
 {

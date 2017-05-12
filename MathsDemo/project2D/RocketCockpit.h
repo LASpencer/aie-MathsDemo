@@ -1,5 +1,7 @@
 #pragma once
 #include "SceneObject3D.h"
+
+// Sphere drawn at front of Rocket
 class RocketCockpit :
 	public SceneObject3D
 {

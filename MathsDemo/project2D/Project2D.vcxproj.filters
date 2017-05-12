@@ -216,7 +216,7 @@
       <Filter>Header Files\3D Game</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\3D Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

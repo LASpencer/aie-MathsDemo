@@ -1,5 +1,7 @@
 #pragma once
 #include "SceneObject.h"
+
+// A SceneObject for the Tank's turret
 class TankTurret :
 	public SceneObject
 {
@@ -20,6 +22,7 @@ public:
 protected:
 	aie::Texture* m_turretSprite;
 
+	// Create OBox around sprite
 	virtual void setupCollider();
 };
 
