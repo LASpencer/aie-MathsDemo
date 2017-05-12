@@ -119,6 +119,7 @@
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TankGame.cpp" />
     <ClCompile Include="TankTurret.cpp" />
+    <ClCompile Include="Testing.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +135,7 @@
     <ClInclude Include="Game3D.h" />
     <ClInclude Include="GameMode.h" />
     <ClInclude Include="GLMAdaptor.h" />
+    <ClInclude Include="Testing.h" />
     <ClInclude Include="OBox.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Plane.h" />
