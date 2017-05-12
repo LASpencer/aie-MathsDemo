@@ -15,7 +15,9 @@ Camera::Camera() : m_distance(DEF_DISTANCE), m_pan(0),m_tilt(0)
 
 Camera::Camera(float distance, float pan, float tilt):m_pan(pan)
 {
+	// Clamp distance between MIN_DISTANCE and MAX_DISTANCE
 	m_distance = std::min(MAX_DISTANCE, std::max(MIN_DISTANCE, distance));
+	// Clamp tilt within +/- MAX_TILT
 	m_tilt = std::min(MAX_TILT, std::max(-MAX_TILT, tilt));
 }
 
@@ -57,6 +59,7 @@ Matrix4 Camera::lookAt()
 void Camera::zoom(float proportion)
 {
 	m_distance += proportion*m_distance;
+	// Clamp m_distance between MIN_DISTANCE and MAX_DISTANCE
 	m_distance = std::min(MAX_DISTANCE, std::max(MIN_DISTANCE, m_distance));
 }
 
@@ -68,5 +71,6 @@ void Camera::pan(float angle)
 void Camera::tilt(float angle)
 {
 	m_tilt += angle;
+	// Camp m_tilt within +/= MAX_TILT
 	m_tilt = std::min(MAX_TILT, std::max(-MAX_TILT, m_tilt));
 }

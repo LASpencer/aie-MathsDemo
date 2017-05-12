@@ -10,7 +10,6 @@ Plane::Plane(Vector2 normal, float offset) : m_offset(offset)
 {
 	bool valid = normal.normalise();
 	if (!valid) {
-		//TODO throw argument exception
 		throw new std::invalid_argument("Plane normal could not be normalised");
 	}
 	m_normal = normal;

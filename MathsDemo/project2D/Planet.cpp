@@ -26,16 +26,21 @@ Planet::~Planet()
 void Planet::update(float deltaTime)
 {
 	Matrix4 position, rotate;
+	// Move position along the orbit
 	m_anomaly += deltaTime * m_rotationRate;
+	// Shift orientation of orbit by precession
 	m_argument += deltaTime * m_precession;
+	// Calculate orientation
 	rotate.setEulerRotate(m_argument, m_inclination, m_anomaly);
+	// Move out to distance
 	position.setIdentity();
 	position[3][0] = m_distance;
 	position = rotate * position;
 	m_localTransform = position;
 	//TODO transform matrix spinning the sphere
-	calculateGlobalTransform();
+	// calculate global transform
 	SceneObject3D::update(deltaTime);
+	// Add sphere to Gizmos
 	mat4 transform = GLMAdaptor::Matrix4Converter(m_globalTransform);
 	aie::Gizmos::addSphere(vec3(0), m_radius,ROWS,COLUMNS, GLMAdaptor::Vector4Converter(m_colour), &transform);
 

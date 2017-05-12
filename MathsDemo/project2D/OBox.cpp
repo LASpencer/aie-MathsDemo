@@ -21,6 +21,7 @@ OBox::~OBox()
 
 std::pair<bool, Vector2> OBox::doesCollide(Collider * other)
 {
+	// Call other collider's method for collision with OBox
 	std::pair<bool, Vector2> otherResult = other->doesCollideWithOBox(this);
 	return std::make_pair(otherResult.first, otherResult.second * -1);
 }
@@ -28,6 +29,7 @@ std::pair<bool, Vector2> OBox::doesCollide(Collider * other)
 std::pair<bool, Vector2> OBox::doesCollide(Vector2 point)
 {
 	Vector2 displacement = point - m_centre;
+	// Get projection of displacement to point along each extent
 	float xProjection = m_xExtent.dot(displacement);
 	float yProjection = m_yExtent.dot(displacement);
 	// If dot product of displacement and extent is less than the extent's magnitude, point lies within the box
@@ -40,7 +42,7 @@ std::pair<bool, Vector2> OBox::doesCollide(Vector2 point)
 		yDisplacement.normalise();
 		xDisplacement = xDisplacement * xProjection;
 		yDisplacement = yDisplacement * yProjection;
-		// i
+		// Set x and y penetration as vectors from edge to the point
 		if (xProjection >= 0) {
 			xPenetration = xDisplacement - m_xExtent;
 		} else{
@@ -52,17 +54,19 @@ std::pair<bool, Vector2> OBox::doesCollide(Vector2 point)
 		else {
 			yPenetration = yDisplacement + m_yExtent;
 		}
+		// Pick penetration vector with smallest magnitude
 		if (xPenetration < yPenetration) {
 			minPenetration = xPenetration;
 		}
 		else {
 			minPenetration = yPenetration;
 			}
-		//return vector along chosen extent, pointing inward
-		// Check penetration vector isn't zero
+		// Check penetration vector isn't zero (point is on edge)
 		bool penetrationNotZero = !(minPenetration.isZeroVector());
+		// Return true if penetration vector is not zero vector
 		return std::make_pair(penetrationNotZero, minPenetration);
 	} else {
+		// If point lies beyond both extents, return false
 		return std::make_pair(false, Vector2());
 	}
 }
@@ -70,14 +74,18 @@ std::pair<bool, Vector2> OBox::doesCollide(Vector2 point)
 std::pair<bool, Vector2> OBox::doesCollide(Plane plane)
 {
 	bool collision;
+	// Get vector containng each corner of the box
 	std::tuple<Vector2, Vector2, Vector2, Vector2> corners = getCorners();
 	Vector2 cornerArr[4] = { std::get<0>(corners), std::get<1>(corners), std::get<2>(corners), std::get<3>(corners) };
 	float minDistance = INFINITY;
+	// Check each corner's distance to plane and get lowest (closest in front, or furthest behind)
 	for (size_t i = 0; i < 4; ++i) {
 		float distance = plane.distanceToPlane(cornerArr[i]);
 		minDistance = std::min(minDistance, distance);
 	}
+	// If losest distance is negative, box is at least partially behind plane
 	collision = minDistance < 0;
+	// Penetration behind plane is plane's normal times the distance behind it
 	Vector2 penetration = plane.getNormal();
 	penetration.normalise();
 	penetration = -minDistance*penetration;
@@ -86,22 +94,11 @@ std::pair<bool, Vector2> OBox::doesCollide(Plane plane)
 
 std::pair<bool, Vector2> OBox::doesCollideWithAABox(AABox * box)
 {
-	//TODO tests
-	// get each corner of the boxes
-	Vector2 thisCorners[4];
-	Vector2 otherCorners[4];
-	thisCorners[0] = m_centre + m_xExtent + m_yExtent;
-	thisCorners[1] = m_centre + m_xExtent - m_yExtent;
-	thisCorners[2] = m_centre - m_xExtent - m_yExtent;
-	thisCorners[3] = m_centre - m_xExtent + m_yExtent;
-
-	Vector2 minCorner = box->getMinCorner();
-	Vector2 maxCorner = box->getMaxCorner();
-
-	otherCorners[0] = minCorner;
-	otherCorners[1] = Vector2(minCorner[0],maxCorner[1]);
-	otherCorners[2] = maxCorner;
-	otherCorners[3] = Vector2(maxCorner[0],minCorner[1]);
+	// get each corner of both boxes
+	std::tuple<Vector2, Vector2, Vector2, Vector2> corners = getCorners();
+	Vector2 thisCorners[4] = { std::get<0>(corners), std::get<1>(corners), std::get<2>(corners), std::get<3>(corners) };
+	corners = box->getCorners();
+	Vector2 otherCorners[4] = { std::get<0>(corners), std::get<1>(corners), std::get<2>(corners), std::get<3>(corners) };
 
 	// get each axis to test
 	Vector2 axis[8];
@@ -134,6 +131,7 @@ std::pair<bool, Vector2> OBox::doesCollideWithAABox(AABox * box)
 		float otherMin = INFINITY;
 		float thisMax = -INFINITY;
 		float otherMax = -INFINITY;
+		// Project each point onto axis and record minimum and maximum values for each box
 		for (size_t corner = 0; corner < 4; corner++) {
 			float thisProjection = axis[i].dot(thisCorners[corner]);
 			float otherProjection = axis[i].dot(otherCorners[corner]);
@@ -143,18 +141,25 @@ std::pair<bool, Vector2> OBox::doesCollideWithAABox(AABox * box)
 			otherMax = std::max(otherMax, otherProjection);
 		}
 		float overlap = std::min(thisMax - otherMin, otherMax - thisMin);
+		// Check if overlap exists on this axis
 		if (overlap <= 0) {
+			// If no overlap, boxes do not collide
 			return std::make_pair(false, Vector2());
 		}
 		else {
+			// Check if this is axis with lowest overlap so far
 			if (overlap < minOverlap) {
 				minOverlap = overlap;
 				minAxis = axis[i];
 			}
 		}
 	}
+	// If no axis without overlap was found, collision must have occured
+	// Penetration vector is axis with minimum overlap, multiplied by that overlap
 	Vector2 minPenetration = minOverlap * minAxis;
-	Vector2 otherCentre = 0.5*(minCorner + maxCorner);
+	// Calculate centre of AABox
+	Vector2 otherCentre = 0.5*(box->getMinCorner() + box->getMaxCorner());
+	// Make sure penetration vector is pointing away from other box's centre
 	Vector2 translationDirection = m_centre - otherCentre;
 	if (minPenetration.dot(translationDirection) < 0) {
 		minPenetration = -1 * minPenetration;
@@ -164,19 +169,11 @@ std::pair<bool, Vector2> OBox::doesCollideWithAABox(AABox * box)
 
 std::pair<bool, Vector2> OBox::doesCollideWithOBox(OBox * box)
 {
-	//TODO tests
-	// get each corner of the boxes
-	Vector2 thisCorners[4];
-	Vector2 otherCorners[4];
-	thisCorners[0] = m_centre + m_xExtent + m_yExtent;
-	thisCorners[1] = m_centre + m_xExtent - m_yExtent;
-	thisCorners[2] = m_centre - m_xExtent - m_yExtent;
-	thisCorners[3] = m_centre - m_xExtent + m_yExtent;
-
-	otherCorners[0] = box->m_centre + box->m_xExtent + box->m_yExtent;
-	otherCorners[1] = box->m_centre + box->m_xExtent - box->m_yExtent;
-	otherCorners[2] = box->m_centre - box->m_xExtent - box->m_yExtent;
-	otherCorners[3] = box->m_centre - box->m_xExtent + box->m_yExtent;
+	// get each corner of both boxes
+	std::tuple<Vector2, Vector2, Vector2, Vector2> corners = getCorners();
+	Vector2 thisCorners[4] = { std::get<0>(corners), std::get<1>(corners), std::get<2>(corners), std::get<3>(corners) };
+	corners = box->getCorners();
+	Vector2 otherCorners[4] = { std::get<0>(corners), std::get<1>(corners), std::get<2>(corners), std::get<3>(corners) };
 
 	// get each axis to test
 	Vector2 axis[8];
@@ -209,6 +206,7 @@ std::pair<bool, Vector2> OBox::doesCollideWithOBox(OBox * box)
 		float otherMin = INFINITY;
 		float thisMax = -INFINITY;
 		float otherMax = -INFINITY;
+		// Project each point onto axis and record minimum and maximum values for each box
 		for (size_t corner = 0; corner < 4; corner++) {
 			float thisProjection = axis[i].dot(thisCorners[corner]);
 			float otherProjection = axis[i].dot(otherCorners[corner]);
@@ -218,16 +216,22 @@ std::pair<bool, Vector2> OBox::doesCollideWithOBox(OBox * box)
 			otherMax = std::max(otherMax, otherProjection);
 		}
 		float overlap = std::min(thisMax - otherMin, otherMax - thisMin);
+		// Check if overlap exists on this axis
 		if (overlap<=0) {
+			// If no overlap, boxes do not collide
 			return std::make_pair(false, Vector2());
 		} else{
+			// Check if this is axis with lowest overlap so far
 			if (overlap < minOverlap) {
 				minOverlap = overlap;
 				minAxis = axis[i];
 			}
 		}
 	}
+	// If no axis without overlap was found, collision must have occured
+	// Penetration vector is axis with minimum overlap, multiplied by that overlap
 	Vector2 minPenetration = minOverlap * minAxis;
+	// Make sure penetration vector is pointing away from other box's centre
 	Vector2 translationDirection = m_centre - box->m_centre;
 	if (minPenetration.dot(translationDirection) < 0) {
 		minPenetration = -1 * minPenetration;
@@ -237,12 +241,10 @@ std::pair<bool, Vector2> OBox::doesCollideWithOBox(OBox * box)
 
 std::pair<bool, Vector2> OBox::doesCollideWithCircle(CircleCollider * circle)
 {
-	//TODO test
-	Vector2 thisCorners[4];
-	thisCorners[0] = m_centre + m_xExtent + m_yExtent;
-	thisCorners[1] = m_centre + m_xExtent - m_yExtent;
-	thisCorners[2] = m_centre - m_xExtent - m_yExtent;
-	thisCorners[3] = m_centre - m_xExtent + m_yExtent;
+	// Get corners of this box
+	std::tuple<Vector2, Vector2, Vector2, Vector2> corners = getCorners();
+	Vector2 thisCorners[4] = { std::get<0>(corners), std::get<1>(corners), std::get<2>(corners), std::get<3>(corners) };
+
 	// get each axis to test
 	Vector2 axis[4];
 	Vector2 minAxis;
@@ -263,29 +265,37 @@ std::pair<bool, Vector2> OBox::doesCollideWithCircle(CircleCollider * circle)
 		axis[i][0] = -(thisSide[1]);
 		axis[i][1] = thisSide[0];
 	}
-	// Project boxe and circle onto each axis and check for overlap
+	// Project box and circle onto each axis and check for overlap
 	for (size_t i = 0; i < 4; i++) {
 		float thisMin= INFINITY;
 		float thisMax= -INFINITY;
+		// Circle projection will always be projection of centre +/- radius
 		float circleCentre = axis[i].dot(circle->getCentre());
 		float circleMin = circleCentre - circle->getRadius();
 		float circleMax = circleCentre + circle->getRadius();
+		// Project each point onto axis and record minimum and maximum values for each box
 		for (size_t corner = 0; corner < 4; corner++) {
 			float thisProjection = axis[i].dot(thisCorners[corner]);
 			thisMin = std::min(thisMin, thisProjection);
 			thisMax = std::max(thisMax, thisProjection);
 		}
 		float overlap = std::min(thisMax - circleMin, circleMax - thisMin);
+		// Check if overlap exists on this axis
 		if (overlap<=0) {
+			// If no overlap, box and circle do not collide
 			return std::make_pair(false, Vector2());
 		} else{
+			// Check if this is axis with lowest overlap so far
 			if (overlap < minOverlap) {
 				minOverlap = overlap;
 				minAxis = axis[i];
 			}
 		}
 	}
+	// If no axis without overlap was found, collision must have occured
+	// Penetration vector is axis with minimum overlap, multiplied by that overlap
 	Vector2 minPenetration = minOverlap * minAxis;
+	// Make sure penetration vector is pointing away from circle's centre
 	Vector2 translationDirection = m_centre - circle->getCentre();
 	if (minPenetration.dot(translationDirection) < 0) {
 		minPenetration = -1 * minPenetration;

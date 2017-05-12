@@ -4,6 +4,7 @@
 #include "AABox.h"
 #include "CircleCollider.h"
 #include "OBox.h"
+#include <exception>
 
 
 Ray::Ray() : m_origin({ 0,0 }), m_direction({ 1,0 })
@@ -14,7 +15,7 @@ Ray::Ray(Vector2 origin, Vector2 direction) : m_origin(origin)
 {
 	bool valid = direction.normalise();
 	if (!valid){
-		//TODO exception if direction can't be normalised
+		throw new std::invalid_argument("Ray direction could not be normalised");
 	}
 	m_direction = direction;
 }
@@ -33,7 +34,7 @@ void Ray::setDirection(Vector2 direction)
 {
 	bool valid = direction.normalise();
 	if (!valid) {
-		// TODO fail (exception? Return failure?) if direction cannot be normalised
+		throw new std::invalid_argument("Ray direction could not be normalised");
 	}
 	m_direction = direction;
 
@@ -50,8 +51,8 @@ Vector2 Ray::findClosestPoint(Vector2 point)
 
 bool Ray::doesCollide(Collider * collider)
 {
-	//TODO write isHitByRay virtual function, all implementations call correct ray function
-	return false;
+	// Collider's isHitByRay method will call doesCollide with pointer of concrete type
+	return collider->isHitByRay(this);
 }
 
 bool Ray::doesCollide(CircleCollider* circle)
@@ -68,7 +69,6 @@ bool Ray::doesCollide(CircleCollider* circle)
 
 bool Ray::doesCollide(AABox* box)
 {
-	//TODO testing (intersects, doesn't, origin in box, negative direction would intersect, vertical line true+false, horizontal line true+false)
 	float dEntry = 0.0f;	// Distance from ray where point would enter if interesecting.
 	float dExit = INFINITY;	// Distance from ray where point would exit if intersecting
 	// TODO: Possible optimization, precalculate XRate and YRate as members whenever direction is set

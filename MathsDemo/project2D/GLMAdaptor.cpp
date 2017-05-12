@@ -57,6 +57,7 @@ lasmath::Matrix4 GLMAdaptor::lookAt(const lasmath::Vector3 & eye, const lasmath:
 	//yAxis is normal vector perpendicular to xAxis and zAxis
 	lasmath::Vector3 yAxis = zAxis.cross(xAxis);
 	zAxis.normalise();
+	// Set up matrices
 	translationMatrix.setIdentity();
 	translationMatrix[3] += (lasmath::Vector4)translation;
 	rotationMatrix.setIdentity();

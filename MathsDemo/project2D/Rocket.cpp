@@ -20,6 +20,7 @@ Rocket::Rocket() : m_velocity({0,0,0})
 	// rotate so cylinder is facing x axis
 	m_localTransform.setRotateZ(1.57077f);
 	calculateGlobalTransform();
+	// Add cockpit to front of rocket
 	setupChildren();
 }
 
@@ -36,26 +37,28 @@ void Rocket::update(float deltaTime)
 	Matrix4 turn;
 	aie::Input* input = aie::Input::getInstance();
 	//TODO make input keys constants
-	if (input->isKeyDown(aie::INPUT_KEY_A)) {
+	// Turn ship
+	if (input->isKeyDown(aie::INPUT_KEY_A)) {			// Yaw left
 		yaw += deltaTime*TURN_RATE;
 	}
-	else if (input->isKeyDown(aie::INPUT_KEY_D)) {
+	else if (input->isKeyDown(aie::INPUT_KEY_D)) {		// Yaw right
 		yaw -= deltaTime * TURN_RATE;
 	}
-	if (input->isKeyDown(aie::INPUT_KEY_Q)) {
+	if (input->isKeyDown(aie::INPUT_KEY_Q)) {			// Roll left
 		roll -= deltaTime * SPIN_RATE;
 	}
-	else if (input->isKeyDown(aie::INPUT_KEY_E)) {
+	else if (input->isKeyDown(aie::INPUT_KEY_E)) {		// Roll right
 		roll += deltaTime * SPIN_RATE;
 	}
-	if (input->isKeyDown(aie::INPUT_KEY_S)) {
+	if (input->isKeyDown(aie::INPUT_KEY_S)) {			// Pitch up
 		pitch += deltaTime * TURN_RATE;
 	}
-	else if (input->isKeyDown(aie::INPUT_KEY_W)) {
+	else if (input->isKeyDown(aie::INPUT_KEY_W)) {		// Pitch down
 		pitch -= deltaTime * TURN_RATE;
 	}
+	// Activate thrust
 	if (input->isKeyDown(THRUST_KEY)) {
-		//Calculate change in velocity
+		//Calculate new velocity
 		Vector3 deltaV = { 0, ACCELERATION,0 };		// Cylinder is y-axis aligned
 		deltaV = (Vector3)(m_localTransform * (Vector4)deltaV);
 		Vector3 newVelocity = m_velocity + deltaV;
@@ -64,21 +67,26 @@ void Rocket::update(float deltaTime)
 			m_velocity = newVelocity;
 		}
 	}
+	// Rotate to new orientation
 	turn.setTaitBryanRotate(yaw, roll,pitch);
 	m_localTransform = m_localTransform * turn;
-	//TODO move by velocity
+	// Move by velocity
 	m_localTransform[3] += (Vector4)m_velocity;
+	// Calculate global transform
+	SceneObject3D::update(deltaTime);
+	// Add cylinder to Gizmos
 	mat4 transformation = GLMAdaptor::Matrix4Converter(m_globalTransform);
 	aie::Gizmos::addCylinderFilled(vec3(0), RADIUS, HALF_LENGTH, SEGMENTS, GLMAdaptor::Vector4Converter(COLOUR), &transformation);
-	SceneObject3D::update(deltaTime);
+	
 }
 
 void Rocket::setupChildren()
 {
-	m_cockpit = new RocketCockpit();	//TODO use constant instead of magic numbers
+	m_cockpit = new RocketCockpit();
+	// Place m_cockpit at front of rocket
 	Matrix4 cockpitPosition;
 	cockpitPosition.setIdentity();
-	cockpitPosition[3][1] = HALF_LENGTH;
+	cockpitPosition[3][1] = HALF_LENGTH;		//cylinder aligned with Y axis
 	m_cockpit->setLocalTransform(cockpitPosition);
 	addChild(m_cockpit);	
 }

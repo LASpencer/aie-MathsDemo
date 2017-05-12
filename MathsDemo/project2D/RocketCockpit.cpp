@@ -16,7 +16,9 @@ RocketCockpit::~RocketCockpit()
 
 void RocketCockpit::update(float deltaTime)
 {
+	// Calculate global position
+	SceneObject3D::update(deltaTime);
+	// Add sphere to Gizmos
 	mat4 transform = GLMAdaptor::Matrix4Converter(m_globalTransform);
 	aie::Gizmos::addSphere(vec3(0), RADIUS, SEGMENTS, SEGMENTS, GLMAdaptor::Vector4Converter(COLOUR), &transform);
-	SceneObject3D::update(deltaTime);
 }

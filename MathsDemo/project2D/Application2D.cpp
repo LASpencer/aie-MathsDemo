@@ -20,7 +20,7 @@ bool Application2D::startup() {
 	m_armGame = new RobotArmGame();
 	m_3dGame = new Game3D();
 
-	//// Start with TankGame
+	//// TODO Start with TankGame
 	//m_game = m_tankGame;
 	m_game = m_3dGame;
 	m_game->startup();

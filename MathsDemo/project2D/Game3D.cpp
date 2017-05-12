@@ -22,11 +22,10 @@ Game3D::~Game3D()
 void Game3D::startup()
 {
 	if (!m_started) {
-		//TODO startup
 		// initialise gizmo primitive counts
 		Gizmos::create(10000, 10000, 10000, 10000);
 
-		//Rotate root so Z axis is up
+		// Rotate root so Z axis is up
 		Matrix4 flipAxes;
 		flipAxes.setEulerRotate(0.0f, -1.57077f, 3.141592f);
 		m_sceneRoot.setLocalTransform(flipAxes);
@@ -43,8 +42,10 @@ void Game3D::startup()
 		// put camera behind rocket and looking slightly down
 		m_rocketCamera = new Camera(3, -3.1415926f*0.5f,-1);
 		m_rocket->addChild(m_rocketCamera);
+		// put camera looking at origin from oblique angle
 		m_worldCamera = new Camera(20, 3.1415926f*0.25f, -3.1415926f*0.25f);
 		m_sceneRoot.addChild(m_worldCamera);
+		// start with camera looking at origin
 		m_camera = m_worldCamera;
 
 		// create camera transforms
@@ -118,11 +119,11 @@ void Game3D::update(float deltaTime)
 	m_sceneRoot.update(deltaTime);
 	m_sceneRoot.updateChildList();
 
-	// Get new view matrix
+	// Get new view matrix from current camera
 	m_viewMatrix = m_camera->lookAt();
 }
 
-void Game3D::draw(aie::Renderer2D *)
+void Game3D::draw(aie::Renderer2D *renderer)
 {
 	Gizmos::draw(GLMAdaptor::Matrix4Converter(m_projectionMatrix * m_viewMatrix));
 }

@@ -16,7 +16,8 @@ public:
 
 	virtual void startup();
 	virtual void update(float deltaTime);
-	virtual void draw(aie::Renderer2D*);
+	// Render objects to screen with Gizmos
+	virtual void draw(aie::Renderer2D* renderer);
 
 protected:
 	SceneObject3D m_sceneRoot;

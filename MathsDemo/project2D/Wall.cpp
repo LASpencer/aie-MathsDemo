@@ -37,9 +37,6 @@ void Wall::draw(aie::Renderer2D * renderer)
 	SceneObject::draw(renderer);
 }
 
-void Wall::notifyCollision(SceneObject * other)
-{
-}
 
 void Wall::setupCollider()
 {
