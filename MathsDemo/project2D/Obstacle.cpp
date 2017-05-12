@@ -11,6 +11,7 @@ const int Obstacle::DEF_HEALTH = 1;
 
 Obstacle::Obstacle() : m_health(DEF_HEALTH), m_sprite(new aie::Texture(DEFAULT_SPRITE)), m_dead(false)
 {
+	// Set width and height from sprite's dimensions
 	m_width = m_sprite->getWidth();
 	m_height = m_sprite->getHeight();
 	m_localTransform.setIdentity();
@@ -18,6 +19,7 @@ Obstacle::Obstacle() : m_health(DEF_HEALTH), m_sprite(new aie::Texture(DEFAULT_S
 
 Obstacle::Obstacle(Vector2 position, const char * sprite, int health) : m_health(health), m_sprite(new aie::Texture(sprite)), m_dead(false)
 {
+	// Set width and height from sprite's dimensions
 	m_width = m_sprite->getWidth();
 	m_height = m_sprite->getHeight();
 	m_localTransform.setIdentity();
@@ -33,10 +35,11 @@ Obstacle::~Obstacle()
 
 void Obstacle::update(float deltaTime)
 {
-	// Check if dead, and if so request destruction
+	// Check if dead
 	if (m_health <= 0) {
 		m_dead = true;
 	}
+	// If dead, try to remove from scene graph
 	if (m_dead && m_parent!=nullptr) {
 		m_parent->removeChild(this);
 	}
@@ -82,10 +85,11 @@ void Obstacle::notifyOutOfBounds(Vector2 penetration)
 
 void Obstacle::setupCollider()
 {
-	//OBox around sprite
+	// If collider doesn't exist, create it
 	if (m_collider == nullptr) {
 		m_collider = new OBox();
 	}
+	// Move and orient OBox collider to bound the sprite
 	((OBox*)m_collider)->setHalfExtents((Vector2)m_globalTransform[0] * 0.5f*m_width, (Vector2)m_globalTransform[1] * 0.5*m_height);
 	((OBox*)m_collider)->setCentre((Vector2)m_globalTransform[2]);
 }

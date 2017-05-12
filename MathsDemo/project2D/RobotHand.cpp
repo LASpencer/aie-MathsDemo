@@ -19,15 +19,18 @@ RobotHand::~RobotHand()
 
 void RobotHand::update(float deltaTime)
 {
+	// If state is RELEASING, try dropping held crate
 	if (m_state == RobotHandState::RELEASING) {
 		releaseCrate();
 	}
+	// calculate global transform
 	SceneObject::update(deltaTime);
 }
 
 void RobotHand::draw(aie::Renderer2D * renderer)
 {
 	if (m_sprite != nullptr) {
+		// Draw sprite with origin 5% along the height of the sprite
 		renderer->drawSpriteTransformed3x3(m_sprite, (float*)m_globalTransform, 0.0f, 0.0f, 0.0f, 0.5f, 0.05f);
 	}
 	SceneObject::draw(renderer);
@@ -63,6 +66,7 @@ void RobotHand::releaseCrate()
 	SceneObject* root = getRoot();
 	bool canRelease = transferChild(m_heldCrate, root);
 	if (canRelease) {
+		// If transfer will happen, crate is no longer held
 		m_heldCrate->setHeld(false);
 		m_heldCrate = nullptr;
 		setState(RobotHandState::EMPTY);
@@ -71,10 +75,11 @@ void RobotHand::releaseCrate()
 
 void RobotHand::setupCollider()
 {
-	// OBox around sprite
+	// Create OBox if collider doesn't exist
 	if (m_collider == nullptr) {
 		m_collider = new OBox();
 	}
+	// Place OBox around sprite
 	((OBox*)m_collider)->setHalfExtents((Vector2)m_globalTransform[0] * 30, (Vector2)m_globalTransform[1] * 50);
 	((OBox*)m_collider)->setCentre((Vector2)m_globalTransform[2]+(Vector2)m_globalTransform[1] * 95);
 }
