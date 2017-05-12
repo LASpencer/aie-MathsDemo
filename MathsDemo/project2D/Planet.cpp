@@ -5,7 +5,7 @@
 const int Planet::ROWS = 8;
 const int Planet::COLUMNS = 8;
 
-const Vector4  Planet::DEF_FILL_COLOUR = {1,0,0,0.5f};
+const Vector4  Planet::DEF_FILL_COLOUR = {1,0,0,0.8f};
 
 Planet::Planet() : m_radius(1), m_distance(0), m_rotationRate(0), m_anomaly(0),m_inclination(0),m_argument(0), m_precession(0), m_colour(DEF_FILL_COLOUR)
 {

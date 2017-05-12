@@ -8,6 +8,7 @@ class Rocket : public SceneObject3D
 {
 public:
 	Rocket();
+	Rocket(Vector3 position);
 	~Rocket();
 
 	virtual void update(float deltaTime);

@@ -24,6 +24,17 @@ Rocket::Rocket() : m_velocity({0,0,0})
 	setupChildren();
 }
 
+Rocket::Rocket(Vector3 position) : m_velocity({0,0,0})
+{
+	// rotate so cylinder is facing x axis
+	m_localTransform.setRotateZ(1.57077f);
+	// set starting position
+	m_localTransform[3] += (Vector4)position;
+	calculateGlobalTransform();
+	// Add cockpit to front of rocket
+	setupChildren();
+}
+
 
 Rocket::~Rocket()
 {

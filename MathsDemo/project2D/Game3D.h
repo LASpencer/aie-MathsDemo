@@ -22,10 +22,9 @@ public:
 protected:
 	SceneObject3D m_sceneRoot;
 	Rocket*		m_rocket;
-	Camera*		m_camera;
+	std::vector<Camera*>::iterator	m_camera;
 	//TODO put cameras in array, iterate over it when v pressed
-	Camera*		m_rocketCamera;
-	Camera*		m_worldCamera;
+	std::vector<Camera*> m_cameraArray;
 	Matrix4		m_viewMatrix;
 	Matrix4		m_projectionMatrix;
 };
