@@ -1,7 +1,5 @@
 #include "Application2D.h"
 #include "Testing.h"
-//HACK For tests
-
 
 int main() {
 

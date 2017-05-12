@@ -63,7 +63,7 @@ void Game3D::startup()
 		// create camera transforms
 		m_viewMatrix = (*m_camera)->lookAt();
 		m_projectionMatrix = GLMAdaptor::perspective(3.14159265f * 0.25f,
-													1280.0f / 720.0f,		//HACK until I write a way to get it from the application2d object
+													1280.0f / 720.0f,
 													0.1f, 1000.f);
 		m_started = true;
 	}

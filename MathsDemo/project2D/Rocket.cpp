@@ -13,6 +13,12 @@ const float Rocket::MAX_SPEED = 0.05f;
 const size_t Rocket::SEGMENTS = 10;
 const Vector4 Rocket::COLOUR = {0,0.6f,1,1};
 
+const int Rocket::YAW_LEFT_KEY = aie::INPUT_KEY_A;
+const int Rocket::YAW_RIGHT_KEY = aie::INPUT_KEY_D;
+const int Rocket::ROLL_LEFT_KEY = aie::INPUT_KEY_Q;
+const int Rocket::ROLL_RIGHT_KEY = aie::INPUT_KEY_E;		
+const int Rocket::PITCH_UP_KEY = aie::INPUT_KEY_S;			
+const int Rocket::PITCH_DOWN_KEY = aie::INPUT_KEY_W;		
 const int Rocket::THRUST_KEY = aie::INPUT_KEY_SPACE;
 
 Rocket::Rocket() : m_velocity({0,0,0})
@@ -47,24 +53,23 @@ void Rocket::update(float deltaTime)
 	float roll = 0;
 	Matrix4 turn;
 	aie::Input* input = aie::Input::getInstance();
-	//TODO make input keys constants
 	// Turn ship
-	if (input->isKeyDown(aie::INPUT_KEY_A)) {			// Yaw left
+	if (input->isKeyDown(YAW_LEFT_KEY)) {			// Yaw left
 		yaw += deltaTime*TURN_RATE;
 	}
-	else if (input->isKeyDown(aie::INPUT_KEY_D)) {		// Yaw right
+	else if (input->isKeyDown(YAW_RIGHT_KEY)) {		// Yaw right
 		yaw -= deltaTime * TURN_RATE;
 	}
-	if (input->isKeyDown(aie::INPUT_KEY_Q)) {			// Roll left
+	if (input->isKeyDown(ROLL_LEFT_KEY)) {			// Roll left
 		roll -= deltaTime * SPIN_RATE;
 	}
-	else if (input->isKeyDown(aie::INPUT_KEY_E)) {		// Roll right
+	else if (input->isKeyDown(ROLL_RIGHT_KEY)) {	// Roll right
 		roll += deltaTime * SPIN_RATE;
 	}
-	if (input->isKeyDown(aie::INPUT_KEY_S)) {			// Pitch up
+	if (input->isKeyDown(PITCH_UP_KEY)) {			// Pitch up
 		pitch += deltaTime * TURN_RATE;
 	}
-	else if (input->isKeyDown(aie::INPUT_KEY_W)) {		// Pitch down
+	else if (input->isKeyDown(PITCH_DOWN_KEY)) {	// Pitch down
 		pitch -= deltaTime * TURN_RATE;
 	}
 	// Activate thrust

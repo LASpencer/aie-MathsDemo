@@ -2,7 +2,7 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
-//TODO commenting
+
 Application2D::Application2D() {
 
 }
@@ -20,14 +20,14 @@ bool Application2D::startup() {
 	m_armGame = new RobotArmGame();
 	m_3dGame = new Game3D();
 
-	//// TODO Start with TankGame
-	//m_game = m_tankGame;
-	m_game = m_3dGame;
+	// Start with TankGame
+	m_game = m_tankGame;
+
+	// Start up game
 	m_game->startup();
 
 	m_cameraX = 0;
 	m_cameraY = 0;
-	m_timer = 0;
 
 	return true;
 }
@@ -43,25 +43,25 @@ void Application2D::shutdown() {
 
 void Application2D::update(float deltaTime) {
 
-	m_timer += deltaTime;
-
-	// input example
 	aie::Input* input = aie::Input::getInstance();
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
 
-	// check for changing game mode
+	// change game
 	if (input->isKeyDown(aie::INPUT_KEY_1)) {
+		// Tank game
 		m_game = m_tankGame;
 		m_game->startup();
 	}
 	else if (input->isKeyDown(aie::INPUT_KEY_2)) {
+		// Arm game
 		m_game = m_armGame;
 		m_game->startup();
 	}
 	else if (input->isKeyDown(aie::INPUT_KEY_3)) {
+		// 3D game
 		m_game = m_3dGame;
 		m_game->startup();
 	}
@@ -94,11 +94,10 @@ void Application2D::draw() {
 	// begin drawing sprites
 	m_2dRenderer->begin();
 
+	// call game's draw function
 	m_game->draw(m_2dRenderer);
-	/*m_2dRenderer->setRenderColour(1, 1, 1, 1);
-	m_sceneRoot.draw(m_2dRenderer);*/
 	
-	// output some text, uses the last used colour
+	// Draw FPS on screen
 	m_2dRenderer->setRenderColour(1, 1, 0, 1);
 	char fps[32];
 	sprintf_s(fps, 32, "FPS: %i", getFPS());

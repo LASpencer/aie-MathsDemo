@@ -21,7 +21,14 @@ public:
 	static const float MAX_SPEED;			// Maxiumum speed in units per second
 	static const size_t SEGMENTS;			// Number of polygons rendered for sides of rocket
 	static const Vector4 COLOUR;
-	static const int THRUST_KEY;			// Key pressed to accelerate rocket
+	// input keys
+	static const int YAW_LEFT_KEY;			// Yaw to left
+	static const int YAW_RIGHT_KEY;			// Yaw to right
+	static const int ROLL_LEFT_KEY;			// Roll left
+	static const int ROLL_RIGHT_KEY;		// Roll right
+	static const int PITCH_UP_KEY;			// Pitch up
+	static const int PITCH_DOWN_KEY;		// Pitch down
+	static const int THRUST_KEY;			// accelerate rocket
 
 protected:
 	Vector3 m_velocity;

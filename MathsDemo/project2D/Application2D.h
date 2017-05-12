@@ -31,5 +31,4 @@ protected:
 	Game3D*				m_3dGame;
 
 	float m_cameraX, m_cameraY;
-	float m_timer;
 };

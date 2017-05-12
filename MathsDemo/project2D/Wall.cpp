@@ -41,7 +41,6 @@ void Wall::draw(aie::Renderer2D * renderer)
 
 void Wall::setupCollider()
 {
-	//TODO
 	if (m_collider == nullptr) {
 		m_collider = new OBox();
 	}
