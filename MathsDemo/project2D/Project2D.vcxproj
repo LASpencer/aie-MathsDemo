@@ -98,7 +98,6 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="Collider3D.cpp" />
     <ClCompile Include="Crate.cpp" />
     <ClCompile Include="Game3D.cpp" />
     <ClCompile Include="GameMode.cpp" />
@@ -130,7 +129,6 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
-    <ClInclude Include="Collider3D.h" />
     <ClInclude Include="Crate.h" />
     <ClInclude Include="Game3D.h" />
     <ClInclude Include="GameMode.h" />

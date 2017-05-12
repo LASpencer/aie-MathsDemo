@@ -37,12 +37,6 @@
     <Filter Include="Source Files\3D Game">
       <UniqueIdentifier>{cb643721-24c5-4c52-b1e7-8fa2efa2209b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\3D Game\Collision">
-      <UniqueIdentifier>{76c5e56e-f203-43b0-ab36-9c90e4a3f773}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\3D Game\Collision">
-      <UniqueIdentifier>{194ac6fd-aeeb-470f-8d60-ff876726ac94}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application2D.cpp">
@@ -110,9 +104,6 @@
     </ClCompile>
     <ClCompile Include="Wall.cpp">
       <Filter>Source Files\Tank Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider3D.cpp">
-      <Filter>Source Files\3D Game\Collision</Filter>
     </ClCompile>
     <ClCompile Include="SceneObject3D.cpp">
       <Filter>Source Files\3D Game</Filter>
@@ -199,9 +190,6 @@
     </ClInclude>
     <ClInclude Include="RobotHand.h">
       <Filter>Header Files\Robot Arm Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider3D.h">
-      <Filter>Header Files\3D Game\Collision</Filter>
     </ClInclude>
     <ClInclude Include="SceneObject3D.h">
       <Filter>Header Files\3D Game</Filter>
