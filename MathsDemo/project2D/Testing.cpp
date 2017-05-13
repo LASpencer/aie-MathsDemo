@@ -7,6 +7,9 @@
 #include "Ray.h"
 #include <iostream>
 
+/*
+Runs tests on collison detection functions. Will pause and return false if any fail
+*/
 bool runUnitTests()
 {
 	bool passed = true;

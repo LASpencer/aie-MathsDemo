@@ -25,7 +25,7 @@ protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
-	GameMode*			m_game;
+	GameMode*			m_game;			//Current game being played
 	TankGame*			m_tankGame;
 	RobotArmGame*		m_armGame;
 	Game3D*				m_3dGame;
