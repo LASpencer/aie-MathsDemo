@@ -38,13 +38,12 @@ void TankGame::startup()
 		m_sceneRoot.addChild(new Wall({ 450,550}, { 480,550 }));
 		m_sceneRoot.addChild(new Wall({ 520,550 }, { 550,550 }));
 		//Add obstacles
-		m_sceneRoot.addChild(new Obstacle({200,200}, "./textures/ship.png",2));
+		m_sceneRoot.addChild(new Obstacle({200,200}, "./textures/ship.png", 2));
 		m_sceneRoot.addChild(new Obstacle({ 500,500 }, "./textures/ship.png", 2));
-		m_sceneRoot.addChild(new Obstacle({ 800,500 }, "./textures/ArmShoulder.png", 2));
 		m_sceneRoot.addChild(new Obstacle({ 600,300 }, "./textures/car.png"));
 		m_sceneRoot.addChild(new Obstacle({ 1000,200 }, "./textures/grass.png"));
 		m_sceneRoot.addChild(new Obstacle({400,500}));
-		m_sceneRoot.addChild(new Obstacle({ 800,600 }, "./textures/tankBeige.png", 3));
+		m_sceneRoot.addChild(new Obstacle({ 800,600 }, "./textures/tankBeige.png", 2));
 
 		m_started = true;
 	}
