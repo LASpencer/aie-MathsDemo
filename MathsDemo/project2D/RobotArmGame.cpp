@@ -23,18 +23,18 @@ void RobotArmGame::startup()
 		// Add RobotArm
 		m_sceneRoot.addChild(new RobotArm({ 640, 360 }));
 		// Place crates
-		m_sceneRoot.addChild(new Crate({ 100, 100}));
+		m_sceneRoot.addChild(new Crate({ 500, 100}));
 		m_sceneRoot.addChild(new Crate({ 200,100 }, "./textures/car.png"));
-		m_sceneRoot.addChild(new Crate({ 300,100 }, "./textures/ball.png"));
-		m_sceneRoot.addChild(new Crate({ 200, 200 }));
-		m_sceneRoot.addChild(new Crate({ 400,200 }, "./textures/car.png"));
-		m_sceneRoot.addChild(new Crate({ 600,200 }, "./textures/ball.png"));
+		m_sceneRoot.addChild(new Crate({ 300,100 }, "./textures/rock_large.png"));
+		m_sceneRoot.addChild(new Crate({ 200, 400 }));
+		m_sceneRoot.addChild(new Crate({ 400,200 }, "./textures/rock_medium.png"));
+		m_sceneRoot.addChild(new Crate({ 600,200 }, "./textures/car.png"));
 		m_sceneRoot.addChild(new Crate({ 300, 300 }));
-		m_sceneRoot.addChild(new Crate({ 600,300 }, "./textures/car.png"));
-		m_sceneRoot.addChild(new Crate({ 800,300 }, "./textures/ball.png"));
-		m_sceneRoot.addChild(new Crate({ 400, 400 }));
-		m_sceneRoot.addChild(new Crate({ 800,400 }, "./textures/car.png"));
-		m_sceneRoot.addChild(new Crate({ 1200,400 }, "./textures/ball.png"));
+		m_sceneRoot.addChild(new Crate({ 600,300 }, "./textures/ship.png"));
+		m_sceneRoot.addChild(new Crate({ 800,300 }, "./textures/car.png"));
+		m_sceneRoot.addChild(new Crate({ 900, 600 }));
+		m_sceneRoot.addChild(new Crate({ 800,400 }, "./textures/grass.png"));
+		m_sceneRoot.addChild(new Crate({ 1200,400 }, "./textures/rock_medium.png"));
 
 		m_started = true;
 	}
