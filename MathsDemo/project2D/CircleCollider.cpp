@@ -77,11 +77,9 @@ std::pair<bool, Vector2> CircleCollider::doesCollideWithAABox(AABox * box)
 		// Find closest point on box to circle
 		float clampedX, clampedY;
 		// x value clamped between max and min corners
-		clampedX = std::max(m_centre[0], box->getMinCorner()[0]);
-		clampedX = std::min(clampedX, box->getMaxCorner()[0]);
+		clampedX = std::min(std::max(m_centre[0], box->getMinCorner()[0]), box->getMaxCorner()[0]);
 		// y value clamped between max and min corners
-		clampedY = std::max(m_centre[1], box->getMinCorner()[1]);
-		clampedY = std::min(clampedY, box->getMaxCorner()[1]);
+		clampedY = std::min(std::max(m_centre[1], box->getMinCorner()[1]), box->getMaxCorner()[1]);
 		Vector2 closestPoint = Vector2(clampedX, clampedY);
 		// Test collision with closest point
 		return doesCollide(closestPoint);
@@ -126,7 +124,7 @@ bool CircleCollider::isHitByRay(Ray * ray)
 void CircleCollider::fitPoints(std::vector<Vector2> points)
 {
 	if (points.begin() == points.end()) {
-		//TODO throw exception
+		throw std::invalid_argument("Cannot pass empty vector to fitPoints");
 	}
 	// Set centre as mean value of points
 	float meanX = 0;

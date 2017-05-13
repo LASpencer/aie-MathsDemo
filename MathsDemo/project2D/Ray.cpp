@@ -45,7 +45,7 @@ Vector2 Ray::findClosestPoint(Vector2 point)
 	Vector2 displacement = point - m_origin;
 	float projection = displacement.dot(m_direction);
 	projection = std::max(projection, 0.0f);
-	Vector2 closestPoint = m_direction * projection;
+	Vector2 closestPoint = m_origin +  m_direction * projection;
 	return closestPoint;
 }
 

@@ -4,7 +4,7 @@
 int main() {
 
 	//run tests
-	//runUnitTests();
+	runUnitTests();
 
 	// allocation
 	auto app = new Application2D();

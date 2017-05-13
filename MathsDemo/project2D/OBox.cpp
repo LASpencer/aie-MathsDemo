@@ -1,3 +1,5 @@
+#include <vector>
+#include "Vector.h"
 #include "OBox.h"
 #include "AABox.h"
 #include "CircleCollider.h"
@@ -74,7 +76,7 @@ std::pair<bool, Vector2> OBox::doesCollide(Vector2 point)
 std::pair<bool, Vector2> OBox::doesCollide(Plane plane)
 {
 	bool collision;
-	// Get vector containng each corner of the box
+	// Get vector containing each corner of the box
 	std::tuple<Vector2, Vector2, Vector2, Vector2> corners = getCorners();
 	Vector2 cornerArr[4] = { std::get<0>(corners), std::get<1>(corners), std::get<2>(corners), std::get<3>(corners) };
 	float minDistance = INFINITY;
@@ -328,14 +330,31 @@ Matrix3 OBox::getBoxMatrix()
 	return BoxMatrix;
 }
 
-void OBox::transform(Matrix3 matrix)
-{
-	//TODO
-}
-
 void OBox::fitPoints(std::vector<Vector2> points)
 {
-	//TODO
+	if (points.begin() == points.end()) {
+		throw std::invalid_argument("Cannot pass empty vector to fitPoints");
+	}
+	// Set centre as mean value of points
+	float meanX = 0;
+	float meanY = 0;
+	for (std::vector<Vector2>::iterator it = points.begin(); it != points.end(); ++it) {
+		meanX += (*it)[0];
+		meanY += (*it)[1];
+	}
+	meanX /= points.size();
+	meanY /= points.size();
+	m_centre = { meanX,meanY };
+	//TODO xExtent is vector from centre to furthest point
+	std::vector<Vector2> displacement;
+	Vector2 xExtent;
+	float maxMagSquared = 0;
+	for (std::vector<Vector2>::iterator it = points.begin(); it != points.end(); ++it) {
+		//TODO 
+		Vector2 d = (*it) - m_centre;
+		if(d.compareMagnitude())
+	}
+	//TODO yExtent is normal to xExtent, with magnitude equal to greatest projection along it
 }
 
 Matrix3 OBox::getInverseTransform()

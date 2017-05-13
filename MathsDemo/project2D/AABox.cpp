@@ -30,7 +30,10 @@ std::pair<bool, Vector2> AABox::doesCollide(Collider * other)
 
 std::pair<bool, Vector2> AABox::doesCollide(Vector2 point)
 {
-	if (point[0]<=m_min[0] || point[0]>=m_max[0] || point[1]<=m_min[1] || point[1]>=m_max[1]) {
+	if (point[0]<=m_min[0] 
+		|| point[0]>=m_max[0] 
+		|| point[1]<=m_min[1] 
+		|| point[1]>=m_max[1]) {
 		return std::make_pair( false, Vector2());
 	}
 	else {
@@ -179,7 +182,7 @@ std::tuple<Vector2, Vector2, Vector2, Vector2> AABox::getCorners()
 void AABox::fitPoints(std::vector<Vector2> points)
 {
 	if (points.begin() == points.end()) {
-		// TODO throw argument exception
+		throw std::invalid_argument("Cannot pass empty vector to fitPoints");
 	}
 	m_min = Vector2(INFINITY, INFINITY);
 	m_max = Vector2(-INFINITY, -INFINITY);
@@ -196,7 +199,7 @@ void AABox::fitPoints(std::vector<Vector2> points)
 void AABox::fitAABoxes(std::vector<AABox> boxes)
 {
 	if (boxes.begin() == boxes.end()) {
-		// TODO throw argument exception
+		throw std::invalid_argument("Cannot pass empty vector to fitAABoxes");
 	}
 	m_min = Vector2(INFINITY, INFINITY);
 	m_max = Vector2(-INFINITY, -INFINITY);

@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Application2D" Collapsed="true">
+    <Position X="10.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAIAgAIAABAIABgBIAAAAgAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Application2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameMode" Collapsed="true">
+    <Position X="10.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAEAgAAAAAAAAAgAAQAAFAAA=</HashCode>
+      <FileName>GameMode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneObject" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQIQAgCGAAABCEACIBISIMAaQAAMIAIAQAACAQAMBgI=</HashCode>
+      <FileName>SceneObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AABox" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACEAdAAAQgAoAAAAAAAQAAIAABAAAQAAAABAgAAAAA=</HashCode>
+      <FileName>AABox.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircleCollider" Collapsed="true">
+    <Position X="5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAUAAAAEIEAAAAAACQAAoAAAAAAQACIABAAAQAAA=</HashCode>
+      <FileName>CircleCollider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collider" Collapsed="true">
+    <Position X="2.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAUAAAAAAAAAAAAAAQAAIAAAAAAQQAAAAAAQAAAA=</HashCode>
+      <FileName>Collider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OBox" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEDUAABAEAEAAAAAAAQAAIBFAEQAQAAAABAAAQBAA=</HashCode>
+      <FileName>OBox.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Plane" Collapsed="true">
+    <Position X="12.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAgAAAgAAAAAAIAAAAAIABEAAAAA=</HashCode>
+      <FileName>Plane.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ray" Collapsed="true">
+    <Position X="17" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEgAABgAiAAAIAAAAAAAAAIAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ray.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game3D" Collapsed="true">
+    <Position X="13" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAIAAAAIAAASgABAACAAAQAAAAAAEAEA=</HashCode>
+      <FileName>Game3D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GLMAdaptor" Collapsed="true">
+    <Position X="14.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQgAAAAAIAAAAAAAAEAAAACABAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>GLMAdaptor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Planet" Collapsed="true">
+    <Position X="6.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAlQFAAACCIQAAgAAAEAQAAABwEQAcQCIJABAAEIAg=</HashCode>
+      <FileName>Planet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rocket" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAgCAQCADAAAgBIABAAAAAAQgAAAwACAEIRA=</HashCode>
+      <FileName>Rocket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RocketCockpit" Collapsed="true">
+    <Position X="2.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAEAAAAABAAAAAAAAAAgAAAAAAAEABA=</HashCode>
+      <FileName>RocketCockpit.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneObject3D" Collapsed="true">
+    <Position X="3.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIAAAAAAAAACAAAIBAAIQAIQAAAIAIAAAAAAQAEAgA=</HashCode>
+      <FileName>SceneObject3D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Camera" Collapsed="true">
+    <Position X="4.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CgACAgACCGAAAAAAQAAAARCAAAgAAAIAAAEAAgAEAAA=</HashCode>
+      <FileName>Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArmPart" Collapsed="true">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAQIAAAAgAAAAAAAAAAAAEAAEAAA=</HashCode>
+      <FileName>ArmPart.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crate" Collapsed="true">
+    <Position X="16.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAEIAAABABAAIAAEAgAAgIAACAAAgCAAAEAAA=</HashCode>
+      <FileName>Crate.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RobotArm" Collapsed="true">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABhAAAgACABAgAAAABIIEAACAAgAQCAAAACAAJQEIAA=</HashCode>
+      <FileName>RobotArm.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RobotArmGame" Collapsed="true">
+    <Position X="8.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AwAAAAAAAAAAAAAAAAIAAACgAAAAAAAAAAAAAAAEAEA=</HashCode>
+      <FileName>RobotArmGame.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RobotHand" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAAAAABAAAABAAAAAwIAAAAggAAIAAAAAAACAAAEAAQ=</HashCode>
+      <FileName>RobotHand.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bullet" Collapsed="true">
+    <Position X="14.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAQAAABAAAAAIAAEAAEAAIAAQEAABCAAAcAAA=</HashCode>
+      <FileName>Bullet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Obstacle" Collapsed="true">
+    <Position X="19" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAIAAAAABAAIAAUAgMAAIAACAAAACCAAEAAA=</HashCode>
+      <FileName>Obstacle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tank" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEABAgACAAAAAQAKQQEAAYAAIAAAgAEkCBCAEAAA=</HashCode>
+      <FileName>Tank.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TankGame" Collapsed="true">
+    <Position X="10.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAIAAAAgAAIAAAAAAAgAAAAEAEA=</HashCode>
+      <FileName>TankGame.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TankTurret" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAIAAEAAAAQIAAAAAAACAACEAAA=</HashCode>
+      <FileName>TankTurret.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wall" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAIAAAAACAQAAAQQAAACAAAEAAA=</HashCode>
+      <FileName>Wall.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="aie::Application" Collapsed="true">
+    <Position X="10.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KAAAAoAAABAgAAABQAIASAAgQAACAAgAAAAhAAEcAAg=</HashCode>
+      <FileName>f:\SSD USERS\Users\User\Documents\AIE\Maths for Games\Maths Demo\MathsDemo\bootstrap\Application.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="RobotHandState" Collapsed="true">
+    <Position X="7.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAABAAAAAAAAAAAAAAACAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>RobotHand.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

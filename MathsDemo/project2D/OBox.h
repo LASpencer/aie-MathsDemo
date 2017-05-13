@@ -63,9 +63,6 @@ public:
 		setCentre((Vector2)Orientation[2]);
 	}
 
-	// Transform OBox by transformation matrix
-	void transform(Matrix3 matrix);
-
 	// Fit OBox around points given
 	void fitPoints(std::vector<Vector2> points);
 
