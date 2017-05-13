@@ -63,7 +63,6 @@ void Tank::update(float deltaTime)
 		// rotate clockwise
 		rotate(-TURN_RATE*deltaTime);
 	}
-	// TODO limited firing arc
 	// Turn turret
 	if (leftAim && !rightAim) {
 		// rotate counterclockwise

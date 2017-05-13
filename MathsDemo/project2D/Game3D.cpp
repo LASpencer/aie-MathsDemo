@@ -126,7 +126,6 @@ void Game3D::update(float deltaTime)
 
 	// Update scene objects
 	m_sceneRoot.update(deltaTime);
-	m_sceneRoot.updateChildList();
 
 	// Get new view matrix from current camera
 	m_viewMatrix = (*m_camera)->lookAt();

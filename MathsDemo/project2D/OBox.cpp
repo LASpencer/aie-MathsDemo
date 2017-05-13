@@ -12,8 +12,6 @@ OBox::OBox() : m_xExtent({1,0}), m_yExtent({0,1}), m_centre()
 
 OBox::OBox(Vector2 xExtent, Vector2 yExtent, Vector2 centre) : m_xExtent(xExtent), m_yExtent(yExtent), m_centre(centre)
 {
-	//TODO throw exception if invalid vectors
-	//TODO rewrite so arguments are centre, scale, angle
 }
 
 
@@ -345,21 +343,54 @@ void OBox::fitPoints(std::vector<Vector2> points)
 	meanX /= points.size();
 	meanY /= points.size();
 	m_centre = { meanX,meanY };
-	//TODO xExtent is vector from centre to furthest point
+	// Find vector to furthest point from centre
 	std::vector<Vector2> displacement;
 	Vector2 xExtent;
 	float maxMagSquared = 0;
 	for (std::vector<Vector2>::iterator it = points.begin(); it != points.end(); ++it) {
-		//TODO 
-		Vector2 d = (*it) - m_centre;
-		if(d.compareMagnitude())
+		// Get difference between centre and point
+		Vector2 difference = (*it) - m_centre;
+		displacement.push_back(difference);
+		float magSquared = difference.magnitudeSquared();
+		if (magSquared > maxMagSquared) {
+			// If difference greater than current maximum, this is new maximum
+			xExtent = difference;
+			maxMagSquared = magSquared;
+		}
 	}
-	//TODO yExtent is normal to xExtent, with magnitude equal to greatest projection along it
+	if (maxMagSquared == 0) {
+		// If furthest point from centre is at centre, set extents as very small values
+		m_xExtent = { FLT_EPSILON * 64,0 };
+		m_yExtent = { 0,FLT_EPSILON *64};
+	}
+	else {
+		// Set xExtent
+		m_xExtent = xExtent;
+		// Get a normal vector perpendicular to xExtent
+		Vector2 yExtent = { -m_xExtent[1],m_xExtent[0] };
+		yExtent.normalise();
+		// Find greatest projection along this vector
+		float maxProjection = 0;
+		for (std::vector<Vector2>::iterator it = displacement.begin(); it != displacement.end(); ++it) {
+			float projection = it->dot(yExtent);
+			if (abs(projection) > abs(maxProjection)) {
+				// If absolute value greater than current value, set as new maximum
+				maxProjection = projection;
+			}
+		}
+		if (maxProjection == 0) {
+			// Set yExtent as very small vector orthogonal to xExtent
+			m_yExtent = (FLT_EPSILON * 64)*yExtent;
+		}
+		else {
+			// Set yExtent as maximum projection along vector orthogonal to xExtent
+			m_yExtent = maxProjection * yExtent;
+		}
+	}
 }
 
 Matrix3 OBox::getInverseTransform()
 {
-	//TODO possible optimization: memoize result, recalculate if obox changes (set dirty flag)
 	Matrix3 inverse;
 	getBoxMatrix().calculateInverse(inverse);
 	return inverse;

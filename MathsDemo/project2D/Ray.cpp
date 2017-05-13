@@ -71,7 +71,6 @@ bool Ray::doesCollide(AABox* box)
 {
 	float dEntry = 0.0f;	// Distance from ray where point would enter if interesecting.
 	float dExit = INFINITY;	// Distance from ray where point would exit if intersecting
-	// TODO: Possible optimization, precalculate XRate and YRate as members whenever direction is set
 	if (m_direction[0] != 0.0f) {
 		float xRate = 1.0f / m_direction[0];
 		// get distance from ray where x component is equal to corners

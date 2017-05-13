@@ -46,8 +46,6 @@ public:
 	// Calls draw on all children 
 	virtual void draw(aie::Renderer2D* renderer);
 
-	// Performs any queued changes to array of children, and to descendent's children
-	void updateChildList();
 	// Returns true if this SceneObject can be safely removed from its parent
 	bool safeToDelete();
 
@@ -95,6 +93,9 @@ protected:
 
 	// Creates the collider for this SceneObject
 	virtual void setupCollider();
+
+	// Performs any queued changes to array of children, and to descendent's children
+	void updateChildList();
 
 	// Change any variables necessary for transfer to new parent
 	virtual void prepareForTransfer(SceneObject* target);

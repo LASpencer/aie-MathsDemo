@@ -27,7 +27,6 @@ void Bullet::update(float deltaTime)
 {
 	// move bullet
 	Vector2 displacement = deltaTime*m_velocity;
-	//HACK try with translate instead
 	m_localTransform[2] = m_localTransform[2] + (Vector3)displacement;
 	// If bullet is dead, try removing it from scene graph
 	if (m_dead && m_parent != nullptr) {
@@ -49,7 +48,6 @@ void Bullet::bounce(Vector2 normal)
 	normal.normalise();
 	float projection = m_velocity.dot(normal);
 	Vector2 reflection = m_velocity - 2 * projection*normal;
-	//TODO inelasticity and friction
 	m_velocity = reflection;
 }
 

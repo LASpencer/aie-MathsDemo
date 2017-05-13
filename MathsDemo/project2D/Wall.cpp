@@ -31,7 +31,6 @@ void Wall::draw(aie::Renderer2D * renderer)
 	// Transform start and end points to global coordinates
 	start = m_globalTransform*start;
 	end = m_globalTransform*end;
-	//HACK figure out how to do width of line
 	// Draw line from start to end point
 	renderer->setRenderColour(0xFF2000FF);
 	renderer->drawLine(start[0], start[1], end[0], end[1], WIDTH);
@@ -44,7 +43,6 @@ void Wall::setupCollider()
 	if (m_collider == nullptr) {
 		m_collider = new OBox();
 	}
-	//HACK write less expensive method (calculate for local once, then transform to global?)
 	// Get start and end points of wall
 	Vector3 start = (Vector3)m_start;
 	start[2] = 1;

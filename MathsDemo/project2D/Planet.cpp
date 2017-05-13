@@ -37,7 +37,6 @@ void Planet::update(float deltaTime)
 	position[3][0] = m_distance;
 	position = rotate * position;
 	m_localTransform = position;
-	//TODO transform matrix spinning the sphere
 	// calculate global transform
 	SceneObject3D::update(deltaTime);
 	// Add sphere to Gizmos

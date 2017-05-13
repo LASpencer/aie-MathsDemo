@@ -38,7 +38,6 @@ void RobotHand::draw(aie::Renderer2D * renderer)
 
 void RobotHand::setState(RobotHandState state)
 {
-	//TODO check valid transition (Empty <-> Grabbing -> Holding ->Releasing->Empty)
 	m_state = state;
 }
 

@@ -211,6 +211,6 @@ bool runUnitTests()
 		system("pause");
 	}
 
-	//TODO plane tests
+	//TODO test creating boxes from points
 	return passed;
 }

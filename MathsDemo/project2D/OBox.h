@@ -48,7 +48,6 @@ public:
 	Matrix3 getBoxMatrix();
 
 	void setHalfExtents(Vector2 xExtent, Vector2 yExtent) {
-		//TODO throw exception if invalid vectors
 		m_xExtent = xExtent;
 		m_yExtent = yExtent;
 	}

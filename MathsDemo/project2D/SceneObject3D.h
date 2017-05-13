@@ -23,8 +23,7 @@ public:
 	
 	// Recalculates globalTransform and calls update on all children
 	virtual void update(float deltaTime);
-	// Performs any queued changes to array of children, and calls updateChildList on them
-	void updateChildList();
+	
 
 	// Returns a vector of pointers to all descendents of this SceneObject3D
 	std::vector<SceneObject3D*> getDescendants();
@@ -39,5 +38,8 @@ protected:
 
 	// Calculates globalTransform by transforming localTransform by parent's globalTransform
 	void calculateGlobalTransform();
+
+	// Performs any queued changes to array of children, and calls updateChildList on them
+	void updateChildList();
 };
 

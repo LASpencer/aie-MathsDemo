@@ -22,7 +22,7 @@ SceneObject3D::~SceneObject3D()
 bool SceneObject3D::addChild(SceneObject3D * child)
 {
 	// Check if child already has a parent
-	if (child->m_parent == nullptr) {
+	if (child->m_parent == nullptr && child != this) {
 		// Check if modifying m_children is safe
 		if (!m_childrenLocked) {
 			// If safe, add child to m_children and set this as its parent
@@ -66,6 +66,10 @@ void SceneObject3D::update(float deltaTime)
 	}
 	// unlock m_children after iteration is over
 	m_childrenLocked = false;
+	if (m_parent == nullptr) {
+		// If this is the root, make queued changes to childList
+		updateChildList();
+	}
 }
 
 void SceneObject3D::updateChildList()

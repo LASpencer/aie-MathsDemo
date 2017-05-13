@@ -53,8 +53,6 @@ void TankGame::update(float deltaTime)
 {
 	// Update scene objects
 	m_sceneRoot.update(deltaTime);
-	// Perform any additions, removals, or transfers requested during update
-	m_sceneRoot.updateChildList();
 
 	// Get vector of all scene objects
 	std::vector<SceneObject*> objects = m_sceneRoot.getDescendants();

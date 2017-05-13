@@ -25,7 +25,7 @@ SceneObject::~SceneObject()
 bool SceneObject::addChild(SceneObject * child)
 {
 	// Check if child already has a parent
-	if (child->m_parent == nullptr) {
+	if (child->m_parent == nullptr && child != this) {
 		// Check if modifying m_children is safe
 		if (!m_childrenLocked) {
 			// If safe, add child to m_children and set this as its parent
@@ -76,6 +76,7 @@ bool SceneObject::transferChild(SceneObject * child, SceneObject * target)
 	if (child->safeForTransfer()			// Child not marked for deletion or transfer
 		&& !target->markedForDeletion()		// Target not marked for deletion	
 		&& child != target					// Child is not target
+		&& this != target					// Can't transfer to self
 		&& child->m_parent == this) {		// This is parent of child
 		// Queue pair of child and target to be transferred later
 		std::pair<SceneObject*, SceneObject*> arguments = std::make_pair(child, target);
@@ -168,6 +169,10 @@ void SceneObject::update(float deltaTime)
 		child->update(deltaTime);
 	}
 	m_childrenLocked = false;			// unlock m_children
+	if (m_parent == nullptr) {
+		//If this is the root, make queued changes to childList
+		updateChildList();
+	}
 }
 
 void SceneObject::draw(aie::Renderer2D * renderer)

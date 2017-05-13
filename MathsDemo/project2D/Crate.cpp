@@ -28,7 +28,6 @@ Crate::~Crate()
 
 void Crate::update(float deltaTime)
 {
-	//TODO gravity?
 	SceneObject::update(deltaTime);
 }
 

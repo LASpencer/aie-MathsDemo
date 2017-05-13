@@ -143,7 +143,4 @@ void CircleCollider::fitPoints(std::vector<Vector2> points)
 		maxDistanceSquared = std::max(maxDistanceSquared, (*it - m_centre).magnitudeSquared());
 	}
 	m_radius = sqrtf(maxDistanceSquared);
-
-		//TODO shrink circle until 2 points at edge
-	//TODO shrink circle until points have 180 degree arc/3 points at edge
 }

@@ -100,8 +100,6 @@ void RobotArm::update(float deltaTime)
 		m_hand->setState(RobotHandState::EMPTY);
 	}
 
-	//TODO snap arm components back to correct position?
-
 	SceneObject::update(deltaTime);
 }
 
