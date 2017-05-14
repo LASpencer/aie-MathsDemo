@@ -189,8 +189,27 @@ bool runUnitTests()
 		passed = false;
 		system("pause");
 	}
-	// TODO Circle to ray
-	// TODO Circle to point
+	// Circle to ray
+	r1 = Ray({ 3,3 }, {-1,-2});
+	c1.setCentre({ 1,1 });
+	if (!r1.doesCollide(&c1)) {
+		std::cout << "Failed: Ray(3,3)(-1,-2) missed Circle(1,1,2)\n";
+		passed = false;
+		system("pause");
+	}
+	r1.setDirection({ 1,2 });
+	if (r1.doesCollide(&c1)) {
+		std::cout << "Failed: Ray(3,3)(1,2) hit Circle(1,1,2)\n";
+		passed = false;
+		system("pause");
+	}
+	r1.setOrigin({ -1,-1 });
+	if (!r1.doesCollide(&c1)) {
+		std::cout << "Failed: Ray(-1,-1)(1,2) missed Circle(1,1,2)\n";
+		passed = false;
+		system("pause");
+	}
+
 	// Circle to each collider
 	CircleCollider c2 = CircleCollider({ 0,0 }, 2);
 	c1.setCentre({ 5.5, 5.5 });

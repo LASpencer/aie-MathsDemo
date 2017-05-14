@@ -72,8 +72,10 @@ lasmath::Matrix4 GLMAdaptor::lookAt(const lasmath::Vector3 & eye, const lasmath:
 
 lasmath::Matrix4 GLMAdaptor::perspective(float fovy, float aspect, float near, float far)
 {
-	float invHalfTan = 1.0f / tanf(fovy*0.5f);
-	float invDepth = 1.0f / (near - far);
+	//  Perform any divisions that would be used multiple times
+	float invHalfTan = 1.0f / tanf(fovy*0.5f);		// Position of top clip plane
+	float invDepth = 1.0f / (near - far);			// 1 divided by depth of the frustum		
+	// Calculate perpective projection matrix
 	lasmath::Matrix4 projection = lasmath::Matrix4(invHalfTan / aspect, 0, 0, 0,
 													0, invHalfTan, 0, 0,
 													0, 0, (near + far) * invDepth, -1,
