@@ -80,5 +80,5 @@ void RobotHand::setupCollider()
 	}
 	// Place OBox around sprite
 	((OBox*)m_collider)->setHalfExtents((Vector2)m_globalTransform[0] * 30, (Vector2)m_globalTransform[1] * 50);
-	((OBox*)m_collider)->setCentre((Vector2)m_globalTransform[2]+(Vector2)m_globalTransform[1] * 95);
+	((OBox*)m_collider)->setCentre((Vector2)m_globalTransform[2]+(Vector2)m_globalTransform[1] * 45);
 }
