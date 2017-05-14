@@ -46,7 +46,7 @@ void Game3D::startup()
 		m_sceneRoot.addChild(worldCamera);
 		m_cameraArray.push_back(worldCamera);
 		// put camera behind rocket and looking slightly down
-		Camera* rocketCamera = new Camera(3, -3.1415926f*0.5f,-1);
+		Camera* rocketCamera = new Camera(3, -1.57f,-1);
 		m_rocket->addChild(rocketCamera);
 		m_cameraArray.push_back(rocketCamera);
 		// put camera near blue planet
@@ -84,11 +84,11 @@ void Game3D::update(float deltaTime)
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_UP)) {
 		//tilt forward
-		(*m_camera)->tilt(deltaTime*Camera::TILT_RATE);
+		(*m_camera)->tilt(-deltaTime*Camera::TILT_RATE);
 	}
 	else if (input->isKeyDown(aie::INPUT_KEY_DOWN)) {
 		//tilt back
-		(*m_camera)->tilt(-deltaTime*Camera::TILT_RATE);
+		(*m_camera)->tilt(deltaTime*Camera::TILT_RATE);
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_RIGHT_SHIFT)) {
 		//zoom in
